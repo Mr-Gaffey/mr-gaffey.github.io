@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mr Gaffey's Maths</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f5f0;--ink:#1d2731;--muted:#5d6872;--card:#fff;--line:#e4dfd4;--hero:#1d2731;--y2:#14866d;--y3:#2f5fd0;--y5:#d9661f;--y6:#7a3fd1}
+@media (prefers-color-scheme:dark){:root{--bg:#13171c;--ink:#eef1f4;--muted:#a3adb7;--card:#1d232a;--line:#2d353e;--hero:#0b0e11}}
+*{box-sizing:border-box}
+body{margin:0;font-family:Lexend,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+.top{background:var(--accent,var(--hero));color:#fff;padding:48px 0 40px}
+.top h1{margin:0;font-size:clamp(2rem,7vw,3rem);font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.top p{margin:12px 0 0;opacity:.85;font-size:1.05rem;max-width:36em}
+main{padding:12px 0 48px}
+h2{font-size:1.15rem;font-weight:700;margin:32px 0 12px;display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px}
+h2 .lvl{font-size:.85rem;font-weight:500;color:var(--muted)}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.year{display:flex;align-items:center;gap:16px;padding:18px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:16px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.year:hover,.year:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.num{flex:none;width:56px;height:56px;border-radius:14px;background:var(--c);color:#fff;display:grid;place-items:center;font-size:1.6rem;font-weight:700}
+.txt{flex:1;display:flex;flex-direction:column}
+.txt strong{font-size:1.15rem}
+.txt small{color:var(--muted);font-size:.9rem}
+.go{font-size:1.4rem;color:var(--c)}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 32px}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <h1>Mr Gaffey's Maths</h1>
+    <p>Pick your year to find quizzes, notes, revision checklists and videos.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <h2>Junior Cycle <span class="lvl">Higher &amp; Ordinary Level</span></h2>
+  <div class="grid">
+    <a class="year" href="second-year.html" style="--c:var(--y2)">
+      <span class="num">2</span>
+      <span class="txt"><strong>2nd Year</strong><small>Junior Cycle</small></span>
+      <span class="go" aria-hidden="true">→</span>
+    </a>
+    <a class="year" href="third-year.html" style="--c:var(--y3)">
+      <span class="num">3</span>
+      <span class="txt"><strong>3rd Year</strong><small>Junior Cycle</small></span>
+      <span class="go" aria-hidden="true">→</span>
+    </a>
+  </div>
+
+  <h2>Leaving Certificate <span class="lvl">Ordinary Level</span></h2>
+  <div class="grid">
+    <a class="year" href="fifth-year.html" style="--c:var(--y5)">
+      <span class="num">5</span>
+      <span class="txt"><strong>5th Year</strong><small>Leaving Cert, Ordinary Level</small></span>
+      <span class="go" aria-hidden="true">→</span>
+    </a>
+    <a class="year" href="sixth-year.html" style="--c:var(--y6)">
+      <span class="num">6</span>
+      <span class="txt"><strong>6th Year</strong><small>Leaving Cert, Ordinary Level</small></span>
+      <span class="go" aria-hidden="true">→</span>
+    </a>
+  </div>
+</main>
+
+<footer>Mr Gaffey's Maths</footer>
+</body>
+</html>
