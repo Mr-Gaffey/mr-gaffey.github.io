@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>3rd Year HL Winter Test Revision Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --ink:#1f1b0f; --muted:#5a5547; --band:#ffd84d; --bandInk:#1f1b0f;
+  --card:#fffbea; --line:#e6dfc4;
+  --opt:#ffffff; --optLine:#cfc6a3; --optHover:#fff3c4; --letter:#2f6fdb; --letterInk:#ffffff;
+  --good:#1d7a3e; --goodSoft:#e3f4e8; --bad:#b3261e; --badSoft:#fde7e5;
+  --focus:#1f55b8;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+    --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+    --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+    --focus:#9dbdff; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+  --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+  --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+  --focus:#9dbdff; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Lexend','Segoe UI',Arial,sans-serif;font-size:18px;line-height:1.5}
+header{background:var(--band);color:var(--bandInk);padding:20px 20px 18px}
+.wrap{max-width:760px;margin:0 auto}
+.back{display:inline-block;margin-bottom:10px;color:var(--bandInk);font-size:16px;font-weight:500;text-decoration:none}
+.back:hover{text-decoration:underline}
+.backBtn{display:inline-block;margin:20px 0 0 12px;color:var(--ink);font-size:18px;font-weight:500}
+header h1{margin:0;font-size:clamp(24px,5vw,34px);font-weight:700;letter-spacing:-0.3px;line-height:1.2}
+.sub{margin:4px 0 0;font-size:16px;font-weight:500}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-weight:500;font-size:16px}
+.bar{height:12px;background:rgba(31,27,15,.18);border-radius:999px;overflow:hidden;margin-top:8px}
+.bar span{display:block;height:100%;width:0;background:var(--bandInk);border-radius:999px;transition:width .3s ease}
+main{padding:24px 20px 48px}
+[hidden]{display:none!important}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:28px 24px}
+.ask{margin:0;color:var(--muted);font-weight:500;font-size:16px}
+.question{margin:8px 0 0;font-size:clamp(22px,4.6vw,28px);font-weight:700;line-height:1.3}
+.hintBtn{margin-top:16px;background:none;border:2px solid var(--optLine);color:var(--ink);font:inherit;font-size:16px;font-weight:500;border-radius:999px;padding:8px 16px;min-height:44px;cursor:pointer}
+.hint{margin:12px 0 0;font-size:17px;color:var(--muted)}
+.options{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.choice{display:flex;align-items:center;gap:14px;width:100%;min-height:60px;padding:12px 16px;text-align:left;background:var(--opt);color:var(--ink);border:2px solid var(--optLine);border-radius:16px;font:inherit;font-size:19px;font-weight:500;cursor:pointer}
+.choice:hover:not(:disabled){background:var(--optHover)}
+.choice .letter{flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--letter);color:var(--letterInk);font-weight:700;font-size:17px}
+.choice:disabled{cursor:default;opacity:.5}
+.choice.right{opacity:1;border:3px solid var(--good);background:var(--goodSoft)}
+.choice.right .letter{background:var(--good);color:var(--bg)}
+.choice.wrong{opacity:1;border:3px solid var(--bad);background:var(--badSoft)}
+.choice.wrong .letter{background:var(--bad);color:var(--bg)}
+.feedback{margin-top:18px;border-radius:16px;padding:16px 20px;font-size:18px}
+.feedback:empty{display:none}
+.feedback.good{background:var(--goodSoft);border:2px solid var(--good)}
+.feedback.bad{background:var(--badSoft);border:2px solid var(--bad)}
+.feedback b{display:block;font-size:20px;margin-bottom:4px}
+.primary{display:inline-block;margin-top:20px;background:var(--ink);color:var(--bg);border:none;border-radius:16px;font:inherit;font-size:20px;font-weight:700;padding:14px 28px;min-height:56px;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+.intro p{margin:0 0 12px}
+label{display:block;font-weight:500;margin:16px 0 6px}
+input[type=text]{width:100%;max-width:360px;font:inherit;padding:10px 14px;border:2px solid var(--optLine);border-radius:12px;background:var(--opt);color:var(--ink);min-height:48px}
+.nameError{margin:8px 0 0;color:var(--bad);font-weight:500}
+.who{margin:0;font-size:18px;font-weight:500}
+.score{font-size:clamp(48px,12vw,80px);font-weight:700;line-height:1;margin:8px 0}
+.missed{list-style:none;padding:0;margin:16px 0 0}
+.missed li{border-top:2px solid var(--line);padding:12px 0}
+.missed li span{display:block;font-size:16px;color:var(--muted)}
+@media (max-width:520px){.panel{padding:22px 18px}.choice{font-size:18px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="third-year.html">← 3rd Year page</a>
+    <h1 id="title"></h1>
+    <p class="sub" id="subtitle"></p>
+    <div class="meta" id="meta" hidden>
+      <span id="count"></span>
+      <span id="tally"></span>
+    </div>
+    <div class="bar" id="barWrap" hidden><span id="bar"></span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro" id="startScreen">
+    <div class="panel">
+      <p id="introText"></p>
+      <p>Pick one answer for each question. If you’re stuck, press <strong>Show a hint</strong>.</p>
+      <label for="nameInput">Your name</label>
+      <input type="text" id="nameInput" autocomplete="off" required aria-describedby="nameError">
+      <p class="nameError" id="nameError" role="alert" hidden>Type your name to start the quiz.</p>
+      <br>
+      <button class="primary" id="startBtn">Start quiz</button>
+    </div>
+  </section>
+
+  <section id="quizScreen" hidden>
+    <div class="panel">
+      <p class="ask" id="topic"></p>
+      <p class="question" id="question"></p>
+      <button class="hintBtn" id="hintBtn">Show a hint</button>
+      <p class="hint" id="hint" hidden></p>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <button class="primary" id="nextBtn" hidden>Next question</button>
+    </div>
+  </section>
+
+  <section id="endScreen" hidden>
+    <div class="panel">
+      <p class="who" id="who"></p>
+      <p class="ask">Your score</p>
+      <p class="score" id="finalScore"></p>
+      <p id="finalMsg"></p>
+      <div id="missedWrap">
+        <p><strong>Have another look at these:</strong></p>
+        <ul class="missed" id="missedList"></ul>
+      </div>
+      <button class="primary" id="againBtn">Try again</button>
+      <a class="backBtn" href="third-year.html">Back to 3rd Year</a>
+    </div>
+  </section>
+</main>
+
+<script>
+const QUIZ = {
+ "title": "3rd Year HL Winter Test Revision Quiz",
+ "subtitle": "Active Maths 2: Chapters 3, 4, 5 and 10",
+ "intro": "20 questions on statistics, expressions, factorising, algebraic fractions and formulae. Use the hint if you’re stuck. It costs nothing but pride.",
+ "questions": [
+  {
+   "topic": "Statistics",
+   "q": "“The number of goals scored in a match” is an example of…",
+   "options": [
+    "Discrete numerical data",
+    "Continuous numerical data",
+    "Categorical data",
+    "A sample"
+   ],
+   "answer": 0,
+   "hint": "Is it a number? If so, do you count it or measure it?",
+   "why": "Goals are counted in whole numbers, so this is discrete numerical data."
+  },
+  {
+   "topic": "Statistics",
+   "q": "Find the median of 7, 3, 9, 4, 12, 8.",
+   "options": [
+    "7·5",
+    "7",
+    "8",
+    "7·17"
+   ],
+   "answer": 0,
+   "hint": "Put them in order first. With six values, the median is halfway between two of them.",
+   "why": "In order: 3, 4, 7, 8, 9, 12. The middle two are 7 and 8, so the median is 7·5. (7·17 is the mean.)"
+  },
+  {
+   "topic": "Statistics",
+   "q": "72 students were surveyed and 18 chose hurling as their favourite sport. What angle does hurling get on a pie chart?",
+   "options": [
+    "90°",
+    "18°",
+    "72°",
+    "25°"
+   ],
+   "answer": 0,
+   "hint": "Angle = frequency over total, times 360°.",
+   "why": "18 out of 72 is a quarter, and a quarter of 360° is 90°."
+  },
+  {
+   "topic": "Statistics",
+   "q": "The mean of five numbers is 9. Four of them are 6, 8, 10 and 12. What is the fifth number?",
+   "options": [
+    "9",
+    "8",
+    "7",
+    "11"
+   ],
+   "answer": 0,
+   "hint": "If the mean of five numbers is 9, what must they add up to?",
+   "why": "Total = 5 × 9 = 45. The four numbers add to 36, so the fifth is 45 − 36 = 9."
+  },
+  {
+   "topic": "Statistics",
+   "q": "A set of house prices includes one mansion worth far more than the rest. Which average best describes a typical price?",
+   "options": [
+    "The median",
+    "The mean",
+    "The range",
+    "The total"
+   ],
+   "answer": 0,
+   "hint": "Which average gets dragged up by one huge value?",
+   "why": "The mansion is an outlier. It pulls the mean up, but the median is the middle value and isn’t affected."
+  },
+  {
+   "topic": "Expressions",
+   "q": "Find the value of a² − 2b when a = −3 and b = 4.",
+   "options": [
+    "1",
+    "−17",
+    "17",
+    "−1"
+   ],
+   "answer": 0,
+   "hint": "Put −3 in brackets before squaring it.",
+   "why": "(−3)² = 9, and 2(4) = 8, so 9 − 8 = 1. If you got −17, you squared 3 and kept the minus."
+  },
+  {
+   "topic": "Expressions",
+   "q": "Simplify 3x² + 2x − x² + 5x.",
+   "options": [
+    "2x² + 7x",
+    "4x² + 7x",
+    "2x² + 3x",
+    "9x³"
+   ],
+   "answer": 0,
+   "hint": "Only add terms with exactly the same letter and power.",
+   "why": "3x² − x² = 2x² and 2x + 5x = 7x. The x² terms and x terms can’t be combined."
+  },
+  {
+   "topic": "Expressions",
+   "q": "Multiply out −2(3x − 4).",
+   "options": [
+    "−6x + 8",
+    "−6x − 8",
+    "6x − 8",
+    "−6x − 4"
+   ],
+   "answer": 0,
+   "hint": "What is −2 × −4?",
+   "why": "−2 × 3x = −6x and −2 × −4 = +8. A negative outside changes every sign inside."
+  },
+  {
+   "topic": "Expressions",
+   "q": "Multiply out (x + 4)².",
+   "options": [
+    "x² + 8x + 16",
+    "x² + 16",
+    "x² + 4x + 16",
+    "x² + 8x + 8"
+   ],
+   "answer": 0,
+   "hint": "Write it as (x + 4)(x + 4) and multiply out properly.",
+   "why": "(x + 4)(x + 4) = x² + 4x + 4x + 16 = x² + 8x + 16. Squaring each term on its own misses the middle term."
+  },
+  {
+   "topic": "Expressions",
+   "q": "Multiply out and simplify (2x − 1)(x + 3).",
+   "options": [
+    "2x² + 5x − 3",
+    "2x² + 6x − 3",
+    "2x² + 5x + 3",
+    "2x² − 3"
+   ],
+   "answer": 0,
+   "hint": "You should get four terms before you simplify.",
+   "why": "2x² + 6x − x − 3 = 2x² + 5x − 3."
+  },
+  {
+   "topic": "Factorising",
+   "q": "Factorise fully 6x² − 9x.",
+   "options": [
+    "3x(2x − 3)",
+    "3(2x² − 3x)",
+    "x(6x − 9)",
+    "3x(2x − 9)"
+   ],
+   "answer": 0,
+   "hint": "The HCF has a number part and a letter part.",
+   "why": "The HCF of 6x² and 9x is 3x. The other options are either not fully factorised or don’t multiply back correctly."
+  },
+  {
+   "topic": "Factorising",
+   "q": "Factorise x² + x − 12.",
+   "options": [
+    "(x + 4)(x − 3)",
+    "(x − 4)(x + 3)",
+    "(x + 6)(x − 2)",
+    "(x + 12)(x − 1)"
+   ],
+   "answer": 0,
+   "hint": "Two numbers that multiply to −12 and add to +1.",
+   "why": "4 × −3 = −12 and 4 + (−3) = 1. Check: x² − 3x + 4x − 12 = x² + x − 12."
+  },
+  {
+   "topic": "Factorising",
+   "q": "Factorise 25y² − 4.",
+   "options": [
+    "(5y − 2)(5y + 2)",
+    "(5y − 2)²",
+    "(25y − 2)(y + 2)",
+    "(5y − 4)(5y + 1)"
+   ],
+   "answer": 0,
+   "hint": "This is the difference of two squares. What squared gives 25y²?",
+   "why": "25y² = (5y)² and 4 = 2², so A² − B² = (A − B)(A + B) gives (5y − 2)(5y + 2)."
+  },
+  {
+   "topic": "Factorising",
+   "q": "Factorise ax − ay + 3x − 3y.",
+   "options": [
+    "(x − y)(a + 3)",
+    "(x + y)(a − 3)",
+    "(x − y)(a − 3)",
+    "a(x − y) + 3"
+   ],
+   "answer": 0,
+   "hint": "Take a common factor out of each pair of terms. What bracket appears twice?",
+   "why": "a(x − y) + 3(x − y) = (x − y)(a + 3)."
+  },
+  {
+   "topic": "Factorising",
+   "q": "Factorise 2x² + 7x + 3.",
+   "options": [
+    "(2x + 1)(x + 3)",
+    "(2x + 3)(x + 1)",
+    "(2x − 1)(x − 3)",
+    "(2x + 1)(x − 3)"
+   ],
+   "answer": 0,
+   "hint": "Multiply each answer out. Which gives a middle term of 7x?",
+   "why": "(2x + 1)(x + 3) = 2x² + 6x + x + 3 = 2x² + 7x + 3. The other one with all plus signs gives 5x."
+  },
+  {
+   "topic": "Algebraic fractions",
+   "q": "What is the lowest common denominator (LCD) when adding fractions with denominators 3 and 4?",
+   "options": [
+    "12",
+    "7",
+    "24",
+    "1"
+   ],
+   "answer": 0,
+   "hint": "The smallest number that both 3 and 4 divide into.",
+   "why": "12 is the smallest number in both the 3 times tables and the 4 times tables. 24 works but isn’t the lowest."
+  },
+  {
+   "topic": "Algebraic fractions",
+   "q": "When adding fractions with denominators (x + 2) and (x − 5), what is the common denominator?",
+   "options": [
+    "(x + 2)(x − 5)",
+    "2x − 3",
+    "x² − 10",
+    "(x + 2) + (x − 5)"
+   ],
+   "answer": 0,
+   "hint": "With letters on the bottom, multiply the two denominators.",
+   "why": "The LCD is (x + 2)(x − 5). Leave it in brackets. x² − 10 is what you get if you multiply out wrongly."
+  },
+  {
+   "topic": "Algebraic fractions",
+   "q": "Divide (x² + 7x + 10) by (x + 2).",
+   "options": [
+    "x + 5",
+    "x + 3",
+    "x + 8",
+    "x − 5"
+   ],
+   "answer": 0,
+   "hint": "What do you multiply (x + 2) by to get x² + 7x + 10? Factorising helps too.",
+   "why": "x² + 7x + 10 = (x + 2)(x + 5), so dividing by (x + 2) leaves x + 5."
+  },
+  {
+   "topic": "Algebraic fractions",
+   "q": "Which of these simplifications is correct?",
+   "options": [
+    "(x² − 9) ÷ (x + 3) = x − 3",
+    "(x + 3) ÷ 3 = x + 1",
+    "(2x + 4) ÷ 2 = x + 4",
+    "x² ÷ x = 2x"
+   ],
+   "answer": 0,
+   "hint": "You can only cancel factors, not terms. Try factorising the top.",
+   "why": "x² − 9 = (x − 3)(x + 3), so the (x + 3) cancels. (2x + 4) ÷ 2 is x + 2, because the 2 divides both terms."
+  },
+  {
+   "topic": "Changing the subject",
+   "q": "Make r the subject of p + rs = q.",
+   "options": [
+    "r = (q − p) ÷ s",
+    "r = q − p − s",
+    "r = (q + p) ÷ s",
+    "r = q ÷ s − p"
+   ],
+   "answer": 0,
+   "hint": "Undo the + p first, then undo the × s.",
+   "why": "Subtract p from both sides: rs = q − p. Then divide both sides by s: r = (q − p) ÷ s."
+  }
+ ]
+};
+
+const $ = id => document.getElementById(id);
+const LETTERS = ["A","B","C","D","E","F"];
+let round = [], i = 0, score = 0, missed = [], answered = false;
+
+function shuffle(arr){
+  for(let k = arr.length - 1; k > 0; k--){
+    const j = Math.floor(Math.random() * (k + 1));
+    [arr[k], arr[j]] = [arr[j], arr[k]];
+  }
+  return arr;
+}
+function show(id){
+  ["startScreen","quizScreen","endScreen"].forEach(s => $(s).hidden = (s !== id));
+  const inQuiz = id === "quizScreen";
+  $("meta").hidden = !inQuiz;
+  $("barWrap").hidden = !inQuiz;
+}
+function prepare(q){
+  const opts = q.options.map((text, idx) => ({text, correct: idx === q.answer}));
+  return Object.assign({}, q, {opts: q.keepOrder ? opts : shuffle(opts)});
+}
+function start(){
+  round = (QUIZ.shuffleQuestions === false ? QUIZ.questions.slice() : shuffle(QUIZ.questions.slice())).map(prepare);
+  i = 0; score = 0; missed = [];
+  show("quizScreen");
+  render();
+}
+function render(){
+  answered = false;
+  const q = round[i];
+  $("topic").textContent = q.topic || "Question";
+  $("question").textContent = q.q;
+  $("count").textContent = "Question " + (i + 1) + " of " + round.length;
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = (i / round.length * 100) + "%";
+  $("hint").textContent = q.hint || "";
+  $("hint").hidden = true;
+  $("hintBtn").hidden = !q.hint;
+  const fb = $("feedback"); fb.className = "feedback"; fb.textContent = "";
+  $("nextBtn").hidden = true;
+  const box = $("options"); box.textContent = "";
+  q.opts.forEach((o, idx) => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    const l = document.createElement("span"); l.className = "letter"; l.textContent = LETTERS[idx];
+    const t = document.createElement("span"); t.textContent = o.text;
+    b.appendChild(l); b.appendChild(t);
+    b.addEventListener("click", () => choose(idx));
+    box.appendChild(b);
+  });
+  window.scrollTo({top:0});
+}
+function choose(idx){
+  if(answered) return;
+  answered = true;
+  const q = round[i];
+  const buttons = Array.from($("options").children);
+  const correct = q.opts[idx].correct;
+  const rightText = q.opts.find(o => o.correct).text;
+  buttons.forEach((b, k) => {
+    b.disabled = true;
+    if(q.opts[k].correct) b.classList.add("right");
+    else if(k === idx) b.classList.add("wrong");
+  });
+  const fb = $("feedback");
+  const head = document.createElement("b");
+  const body = document.createElement("span");
+  if(correct){ score++; fb.className = "feedback good"; head.textContent = "Correct!"; }
+  else { missed.push({q: q.q, a: rightText, why: q.why}); fb.className = "feedback bad"; head.textContent = "Not quite. The answer is: " + rightText; }
+  body.textContent = q.why || "";
+  fb.appendChild(head); fb.appendChild(body);
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = ((i + 1) / round.length * 100) + "%";
+  $("hintBtn").hidden = true;
+  const next = $("nextBtn");
+  next.textContent = (i === round.length - 1) ? "See my score" : "Next question";
+  next.hidden = false;
+  next.focus();
+}
+function finish(){
+  show("endScreen");
+  const name = $("nameInput").value.trim();
+  const d = new Date();
+  $("who").textContent = name + " · " + d.toLocaleDateString("en-IE", {day:"numeric", month:"long", year:"numeric"});
+  $("finalScore").textContent = score + " / " + round.length;
+  const pct = score / round.length;
+  $("finalMsg").textContent =
+    pct === 1 ? "Perfect score. Take a bow." :
+    pct >= 0.75 ? "Great work. You know this well." :
+    pct >= 0.5 ? "Good effort. Check the ones below, then try again." :
+    "Keep going. Read over the pages again, then try again.";
+  const list = $("missedList"); list.textContent = "";
+  missed.forEach(m => {
+    const li = document.createElement("li");
+    const s = document.createElement("strong"); s.textContent = m.q;
+    const a = document.createElement("span"); a.textContent = "Answer: " + m.a + (m.why ? ". " + m.why : "");
+    li.appendChild(s); li.appendChild(a); list.appendChild(li);
+  });
+  $("missedWrap").hidden = missed.length === 0;
+  $("againBtn").focus();
+}
+
+$("title").textContent = QUIZ.title;
+document.title = QUIZ.title;
+$("subtitle").textContent = QUIZ.subtitle || "";
+$("subtitle").hidden = !QUIZ.subtitle;
+$("introText").textContent = QUIZ.intro || ("There are " + QUIZ.questions.length + " questions in this quiz.");
+function tryStart(){
+  const name = $("nameInput").value.trim();
+  if(!name){ $("nameError").hidden = false; $("nameInput").focus(); return; }
+  $("nameError").hidden = true;
+  start();
+}
+$("startBtn").addEventListener("click", tryStart);
+$("nameInput").addEventListener("keydown", e => { if(e.key === "Enter") tryStart(); });
+$("nameInput").addEventListener("input", () => { if($("nameInput").value.trim()) $("nameError").hidden = true; });
+$("againBtn").addEventListener("click", start);
+$("nextBtn").addEventListener("click", () => { i++; if(i < round.length) render(); else finish(); });
+$("hintBtn").addEventListener("click", () => { $("hint").hidden = false; $("hintBtn").hidden = true; });
+</script>
+</body>
+</html>
