@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>5th Year Maths</title>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
@@ -18,14 +20,19 @@ body{margin:0;font-family:Lexend,system-ui,-apple-system,"Segoe UI",sans-serif;b
 .top p{margin:8px 0 0;opacity:.88}
 .back{display:inline-block;margin-bottom:16px;color:#fff;text-decoration:none;font-weight:500;opacity:.9}
 .back:hover{opacity:1;text-decoration:underline}
-main{padding:12px 0 48px}
-h2{font-size:1.15rem;font-weight:700;margin:32px 0 12px;display:flex;align-items:center;gap:10px}
+main{padding-top:12px;padding-bottom:56px}
+h2{font-size:1.15rem;font-weight:700;margin:32px 0 12px}
 .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
-.res{display:flex;flex-direction:column;gap:4px;padding:16px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:14px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.res{display:flex;flex-direction:column;gap:4px;padding:18px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:14px;text-decoration:none;transition:transform .15s,box-shadow .15s}
 a.res:hover,a.res:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
-.res strong{font-size:1.05rem}
+.res small{color:var(--accent);font-weight:700;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase}
+.res strong{font-size:1.1rem}
 .res span{color:var(--muted);font-size:.9rem}
-.res.empty{border:1px dashed var(--line);background:transparent;color:var(--muted)}
+.res.soon{border-top-style:dashed;opacity:.75}
+.res.soon em{font-style:normal;font-size:.75rem;font-weight:700;color:var(--muted);margin-top:4px}
+.prep{display:flex;align-items:center;gap:16px;padding:20px;background:var(--accent);color:#fff;border-radius:16px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.prep:hover,.prep:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.prep b{font-size:1.25rem;display:block}.prep span{opacity:.9;font-size:.95rem}.prep i{margin-left:auto;font-style:normal;font-size:1.5rem}
 .video{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;margin-bottom:6px}
 footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 32px}
 </style>
@@ -38,29 +45,16 @@ footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 32px
     <p>Leaving Certificate, Ordinary Level</p>
   </div>
 </header>
-
 <main class="wrap">
-  <h2>✏️ Quizzes</h2>
-  <div class="grid">
-    <div class="res empty">Nothing here yet. Check back soon.</div>
-  </div>
+  <a class="prep" style="margin-top:24px" href="exam-prep/fifth-year.html"><div><b>📋 Exam Prep</b><span>Class tests, winter assessments and summer exams</span></div><i aria-hidden="true">→</i></a>
 
-  <h2>📒 Notes</h2>
+  <h2>Chapters</h2>
   <div class="grid">
-    <div class="res empty">Nothing here yet. Check back soon.</div>
-  </div>
-
-  <h2>✅ Revision checklists</h2>
-  <div class="grid">
-    <div class="res empty">Nothing here yet. Check back soon.</div>
-  </div>
-
-  <h2>▶️ Videos</h2>
-  <div class="grid">
-    <div class="res empty">Nothing here yet. Check back soon.</div>
+    <a class="res" href="book-3/ch03.html"><small>Chapter 3</small><strong>Algebra I</strong><span>Glossary, quiz, notes and practice</span></a>
+    <a class="res" href="book-3/ch05.html"><small>Chapter 5</small><strong>Algebra II</strong><span>Glossary, quiz, notes and practice</span></a>
+    <a class="res" href="book-3/ch06.html"><small>Chapter 6</small><strong>Linear and Quadratic Functions</strong><span>Glossary, quiz, notes and practice</span></a>
   </div>
 </main>
-
 <footer>Mr Gaffey's Maths</footer>
 </body>
 </html>
