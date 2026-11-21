@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>2nd Year Winter Assessment Revision</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --ink:#1f1b0f; --muted:#5a5547; --band:#ffd84d; --bandInk:#1f1b0f;
+  --card:#fffbea; --line:#e6dfc4;
+  --opt:#ffffff; --optLine:#cfc6a3; --optHover:#fff3c4; --letter:#2f6fdb; --letterInk:#ffffff;
+  --good:#1d7a3e; --goodSoft:#e3f4e8; --bad:#b3261e; --badSoft:#fde7e5;
+  --focus:#1f55b8;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+    --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+    --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+    --focus:#9dbdff; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+  --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+  --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+  --focus:#9dbdff; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Lexend','Segoe UI',Arial,sans-serif;font-size:18px;line-height:1.5}
+header{background:var(--band);color:var(--bandInk);padding:20px 20px 18px}
+.wrap{max-width:760px;margin:0 auto}
+.back{display:inline-block;margin-bottom:10px;color:var(--bandInk);font-size:16px;font-weight:500;text-decoration:none}
+.back:hover{text-decoration:underline}
+.backBtn{display:inline-block;margin:20px 0 0 12px;color:var(--ink);font-size:18px;font-weight:500}
+.nameError{margin:8px 0 0;color:var(--bad);font-weight:500}
+header h1{margin:0;font-size:clamp(24px,5vw,34px);font-weight:700;letter-spacing:-0.3px;line-height:1.2}
+.sub{margin:4px 0 0;font-size:16px;font-weight:500}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-weight:500;font-size:16px}
+.bar{height:12px;background:rgba(31,27,15,.18);border-radius:999px;overflow:hidden;margin-top:8px}
+.bar span{display:block;height:100%;width:0;background:var(--bandInk);border-radius:999px;transition:width .3s ease}
+main{padding:24px 20px 48px}
+[hidden]{display:none!important}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:28px 24px}
+.ask{margin:0;color:var(--muted);font-weight:500;font-size:16px}
+.question{margin:8px 0 0;font-size:clamp(22px,4.6vw,28px);font-weight:700;line-height:1.3}
+.hintBtn{margin-top:16px;background:none;border:2px solid var(--optLine);color:var(--ink);font:inherit;font-size:16px;font-weight:500;border-radius:999px;padding:8px 16px;min-height:44px;cursor:pointer}
+.hint{margin:12px 0 0;font-size:17px;color:var(--muted)}
+.options{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.choice{display:flex;align-items:center;gap:14px;width:100%;min-height:60px;padding:12px 16px;text-align:left;background:var(--opt);color:var(--ink);border:2px solid var(--optLine);border-radius:16px;font:inherit;font-size:19px;font-weight:500;cursor:pointer}
+.choice:hover:not(:disabled){background:var(--optHover)}
+.choice .letter{flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--letter);color:var(--letterInk);font-weight:700;font-size:17px}
+.choice:disabled{cursor:default;opacity:.5}
+.choice.right{opacity:1;border:3px solid var(--good);background:var(--goodSoft)}
+.choice.right .letter{background:var(--good);color:var(--bg)}
+.choice.wrong{opacity:1;border:3px solid var(--bad);background:var(--badSoft)}
+.choice.wrong .letter{background:var(--bad);color:var(--bg)}
+.feedback{margin-top:18px;border-radius:16px;padding:16px 20px;font-size:18px}
+.feedback:empty{display:none}
+.feedback.good{background:var(--goodSoft);border:2px solid var(--good)}
+.feedback.bad{background:var(--badSoft);border:2px solid var(--bad)}
+.feedback b{display:block;font-size:20px;margin-bottom:4px}
+.primary{display:inline-block;margin-top:20px;background:var(--ink);color:var(--bg);border:none;border-radius:16px;font:inherit;font-size:20px;font-weight:700;padding:14px 28px;min-height:56px;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+.intro p{margin:0 0 12px}
+label{display:block;font-weight:500;margin:16px 0 6px}
+input[type=text]{width:100%;max-width:360px;font:inherit;padding:10px 14px;border:2px solid var(--optLine);border-radius:12px;background:var(--opt);color:var(--ink);min-height:48px}
+.who{margin:0;font-size:18px;font-weight:500}
+.score{font-size:clamp(48px,12vw,80px);font-weight:700;line-height:1;margin:8px 0}
+.missed{list-style:none;padding:0;margin:16px 0 0}
+.missed li{border-top:2px solid var(--line);padding:12px 0}
+.missed li span{display:block;font-size:16px;color:var(--muted)}
+@media (max-width:520px){.panel{padding:22px 18px}.choice{font-size:18px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.home{float:right}
+
+.pick{border:2px solid var(--line);border-radius:16px;padding:12px 16px 14px;margin:8px 0 0;background:var(--opt)}
+.pick legend{font-weight:700;padding:0 6px}
+.pickBtns{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 8px}
+.pickBtns button{background:none;border:2px solid var(--optLine);color:var(--ink);font:inherit;font-size:15px;font-weight:500;border-radius:999px;padding:6px 14px;min-height:40px;cursor:pointer}
+.pick label{display:flex;align-items:center;gap:12px;margin:0;padding:8px 4px;font-weight:500;font-size:17px;cursor:pointer;border-top:1px solid var(--line)}
+.pick label:first-of-type{border-top:none}
+.pick input[type=checkbox]{width:24px;height:24px;flex:none;accent-color:var(--letter)}
+.pick small{margin-left:auto;color:var(--muted);font-size:14px;white-space:nowrap}
+.pickCount{margin:10px 0 0;font-weight:500}
+.optional{font-weight:400;color:var(--muted)}
+.ghost{display:inline-block;margin:20px 0 0 12px;background:none;border:2px solid var(--optLine);color:var(--ink);border-radius:16px;font:inherit;font-size:18px;font-weight:500;padding:12px 20px;min-height:52px;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="second-year.html">← 2nd Year Exam Prep</a>
+    <a class="back home" href="../index.html">🏠 Home</a>
+    <h1 id="title"></h1>
+    <p class="sub" id="subtitle"></p>
+    <div class="meta" id="meta" hidden>
+      <span id="count"></span>
+      <span id="tally"></span>
+    </div>
+    <div class="bar" id="barWrap" hidden><span id="bar"></span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro" id="startScreen">
+    <div class="panel">
+      <p id="introText"></p>
+      <p>Pick the chapters you want to practise, then press <strong>Start</strong>. If you’re stuck on a question, press <strong>Show a hint</strong>.</p>
+      <fieldset class="pick">
+        <legend>Choose chapters</legend>
+        <div class="pickBtns"><button type="button" id="allBtn">Select all</button><button type="button" id="noneBtn">Clear all</button></div>
+        <div id="sectionList"></div>
+      </fieldset>
+      <p class="pickCount" id="pickCount" aria-live="polite"></p>
+      <p class="nameError" id="pickError" role="alert" hidden>Tick at least one chapter to start.</p>
+      <label for="nameInput">Your name <span class="optional">(optional)</span></label>
+      <input type="text" id="nameInput" autocomplete="off">
+      <br>
+      <button class="primary" id="startBtn">Start</button>
+    </div>
+  </section>
+
+  <section id="quizScreen" hidden>
+    <div class="panel">
+      <p class="ask" id="topic"></p>
+      <p class="question" id="question"></p>
+      <button class="hintBtn" id="hintBtn">Show a hint</button>
+      <p class="hint" id="hint" hidden></p>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <button class="primary" id="nextBtn" hidden>Next question</button>
+    </div>
+  </section>
+
+  <section id="endScreen" hidden>
+    <div class="panel">
+      <p class="who" id="who"></p>
+      <p class="ask">Your score</p>
+      <p class="score" id="finalScore"></p>
+      <p id="finalMsg"></p>
+      <div id="missedWrap">
+        <p><strong>Have another look at these:</strong></p>
+        <ul class="missed" id="missedList"></ul>
+      </div>
+      <button class="primary" id="againBtn">Try again</button>
+      <button class="ghost" id="changeBtn">Change chapters</button>
+      <a class="backBtn" href="second-year.html">Back to Exam Prep</a>
+    </div>
+  </section>
+</main>
+
+<script>
+const QUIZ = {
+ "title": "2nd Year Winter Assessment Revision",
+ "subtitle": "Active Maths 1, Chapters 14, 17, 31 and 36",
+ "intro": "43 questions on algebra, functions and factorising. Do them all, or pick the chapters you want to revise.",
+ "questions": [
+  {
+   "topic": "Chapter 14: Algebra I",
+   "q": "If x = 2 and y = 1, find the value of 4x − 2y.",
+   "options": [
+    "6",
+    "10",
+    "2",
+    "8"
+   ],
+   "answer": 0,
+   "hint": "Replace x with 2 and y with 1. 4x means 4 × x.",
+   "why": "4(2) − 2(1) = 8 − 2 = 6."
+  },
+  {
+   "topic": "Chapter 14: Algebra I",
+   "q": "If a = 4, b = 3 and c = 2, find the value of abc.",
+   "options": [
+    "24",
+    "9",
+    "432",
+    "14"
+   ],
+   "answer": 0,
+   "hint": "abc means a × b × c.",
+   "why": "4 × 3 × 2 = 24. Letters written side by side are multiplied."
+  },
+  {
+   "topic": "Chapter 14: Algebra I",
+   "q": "If p = 5 and q = −3, find the value of q².",
+   "options": [
+    "9",
+    "−9",
+    "−6",
+    "6"
+   ],
+   "answer": 0,
+   "hint": "q² means q × q. What is (−3) × (−3)?",
+   "why": "(−3)² = (−3) × (−3) = 9. A minus times a minus gives a plus."
+  },
+  {
+   "topic": "Chapter 14: Algebra I",
+   "q": "The cost (in €) of hiring a car is C = 20 + 48d, where d is the number of days. Find the cost for 3 days.",
+   "options": [
+    "€164",
+    "€204",
+    "€68",
+    "€144"
+   ],
+   "answer": 0,
+   "hint": "Multiply first (BIMDAS), then add 20.",
+   "why": "C = 20 + 48(3) = 20 + 144 = €164."
+  },
+  {
+   "topic": "Chapter 14: Algebra I",
+   "q": "Simplify 3x + 4 + 6x + 9.",
+   "options": [
+    "9x + 13",
+    "22x",
+    "9x + 5",
+    "3x + 19"
+   ],
+   "answer": 0,
+   "hint": "Add the x terms together, then the numbers together.",
+   "why": "3x + 6x = 9x and 4 + 9 = 13, so 9x + 13. x terms and numbers are not like terms."
+  },
+  {
+   "topic": "Chapter 14: Algebra I",
+   "q": "Simplify 2x² + 2x + 3x² + 5x.",
+   "options": [
+    "5x² + 7x",
+    "12x²",
+    "5x² + 7x²",
+    "7x² + 5x"
+   ],
+   "answer": 0,
+   "hint": "x² and x are not like terms. Keep them separate.",
+   "why": "2x² + 3x² = 5x² and 2x + 5x = 7x."
+  },
+  {
+   "topic": "Chapter 14: Algebra I",
+   "q": "Simplify (2x + 1) − (x + 5).",
+   "options": [
+    "x − 4",
+    "x + 6",
+    "3x + 6",
+    "x − 6"
+   ],
+   "answer": 0,
+   "hint": "The minus in front of the bracket changes the sign of everything inside it.",
+   "why": "2x + 1 − x − 5 = x − 4."
+  },
+  {
+   "topic": "Chapter 14: Algebra I",
+   "q": "Simplify (2a)(−3a²).",
+   "options": [
+    "−6a³",
+    "−6a²",
+    "−a³",
+    "6a³"
+   ],
+   "answer": 0,
+   "hint": "Multiply the numbers, then the letters. a × a² = a¹⁺² .",
+   "why": "2 × −3 = −6 and a × a² = a³, so −6a³."
+  },
+  {
+   "topic": "Chapter 14: Algebra I",
+   "q": "Remove the brackets and simplify 4(x + 2) + 3(x + 1).",
+   "options": [
+    "7x + 11",
+    "7x + 3",
+    "7x + 9",
+    "12x + 11"
+   ],
+   "answer": 0,
+   "hint": "Multiply every term inside each bracket by the number outside it.",
+   "why": "4x + 8 + 3x + 3 = 7x + 11."
+  },
+  {
+   "topic": "Chapter 14: Algebra I",
+   "q": "Remove the brackets: −2(4y − 1).",
+   "options": [
+    "−8y + 2",
+    "−8y − 2",
+    "8y − 2",
+    "−8y − 1"
+   ],
+   "answer": 0,
+   "hint": "The outside term is −2. What is −2 × −1?",
+   "why": "−2 × 4y = −8y and −2 × −1 = +2."
+  },
+  {
+   "topic": "Chapter 14: Algebra I",
+   "q": "Remove the brackets: 2x(x + 3).",
+   "options": [
+    "2x² + 6x",
+    "2x + 6x",
+    "2x² + 3",
+    "3x + 6"
+   ],
+   "answer": 0,
+   "hint": "x × x = x².",
+   "why": "2x × x = 2x² and 2x × 3 = 6x."
+  },
+  {
+   "topic": "Chapter 14: Algebra I",
+   "q": "Expand and simplify (x + 3)(x − 2).",
+   "options": [
+    "x² + x − 6",
+    "x² − x − 6",
+    "x² − 6",
+    "x² + 5x − 6"
+   ],
+   "answer": 0,
+   "hint": "Multiply x by the whole second bracket, then 3 by the whole second bracket.",
+   "why": "x² − 2x + 3x − 6 = x² + x − 6."
+  },
+  {
+   "topic": "Chapter 17: Functions I",
+   "q": "What makes a relation a function?",
+   "options": [
+    "Each input has exactly one output",
+    "Each output has exactly one input",
+    "Every input is a number",
+    "The outputs are bigger than the inputs"
+   ],
+   "answer": 0,
+   "hint": "Look at the inputs. How many arrows can leave each one?",
+   "why": "A function assigns exactly one output to each input. Two inputs can share an output."
+  },
+  {
+   "topic": "Chapter 17: Functions I",
+   "q": "Which of these relations is a function?",
+   "options": [
+    "{(1, 4), (2, 5), (3, 6), (4, 7)}",
+    "{(1, 3), (2, 6), (1, 5)}",
+    "{(1, 1), (1, 2), (2, 5)}",
+    "{(3, 4), (3, 5), (5, 6)}"
+   ],
+   "answer": 0,
+   "hint": "Look for an input (first number) that appears twice.",
+   "why": "In the others an input has two different outputs, so they are not functions."
+  },
+  {
+   "topic": "Chapter 17: Functions I",
+   "q": "A function has the rule ‘double the input and subtract 5’. What is the output when the input is 12?",
+   "options": [
+    "19",
+    "14",
+    "7",
+    "29"
+   ],
+   "answer": 0,
+   "hint": "Double first, then subtract 5.",
+   "why": "2(12) − 5 = 24 − 5 = 19."
+  },
+  {
+   "topic": "Chapter 17: Functions I",
+   "q": "In a function, the set of all inputs is called the…",
+   "options": [
+    "Domain",
+    "Range",
+    "Codomain",
+    "Couples"
+   ],
+   "answer": 0,
+   "hint": "D for domain, the place the inputs come from.",
+   "why": "The domain is the set of inputs. The range is the set of actual outputs."
+  },
+  {
+   "topic": "Chapter 17: Functions I",
+   "q": "The rule ‘divide the input by 2’ has the inputs {10, −8, 20, 50}. What is the range?",
+   "options": [
+    "{5, −4, 10, 25}",
+    "{10, −8, 20, 50}",
+    "{20, −16, 40, 100}",
+    "{5, 4, 10, 25}"
+   ],
+   "answer": 0,
+   "hint": "Divide each input by 2. Keep the signs.",
+   "why": "10 ÷ 2 = 5, −8 ÷ 2 = −4, 20 ÷ 2 = 10, 50 ÷ 2 = 25."
+  },
+  {
+   "topic": "Chapter 17: Functions I",
+   "q": "Write the rule ‘triple the input and then subtract 3’ using function notation.",
+   "options": [
+    "f(x) = 3x − 3",
+    "f(x) = 3(x − 3)",
+    "f(x) = x³ − 3",
+    "f(x) = 3 − 3x"
+   ],
+   "answer": 0,
+   "hint": "Triple means multiply by 3, then take away 3.",
+   "why": "Triple x gives 3x, then subtract 3: f(x) = 3x − 3."
+  },
+  {
+   "topic": "Chapter 17: Functions I",
+   "q": "f(x) = 2x + 1. Find f(4).",
+   "options": [
+    "9",
+    "7",
+    "24",
+    "6"
+   ],
+   "answer": 0,
+   "hint": "Replace x with 4.",
+   "why": "f(4) = 2(4) + 1 = 8 + 1 = 9."
+  },
+  {
+   "topic": "Chapter 17: Functions I",
+   "q": "f(x) = 2x + 1. Find f(−3).",
+   "options": [
+    "−5",
+    "−7",
+    "7",
+    "−6"
+   ],
+   "answer": 0,
+   "hint": "2 × (−3) = −6. Then add 1.",
+   "why": "f(−3) = −6 + 1 = −5."
+  },
+  {
+   "topic": "Chapter 17: Functions I",
+   "q": "g : x → x² + 2x − 5. Find g(2).",
+   "options": [
+    "3",
+    "−1",
+    "9",
+    "13"
+   ],
+   "answer": 0,
+   "hint": "Square 2 first, then add 2 × 2, then subtract 5.",
+   "why": "4 + 4 − 5 = 3."
+  },
+  {
+   "topic": "Chapter 17: Functions I",
+   "q": "h(x) = 4x − 5 and h(r) = 7. Find r.",
+   "options": [
+    "r = 3",
+    "r = 23",
+    "r = 0.5",
+    "r = 2"
+   ],
+   "answer": 0,
+   "hint": "Write 4r − 5 = 7 and solve.",
+   "why": "4r = 12, so r = 3."
+  },
+  {
+   "topic": "Chapter 31: Factorising",
+   "q": "Find the highest common factor of 4a and 10b.",
+   "options": [
+    "2",
+    "4",
+    "2ab",
+    "ab"
+   ],
+   "answer": 0,
+   "hint": "Do a and b have anything in common? What about 4 and 10?",
+   "why": "The HCF of 4 and 10 is 2. a and b have no common letter, so the HCF is 2."
+  },
+  {
+   "topic": "Chapter 31: Factorising",
+   "q": "Find the highest common factor of 10a² and 15a.",
+   "options": [
+    "5a",
+    "5a²",
+    "5",
+    "a"
+   ],
+   "answer": 0,
+   "hint": "Find the HCF of the numbers and of the letters separately.",
+   "why": "HCF of 10 and 15 is 5, and HCF of a² and a is a. So 5a."
+  },
+  {
+   "topic": "Chapter 31: Factorising",
+   "q": "Factorise fully 5x² − 20x.",
+   "options": [
+    "5x(x − 4)",
+    "5(x² − 4x)",
+    "x(5x − 20)",
+    "5x(x − 20)"
+   ],
+   "answer": 0,
+   "hint": "What is the highest common factor of 5x² and 20x?",
+   "why": "The HCF is 5x. 5x² ÷ 5x = x and 20x ÷ 5x = 4, giving 5x(x − 4)."
+  },
+  {
+   "topic": "Chapter 31: Factorising",
+   "q": "Factorise 3a − 6b − 18c.",
+   "options": [
+    "3(a − 2b − 6c)",
+    "3(a − 6b − 18c)",
+    "6(a − b − 3c)",
+    "3a(1 − 2b − 6c)"
+   ],
+   "answer": 0,
+   "hint": "3 goes into 3, 6 and 18.",
+   "why": "3a ÷ 3 = a, 6b ÷ 3 = 2b, 18c ÷ 3 = 6c."
+  },
+  {
+   "topic": "Chapter 31: Factorising",
+   "q": "Factorise by grouping: ax + ay + bx + by.",
+   "options": [
+    "(x + y)(a + b)",
+    "(x + y)(a − b)",
+    "(a + x)(b + y)",
+    "ab(x + y)"
+   ],
+   "answer": 0,
+   "hint": "Take a out of the first pair and b out of the second pair.",
+   "why": "a(x + y) + b(x + y) = (x + y)(a + b)."
+  },
+  {
+   "topic": "Chapter 31: Factorising",
+   "q": "Factorise by grouping: ax − bx − ay + by.",
+   "options": [
+    "(a − b)(x − y)",
+    "(a − b)(x + y)",
+    "(a + b)(x − y)",
+    "(a − y)(b − x)"
+   ],
+   "answer": 0,
+   "hint": "Take x out of the first pair. What do you take out of −ay + by?",
+   "why": "x(a − b) − y(a − b) = (a − b)(x − y). Taking out −y changes +by into −b inside the bracket."
+  },
+  {
+   "topic": "Chapter 31: Factorising",
+   "q": "Factorise x² + 8x + 15.",
+   "options": [
+    "(x + 3)(x + 5)",
+    "(x + 1)(x + 15)",
+    "(x + 2)(x + 6)",
+    "(x − 3)(x − 5)"
+   ],
+   "answer": 0,
+   "hint": "Find two numbers that multiply to 15 and add to 8.",
+   "why": "3 × 5 = 15 and 3 + 5 = 8."
+  },
+  {
+   "topic": "Chapter 31: Factorising",
+   "q": "Factorise x² + 10x + 24.",
+   "options": [
+    "(x + 4)(x + 6)",
+    "(x + 3)(x + 8)",
+    "(x + 2)(x + 12)",
+    "(x + 1)(x + 24)"
+   ],
+   "answer": 0,
+   "hint": "Which factor pair of 24 adds to 10?",
+   "why": "4 × 6 = 24 and 4 + 6 = 10. 3 + 8 = 11, so that one is close but wrong."
+  },
+  {
+   "topic": "Chapter 31: Factorising",
+   "q": "Factorise x² − 6x + 8.",
+   "options": [
+    "(x − 2)(x − 4)",
+    "(x + 2)(x + 4)",
+    "(x − 1)(x − 8)",
+    "(x + 2)(x − 4)"
+   ],
+   "answer": 0,
+   "hint": "The constant is positive but the middle term is negative. So both signs are…?",
+   "why": "(−2) × (−4) = 8 and (−2) + (−4) = −6."
+  },
+  {
+   "topic": "Chapter 31: Factorising",
+   "q": "Factorise a² − 6a − 7.",
+   "options": [
+    "(a + 1)(a − 7)",
+    "(a − 1)(a + 7)",
+    "(a − 1)(a − 7)",
+    "(a + 1)(a + 7)"
+   ],
+   "answer": 0,
+   "hint": "The constant is negative, so one sign is + and the other is −.",
+   "why": "1 × (−7) = −7 and 1 + (−7) = −6."
+  },
+  {
+   "topic": "Chapter 31: Factorising",
+   "q": "Factorise y² − 81.",
+   "options": [
+    "(y − 9)(y + 9)",
+    "(y − 9)(y − 9)",
+    "(y − 81)(y + 1)",
+    "(y + 9)(y + 9)"
+   ],
+   "answer": 0,
+   "hint": "This is a difference of two squares: A² − B² = (A − B)(A + B).",
+   "why": "y² − 9² = (y − 9)(y + 9). One bracket has a minus and the other a plus."
+  },
+  {
+   "topic": "Chapter 36: Functions II",
+   "q": "Which of these is a linear function?",
+   "options": [
+    "f(x) = 2x + 1",
+    "f(x) = x² + 1",
+    "f(x) = x² − 6x + 8",
+    "f(x) = 3x²"
+   ],
+   "answer": 0,
+   "hint": "A linear function has the form f(x) = ax + b, with no x² term.",
+   "why": "2x + 1 has no x² term, so its graph is a straight line. The others are quadratic."
+  },
+  {
+   "topic": "Chapter 36: Functions II",
+   "q": "What is the smallest number of points you need to draw a straight-line graph?",
+   "options": [
+    "2",
+    "1",
+    "3",
+    "5"
+   ],
+   "answer": 0,
+   "hint": "How many points does a ruler need to draw a line?",
+   "why": "Two points are enough, but a third point is a good check for mistakes."
+  },
+  {
+   "topic": "Chapter 36: Functions II",
+   "q": "g(x) = 2x + 1 for 0 ≤ x ≤ 3. What is the range?",
+   "options": [
+    "1 ≤ y ≤ 7",
+    "0 ≤ y ≤ 3",
+    "1 ≤ y ≤ 3",
+    "2 ≤ y ≤ 7"
+   ],
+   "answer": 0,
+   "hint": "Find g(0) and g(3).",
+   "why": "g(0) = 1 and g(3) = 7, so the range is 1 ≤ y ≤ 7."
+  },
+  {
+   "topic": "Chapter 36: Functions II",
+   "q": "For y = −2x + 4, what is y when x = −2?",
+   "options": [
+    "8",
+    "0",
+    "−8",
+    "6"
+   ],
+   "answer": 0,
+   "hint": "−2 × −2 = +4.",
+   "why": "−2(−2) + 4 = 4 + 4 = 8, giving the point (−2, 8)."
+  },
+  {
+   "topic": "Chapter 36: Functions II",
+   "q": "What shape is the graph of f(x) = ax² + bx + c when a is positive?",
+   "options": [
+    "∪-shaped",
+    "∩-shaped",
+    "A straight line",
+    "A circle"
+   ],
+   "answer": 0,
+   "hint": "Look at the sign of the number in front of x².",
+   "why": "When a > 0 the graph is ∪-shaped with a lowest (minimum) point. When a < 0 it is ∩-shaped."
+  },
+  {
+   "topic": "Chapter 36: Functions II",
+   "q": "f(x) = x² − 6x + 8. Find f(3).",
+   "options": [
+    "−1",
+    "35",
+    "17",
+    "1"
+   ],
+   "answer": 0,
+   "hint": "3² = 9 and 6 × 3 = 18.",
+   "why": "9 − 18 + 8 = −1. So the point (3, −1) is the minimum point of the curve."
+  },
+  {
+   "topic": "Chapter 36: Functions II",
+   "q": "To solve f(x) = g(x) using graphs, you look at…",
+   "options": [
+    "Where the two graphs cross each other",
+    "Where each graph crosses the y-axis",
+    "The highest point of each graph",
+    "Where each graph starts"
+   ],
+   "answer": 0,
+   "hint": "At these points both functions give the same output.",
+   "why": "f(x) = g(x) where the graphs intersect. Read off the x-values there."
+  },
+  {
+   "topic": "Chapter 36: Functions II",
+   "q": "A graph crosses the x-axis at x = −4 and x = 2. What are the solutions of f(x) = 0?",
+   "options": [
+    "x = −4 or x = 2",
+    "x = 4 or x = −2",
+    "x = 0",
+    "x = −4 only"
+   ],
+   "answer": 0,
+   "hint": "f(x) = 0 means y = 0. Where on the graph is y = 0?",
+   "why": "The roots are where the graph crosses the x-axis, so x = −4 or x = 2."
+  },
+  {
+   "topic": "Chapter 36: Functions II",
+   "q": "On a graph, x = 0 is midday and each unit is one hour. Which x-value is 4.30 p.m.?",
+   "options": [
+    "4.5",
+    "4.3",
+    "16.5",
+    "4.03"
+   ],
+   "answer": 0,
+   "hint": "Half an hour is a half of one unit.",
+   "why": "4.30 p.m. is 4 and a half hours after midday, so x = 4.5."
+  },
+  {
+   "topic": "Chapter 36: Functions II",
+   "q": "The lowest point of f(x) = x² − 4x − 5 is (2, −9). What is the minimum value of f(x)?",
+   "options": [
+    "−9",
+    "2",
+    "−5",
+    "9"
+   ],
+   "answer": 0,
+   "hint": "The value of a function is its output, the y-value.",
+   "why": "The minimum value is the y-co-ordinate of the lowest point: −9. It happens at x = 2."
+  }
+ ]
+};
+
+const $ = id => document.getElementById(id);
+const LETTERS = ["A","B","C","D","E","F"];
+let round = [], i = 0, score = 0, missed = [], answered = false;
+
+function shuffle(arr){
+  for(let k = arr.length - 1; k > 0; k--){
+    const j = Math.floor(Math.random() * (k + 1));
+    [arr[k], arr[j]] = [arr[j], arr[k]];
+  }
+  return arr;
+}
+function show(id){
+  ["startScreen","quizScreen","endScreen"].forEach(s => $(s).hidden = (s !== id));
+  const inQuiz = id === "quizScreen";
+  $("meta").hidden = !inQuiz;
+  $("barWrap").hidden = !inQuiz;
+}
+function prepare(q){
+  const opts = q.options.map((text, idx) => ({text, correct: idx === q.answer}));
+  return Object.assign({}, q, {opts: q.keepOrder ? opts : shuffle(opts)});
+}
+function start(){
+  round = shuffle(pool()).map(prepare);
+  i = 0; score = 0; missed = [];
+  show("quizScreen");
+  render();
+}
+function render(){
+  answered = false;
+  const q = round[i];
+  $("topic").textContent = q.topic || "Question";
+  $("question").textContent = q.q;
+  $("count").textContent = "Question " + (i + 1) + " of " + round.length;
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = (i / round.length * 100) + "%";
+  $("hint").textContent = q.hint || "";
+  $("hint").hidden = true;
+  $("hintBtn").hidden = !q.hint;
+  const fb = $("feedback"); fb.className = "feedback"; fb.textContent = "";
+  $("nextBtn").hidden = true;
+  const box = $("options"); box.textContent = "";
+  q.opts.forEach((o, idx) => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    const l = document.createElement("span"); l.className = "letter"; l.textContent = LETTERS[idx];
+    const t = document.createElement("span"); t.textContent = o.text;
+    b.appendChild(l); b.appendChild(t);
+    b.addEventListener("click", () => choose(idx));
+    box.appendChild(b);
+  });
+  window.scrollTo({top:0});
+}
+function choose(idx){
+  if(answered) return;
+  answered = true;
+  const q = round[i];
+  const buttons = Array.from($("options").children);
+  const correct = q.opts[idx].correct;
+  const rightText = q.opts.find(o => o.correct).text;
+  buttons.forEach((b, k) => {
+    b.disabled = true;
+    if(q.opts[k].correct) b.classList.add("right");
+    else if(k === idx) b.classList.add("wrong");
+  });
+  const fb = $("feedback");
+  const head = document.createElement("b");
+  const body = document.createElement("span");
+  if(correct){ score++; fb.className = "feedback good"; head.textContent = "Correct!"; }
+  else { missed.push({q: q.q, a: rightText, why: q.why}); fb.className = "feedback bad"; head.textContent = "Not quite. The answer is: " + rightText; }
+  body.textContent = q.why || "";
+  fb.appendChild(head); fb.appendChild(body);
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = ((i + 1) / round.length * 100) + "%";
+  $("hintBtn").hidden = true;
+  const next = $("nextBtn");
+  next.textContent = (i === round.length - 1) ? "See my score" : "Next question";
+  next.hidden = false;
+  next.focus();
+}
+function finish(){
+  show("endScreen");
+  const name = $("nameInput").value.trim();
+  const d = new Date();
+  const day = d.toLocaleDateString("en-IE", {day:"numeric", month:"long", year:"numeric"});
+  const secs = chosen();
+  $("who").textContent = (name ? name + " · " : "") + day + " · " + (secs.length === SECTIONS.length ? "All chapters" : secs.join(", "));
+  $("finalScore").textContent = score + " / " + round.length;
+  const pct = score / round.length;
+  $("finalMsg").textContent =
+    pct === 1 ? "Perfect score. Take a bow." :
+    pct >= 0.75 ? "Great work. You know this well." :
+    pct >= 0.5 ? "Good effort. Check the ones below, then try again." :
+    "Keep going. Read over the pages again, then try again.";
+  const list = $("missedList"); list.textContent = "";
+  missed.forEach(m => {
+    const li = document.createElement("li");
+    const s = document.createElement("strong"); s.textContent = m.q;
+    const a = document.createElement("span"); a.textContent = "Answer: " + m.a + (m.why ? ". " + m.why : "");
+    li.appendChild(s); li.appendChild(a); list.appendChild(li);
+  });
+  $("missedWrap").hidden = missed.length === 0;
+  $("againBtn").focus();
+}
+
+$("title").textContent = QUIZ.title;
+document.title = QUIZ.title;
+$("subtitle").textContent = QUIZ.subtitle || "";
+$("subtitle").hidden = !QUIZ.subtitle;
+$("introText").textContent = QUIZ.intro;
+const SECTIONS = [];
+QUIZ.questions.forEach(q => { if(!SECTIONS.includes(q.topic)) SECTIONS.push(q.topic); });
+const list = $("sectionList");
+SECTIONS.forEach((s, k) => {
+  const lab = document.createElement("label");
+  const box = document.createElement("input");
+  box.type = "checkbox"; box.checked = true; box.value = s; box.id = "sec" + k;
+  box.addEventListener("change", updateCount);
+  const txt = document.createElement("span"); txt.textContent = s;
+  const n = QUIZ.questions.filter(q => q.topic === s).length;
+  const sm = document.createElement("small"); sm.textContent = n + (n === 1 ? " question" : " questions");
+  lab.appendChild(box); lab.appendChild(txt); lab.appendChild(sm);
+  list.appendChild(lab);
+});
+function chosen(){ return Array.from(list.querySelectorAll("input:checked")).map(b => b.value); }
+function pool(){ const c = chosen(); return QUIZ.questions.filter(q => c.includes(q.topic)); }
+function updateCount(){
+  const n = pool().length;
+  $("pickCount").textContent = n ? n + " questions selected" : "No chapters selected";
+  if(n) $("pickError").hidden = true;
+}
+$("allBtn").addEventListener("click", () => { list.querySelectorAll("input").forEach(b => b.checked = true); updateCount(); });
+$("noneBtn").addEventListener("click", () => { list.querySelectorAll("input").forEach(b => b.checked = false); updateCount(); });
+updateCount();
+function tryStart(){
+  if(!pool().length){ $("pickError").hidden = false; return; }
+  start();
+}
+$("startBtn").addEventListener("click", tryStart);
+$("nameInput").addEventListener("keydown", e => { if(e.key === "Enter") tryStart(); });
+$("againBtn").addEventListener("click", start);
+$("changeBtn").addEventListener("click", () => { show("startScreen"); window.scrollTo({top:0}); });
+$("nextBtn").addEventListener("click", () => { i++; if(i < round.length) render(); else finish(); });
+$("hintBtn").addEventListener("click", () => { $("hint").hidden = false; $("hintBtn").hidden = true; });
+</script>
+</body>
+</html>
