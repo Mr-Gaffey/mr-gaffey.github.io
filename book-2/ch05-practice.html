@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 5 Practice: Factorising</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --ink:#1f1b0f; --muted:#5a5547; --band:#ffd84d; --bandInk:#1f1b0f;
+  --card:#fffbea; --line:#e6dfc4;
+  --opt:#ffffff; --optLine:#cfc6a3; --optHover:#fff3c4; --letter:#2f6fdb; --letterInk:#ffffff;
+  --good:#1d7a3e; --goodSoft:#e3f4e8; --bad:#b3261e; --badSoft:#fde7e5;
+  --focus:#1f55b8;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+    --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+    --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+    --focus:#9dbdff; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+  --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+  --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+  --focus:#9dbdff; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Lexend','Segoe UI',Arial,sans-serif;font-size:18px;line-height:1.5}
+header{background:var(--band);color:var(--bandInk);padding:20px 20px 18px}
+.wrap{max-width:760px;margin:0 auto}
+.back{display:inline-block;margin-bottom:10px;color:var(--bandInk);font-size:16px;font-weight:500;text-decoration:none}
+.back:hover{text-decoration:underline}
+.backBtn{display:inline-block;margin:20px 0 0 12px;color:var(--ink);font-size:18px;font-weight:500}
+.nameError{margin:8px 0 0;color:var(--bad);font-weight:500}
+header h1{margin:0;font-size:clamp(24px,5vw,34px);font-weight:700;letter-spacing:-0.3px;line-height:1.2}
+.sub{margin:4px 0 0;font-size:16px;font-weight:500}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-weight:500;font-size:16px}
+.bar{height:12px;background:rgba(31,27,15,.18);border-radius:999px;overflow:hidden;margin-top:8px}
+.bar span{display:block;height:100%;width:0;background:var(--bandInk);border-radius:999px;transition:width .3s ease}
+main{padding:24px 20px 48px}
+[hidden]{display:none!important}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:28px 24px}
+.ask{margin:0;color:var(--muted);font-weight:500;font-size:16px}
+.question{margin:8px 0 0;font-size:clamp(22px,4.6vw,28px);font-weight:700;line-height:1.3}
+.hintBtn{margin-top:16px;background:none;border:2px solid var(--optLine);color:var(--ink);font:inherit;font-size:16px;font-weight:500;border-radius:999px;padding:8px 16px;min-height:44px;cursor:pointer}
+.hint{margin:12px 0 0;font-size:17px;color:var(--muted)}
+.options{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.choice{display:flex;align-items:center;gap:14px;width:100%;min-height:60px;padding:12px 16px;text-align:left;background:var(--opt);color:var(--ink);border:2px solid var(--optLine);border-radius:16px;font:inherit;font-size:19px;font-weight:500;cursor:pointer}
+.choice:hover:not(:disabled){background:var(--optHover)}
+.choice .letter{flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--letter);color:var(--letterInk);font-weight:700;font-size:17px}
+.choice:disabled{cursor:default;opacity:.5}
+.choice.right{opacity:1;border:3px solid var(--good);background:var(--goodSoft)}
+.choice.right .letter{background:var(--good);color:var(--bg)}
+.choice.wrong{opacity:1;border:3px solid var(--bad);background:var(--badSoft)}
+.choice.wrong .letter{background:var(--bad);color:var(--bg)}
+.feedback{margin-top:18px;border-radius:16px;padding:16px 20px;font-size:18px}
+.feedback:empty{display:none}
+.feedback.good{background:var(--goodSoft);border:2px solid var(--good)}
+.feedback.bad{background:var(--badSoft);border:2px solid var(--bad)}
+.feedback b{display:block;font-size:20px;margin-bottom:4px}
+.primary{display:inline-block;margin-top:20px;background:var(--ink);color:var(--bg);border:none;border-radius:16px;font:inherit;font-size:20px;font-weight:700;padding:14px 28px;min-height:56px;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+.intro p{margin:0 0 12px}
+label{display:block;font-weight:500;margin:16px 0 6px}
+input[type=text]{width:100%;max-width:360px;font:inherit;padding:10px 14px;border:2px solid var(--optLine);border-radius:12px;background:var(--opt);color:var(--ink);min-height:48px}
+.who{margin:0;font-size:18px;font-weight:500}
+.score{font-size:clamp(48px,12vw,80px);font-weight:700;line-height:1;margin:8px 0}
+.missed{list-style:none;padding:0;margin:16px 0 0}
+.missed li{border-top:2px solid var(--line);padding:12px 0}
+.missed li span{display:block;font-size:16px;color:var(--muted)}
+@media (max-width:520px){.panel{padding:22px 18px}.choice{font-size:18px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.home{float:right}
+
+.pick{border:2px solid var(--line);border-radius:16px;padding:12px 16px 14px;margin:8px 0 0;background:var(--opt)}
+.pick legend{font-weight:700;padding:0 6px}
+.pickBtns{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 8px}
+.pickBtns button{background:none;border:2px solid var(--optLine);color:var(--ink);font:inherit;font-size:15px;font-weight:500;border-radius:999px;padding:6px 14px;min-height:40px;cursor:pointer}
+.pick label{display:flex;align-items:center;gap:12px;margin:0;padding:8px 4px;font-weight:500;font-size:17px;cursor:pointer;border-top:1px solid var(--line)}
+.pick label:first-of-type{border-top:none}
+.pick input[type=checkbox]{width:24px;height:24px;flex:none;accent-color:var(--letter)}
+.pick small{margin-left:auto;color:var(--muted);font-size:14px;white-space:nowrap}
+.pickCount{margin:10px 0 0;font-weight:500}
+.optional{font-weight:400;color:var(--muted)}
+.ghost{display:inline-block;margin:20px 0 0 12px;background:none;border:2px solid var(--optLine);color:var(--ink);border-radius:16px;font:inherit;font-size:18px;font-weight:500;padding:12px 20px;min-height:52px;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="ch05.html">← Chapter 5</a>
+    <a class="back home" href="../index.html">🏠 Home</a>
+    <h1 id="title"></h1>
+    <p class="sub" id="subtitle"></p>
+    <div class="meta" id="meta" hidden>
+      <span id="count"></span>
+      <span id="tally"></span>
+    </div>
+    <div class="bar" id="barWrap" hidden><span id="bar"></span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro" id="startScreen">
+    <div class="panel">
+      <p id="introText"></p>
+      <p>Pick the sections you want to practise, then press <strong>Start</strong>. If you’re stuck on a question, press <strong>Show a hint</strong>.</p>
+      <fieldset class="pick">
+        <legend>Choose sections</legend>
+        <div class="pickBtns"><button type="button" id="allBtn">Select all</button><button type="button" id="noneBtn">Clear all</button></div>
+        <div id="sectionList"></div>
+      </fieldset>
+      <p class="pickCount" id="pickCount" aria-live="polite"></p>
+      <p class="nameError" id="pickError" role="alert" hidden>Tick at least one section to start.</p>
+      <label for="nameInput">Your name <span class="optional">(optional)</span></label>
+      <input type="text" id="nameInput" autocomplete="off">
+      <br>
+      <button class="primary" id="startBtn">Start</button>
+    </div>
+  </section>
+
+  <section id="quizScreen" hidden>
+    <div class="panel">
+      <p class="ask" id="topic"></p>
+      <p class="question" id="question"></p>
+      <button class="hintBtn" id="hintBtn">Show a hint</button>
+      <p class="hint" id="hint" hidden></p>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <button class="primary" id="nextBtn" hidden>Next question</button>
+    </div>
+  </section>
+
+  <section id="endScreen" hidden>
+    <div class="panel">
+      <p class="who" id="who"></p>
+      <p class="ask">Your score</p>
+      <p class="score" id="finalScore"></p>
+      <p id="finalMsg"></p>
+      <div id="missedWrap">
+        <p><strong>Have another look at these:</strong></p>
+        <ul class="missed" id="missedList"></ul>
+      </div>
+      <button class="primary" id="againBtn">Try again</button>
+      <button class="ghost" id="changeBtn">Change sections</button>
+      <a class="backBtn" href="ch05.html">Back to Chapter 5</a>
+    </div>
+  </section>
+</main>
+
+<script>
+const QUIZ = {
+ "title": "Chapter 5 Practice: Factorising",
+ "subtitle": "Active Maths 2 (Higher Level, 3rd edition), Chapter 5",
+ "intro": "16 questions based on the exercises in Chapter 5, across 5 sections. Do them all, or pick the sections you’re working on.",
+ "questions": [
+  {
+   "topic": "5.2 Factorising Using HCF",
+   "q": "Factorise fully 12x² − 8x.",
+   "options": [
+    "4x(3x − 2)",
+    "4(3x² − 2x)",
+    "x(12x − 8)",
+    "2x(6x − 4)"
+   ],
+   "answer": 0,
+   "hint": "What is the highest common factor of 12x² and 8x?",
+   "why": "The HCF is 4x, giving 4x(3x − 2). The others still have a common factor inside."
+  },
+  {
+   "topic": "5.2 Factorising Using HCF",
+   "q": "Find the HCF of 6a²b and 9ab².",
+   "options": [
+    "3ab",
+    "3a²b²",
+    "ab",
+    "18ab"
+   ],
+   "answer": 0,
+   "hint": "HCF of the numbers, then the lowest power of each letter.",
+   "why": "HCF of 6 and 9 is 3; a and b each appear at least once, so 3ab."
+  },
+  {
+   "topic": "5.3 Grouping",
+   "q": "Factorise px + py + qx + qy.",
+   "options": [
+    "(x + y)(p + q)",
+    "(x + y)(p − q)",
+    "pq(x + y)",
+    "(p + x)(q + y)"
+   ],
+   "answer": 0,
+   "hint": "Take p out of the first pair and q out of the second.",
+   "why": "p(x + y) + q(x + y) = (x + y)(p + q)."
+  },
+  {
+   "topic": "5.3 Grouping",
+   "q": "Factorise 12ax − 3bx + 8ay − 2by.",
+   "options": [
+    "(4a − b)(3x + 2y)",
+    "(4a + b)(3x − 2y)",
+    "(4a − b)(3x − 2y)",
+    "(12a − 3b)(x + y)"
+   ],
+   "answer": 0,
+   "hint": "Take 3x out of the first pair and 2y out of the second.",
+   "why": "3x(4a − b) + 2y(4a − b) = (4a − b)(3x + 2y)."
+  },
+  {
+   "topic": "5.3 Grouping",
+   "q": "Factorise 4px − 10py − 6qx + 15qy.",
+   "options": [
+    "(2x − 5y)(2p − 3q)",
+    "(2x − 5y)(2p + 3q)",
+    "(2x + 5y)(2p − 3q)",
+    "(4x − 5y)(p − 3q)"
+   ],
+   "answer": 0,
+   "hint": "Take 2p from the first pair and −3q from the second.",
+   "why": "2p(2x − 5y) − 3q(2x − 5y) = (2x − 5y)(2p − 3q)."
+  },
+  {
+   "topic": "5.3 Grouping",
+   "q": "Factorise pq − q − 1 + p.",
+   "options": [
+    "(p − 1)(q + 1)",
+    "(p + 1)(q − 1)",
+    "(p − 1)(q − 1)",
+    "(p + 1)(q + 1)"
+   ],
+   "answer": 0,
+   "hint": "Rearrange first: pq − q + p − 1.",
+   "why": "q(p − 1) + 1(p − 1) = (p − 1)(q + 1)."
+  },
+  {
+   "topic": "5.4 Quadratic Trinomials I",
+   "q": "Factorise x² + 12x + 35.",
+   "options": [
+    "(x + 5)(x + 7)",
+    "(x + 35)(x + 1)",
+    "(x + 6)(x + 6)",
+    "(x − 5)(x − 7)"
+   ],
+   "answer": 0,
+   "hint": "Two numbers that multiply to 35 and add to 12.",
+   "why": "5 × 7 = 35 and 5 + 7 = 12."
+  },
+  {
+   "topic": "5.4 Quadratic Trinomials I",
+   "q": "Factorise x² − 7x + 10.",
+   "options": [
+    "(x − 2)(x − 5)",
+    "(x + 2)(x + 5)",
+    "(x − 1)(x − 10)",
+    "(x + 2)(x − 5)"
+   ],
+   "answer": 0,
+   "hint": "Positive constant, negative middle term: both signs are negative.",
+   "why": "(−2)(−5) = 10 and −2 + (−5) = −7."
+  },
+  {
+   "topic": "5.4 Quadratic Trinomials I",
+   "q": "Factorise x² + 3x − 18.",
+   "options": [
+    "(x + 6)(x − 3)",
+    "(x − 6)(x + 3)",
+    "(x + 9)(x − 2)",
+    "(x + 18)(x − 1)"
+   ],
+   "answer": 0,
+   "hint": "Negative constant: one sign + and one sign −.",
+   "why": "6 × (−3) = −18 and 6 + (−3) = 3."
+  },
+  {
+   "topic": "5.5 Quadratic Trinomials II",
+   "q": "Factorise 3x² − x − 14.",
+   "options": [
+    "(3x − 7)(x + 2)",
+    "(3x + 7)(x − 2)",
+    "(3x − 2)(x + 7)",
+    "(3x + 2)(x − 7)"
+   ],
+   "answer": 0,
+   "hint": "Guide number: 3 × (−14) = −42. Which factors of −42 add to −1?",
+   "why": "6 and −7 work, giving (3x − 7)(x + 2). Check the middle: 6x − 7x = −x ✓."
+  },
+  {
+   "topic": "5.5 Quadratic Trinomials II",
+   "q": "Factorise 2x² + 5x + 2.",
+   "options": [
+    "(2x + 1)(x + 2)",
+    "(2x + 2)(x + 1)",
+    "(2x − 1)(x − 2)",
+    "(x + 1)(x + 2)"
+   ],
+   "answer": 0,
+   "hint": "Check each option by multiplying out the middle term.",
+   "why": "(2x + 1)(x + 2) = 2x² + 4x + x + 2 = 2x² + 5x + 2."
+  },
+  {
+   "topic": "5.5 Quadratic Trinomials II",
+   "q": "Factorise 2x² − 5x + 3.",
+   "options": [
+    "(2x − 3)(x − 1)",
+    "(2x + 3)(x + 1)",
+    "(2x − 1)(x − 3)",
+    "(2x + 3)(x − 1)"
+   ],
+   "answer": 0,
+   "hint": "Positive constant, negative middle: both signs negative.",
+   "why": "(2x − 3)(x − 1) = 2x² − 2x − 3x + 3 = 2x² − 5x + 3."
+  },
+  {
+   "topic": "5.5 Quadratic Trinomials II",
+   "q": "Three students factorise 6x² + 36x + 30 as (6x + 6)(x + 5), (2x + 2)(3x + 15) and (3x + 3)(2x + 10). Who is correct?",
+   "options": [
+    "All three, but none have factorised fully",
+    "Only (6x + 6)(x + 5)",
+    "None of them",
+    "Only (2x + 2)(3x + 15)"
+   ],
+   "answer": 0,
+   "hint": "Multiply each one out. Then look for a common factor.",
+   "why": "They all give 6x² + 36x + 30. Fully factorised it is 6(x + 1)(x + 5)."
+  },
+  {
+   "topic": "5.6 Difference of Two Squares",
+   "q": "Factorise x² − 25.",
+   "options": [
+    "(x − 5)(x + 5)",
+    "(x − 5)²",
+    "(x − 25)(x + 1)",
+    "(x + 5)²"
+   ],
+   "answer": 0,
+   "hint": "A² − B² = (A − B)(A + B).",
+   "why": "x² − 5² = (x − 5)(x + 5)."
+  },
+  {
+   "topic": "5.6 Difference of Two Squares",
+   "q": "Factorise 9a² − 16.",
+   "options": [
+    "(3a − 4)(3a + 4)",
+    "(9a − 4)(a + 4)",
+    "(3a − 8)(3a + 2)",
+    "(3a − 4)²"
+   ],
+   "answer": 0,
+   "hint": "What squared gives 9a²? What squared gives 16?",
+   "why": "(3a)² − 4² = (3a − 4)(3a + 4)."
+  },
+  {
+   "topic": "5.6 Difference of Two Squares",
+   "q": "Use the difference of two squares to work out 8² − 2².",
+   "options": [
+    "60",
+    "36",
+    "64",
+    "6"
+   ],
+   "answer": 0,
+   "hint": "8² − 2² = (8 − 2)(8 + 2).",
+   "why": "6 × 10 = 60, matching the shaded area in the book."
+  }
+ ]
+};
+
+const $ = id => document.getElementById(id);
+const LETTERS = ["A","B","C","D","E","F"];
+let round = [], i = 0, score = 0, missed = [], answered = false;
+
+function shuffle(arr){
+  for(let k = arr.length - 1; k > 0; k--){
+    const j = Math.floor(Math.random() * (k + 1));
+    [arr[k], arr[j]] = [arr[j], arr[k]];
+  }
+  return arr;
+}
+function show(id){
+  ["startScreen","quizScreen","endScreen"].forEach(s => $(s).hidden = (s !== id));
+  const inQuiz = id === "quizScreen";
+  $("meta").hidden = !inQuiz;
+  $("barWrap").hidden = !inQuiz;
+}
+function prepare(q){
+  const opts = q.options.map((text, idx) => ({text, correct: idx === q.answer}));
+  return Object.assign({}, q, {opts: q.keepOrder ? opts : shuffle(opts)});
+}
+function start(){
+  round = shuffle(pool()).map(prepare);
+  i = 0; score = 0; missed = [];
+  show("quizScreen");
+  render();
+}
+function render(){
+  answered = false;
+  const q = round[i];
+  $("topic").textContent = q.topic || "Question";
+  $("question").textContent = q.q;
+  $("count").textContent = "Question " + (i + 1) + " of " + round.length;
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = (i / round.length * 100) + "%";
+  $("hint").textContent = q.hint || "";
+  $("hint").hidden = true;
+  $("hintBtn").hidden = !q.hint;
+  const fb = $("feedback"); fb.className = "feedback"; fb.textContent = "";
+  $("nextBtn").hidden = true;
+  const box = $("options"); box.textContent = "";
+  q.opts.forEach((o, idx) => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    const l = document.createElement("span"); l.className = "letter"; l.textContent = LETTERS[idx];
+    const t = document.createElement("span"); t.textContent = o.text;
+    b.appendChild(l); b.appendChild(t);
+    b.addEventListener("click", () => choose(idx));
+    box.appendChild(b);
+  });
+  window.scrollTo({top:0});
+}
+function choose(idx){
+  if(answered) return;
+  answered = true;
+  const q = round[i];
+  const buttons = Array.from($("options").children);
+  const correct = q.opts[idx].correct;
+  const rightText = q.opts.find(o => o.correct).text;
+  buttons.forEach((b, k) => {
+    b.disabled = true;
+    if(q.opts[k].correct) b.classList.add("right");
+    else if(k === idx) b.classList.add("wrong");
+  });
+  const fb = $("feedback");
+  const head = document.createElement("b");
+  const body = document.createElement("span");
+  if(correct){ score++; fb.className = "feedback good"; head.textContent = "Correct!"; }
+  else { missed.push({q: q.q, a: rightText, why: q.why}); fb.className = "feedback bad"; head.textContent = "Not quite. The answer is: " + rightText; }
+  body.textContent = q.why || "";
+  fb.appendChild(head); fb.appendChild(body);
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = ((i + 1) / round.length * 100) + "%";
+  $("hintBtn").hidden = true;
+  const next = $("nextBtn");
+  next.textContent = (i === round.length - 1) ? "See my score" : "Next question";
+  next.hidden = false;
+  next.focus();
+}
+function finish(){
+  show("endScreen");
+  const name = $("nameInput").value.trim();
+  const d = new Date();
+  const day = d.toLocaleDateString("en-IE", {day:"numeric", month:"long", year:"numeric"});
+  const secs = chosen();
+  $("who").textContent = (name ? name + " · " : "") + day + " · " + (secs.length === SECTIONS.length ? "All sections" : secs.join(", "));
+  $("finalScore").textContent = score + " / " + round.length;
+  const pct = score / round.length;
+  $("finalMsg").textContent =
+    pct === 1 ? "Perfect score. Take a bow." :
+    pct >= 0.75 ? "Great work. You know this well." :
+    pct >= 0.5 ? "Good effort. Check the ones below, then try again." :
+    "Keep going. Read over the pages again, then try again.";
+  const list = $("missedList"); list.textContent = "";
+  missed.forEach(m => {
+    const li = document.createElement("li");
+    const s = document.createElement("strong"); s.textContent = m.q;
+    const a = document.createElement("span"); a.textContent = "Answer: " + m.a + (m.why ? ". " + m.why : "");
+    li.appendChild(s); li.appendChild(a); list.appendChild(li);
+  });
+  $("missedWrap").hidden = missed.length === 0;
+  $("againBtn").focus();
+}
+
+$("title").textContent = QUIZ.title;
+document.title = QUIZ.title;
+$("subtitle").textContent = QUIZ.subtitle || "";
+$("subtitle").hidden = !QUIZ.subtitle;
+$("introText").textContent = QUIZ.intro;
+const SECTIONS = [];
+QUIZ.questions.forEach(q => { if(!SECTIONS.includes(q.topic)) SECTIONS.push(q.topic); });
+const list = $("sectionList");
+SECTIONS.forEach((s, k) => {
+  const lab = document.createElement("label");
+  const box = document.createElement("input");
+  box.type = "checkbox"; box.checked = true; box.value = s; box.id = "sec" + k;
+  box.addEventListener("change", updateCount);
+  const txt = document.createElement("span"); txt.textContent = s;
+  const n = QUIZ.questions.filter(q => q.topic === s).length;
+  const sm = document.createElement("small"); sm.textContent = n + (n === 1 ? " question" : " questions");
+  lab.appendChild(box); lab.appendChild(txt); lab.appendChild(sm);
+  list.appendChild(lab);
+});
+function chosen(){ return Array.from(list.querySelectorAll("input:checked")).map(b => b.value); }
+function pool(){ const c = chosen(); return QUIZ.questions.filter(q => c.includes(q.topic)); }
+function updateCount(){
+  const n = pool().length;
+  $("pickCount").textContent = n ? n + " questions selected" : "No sections selected";
+  if(n) $("pickError").hidden = true;
+}
+$("allBtn").addEventListener("click", () => { list.querySelectorAll("input").forEach(b => b.checked = true); updateCount(); });
+$("noneBtn").addEventListener("click", () => { list.querySelectorAll("input").forEach(b => b.checked = false); updateCount(); });
+updateCount();
+function tryStart(){
+  if(!pool().length){ $("pickError").hidden = false; return; }
+  start();
+}
+$("startBtn").addEventListener("click", tryStart);
+$("nameInput").addEventListener("keydown", e => { if(e.key === "Enter") tryStart(); });
+$("againBtn").addEventListener("click", start);
+$("changeBtn").addEventListener("click", () => { show("startScreen"); window.scrollTo({top:0}); });
+$("nextBtn").addEventListener("click", () => { i++; if(i < round.length) render(); else finish(); });
+$("hintBtn").addEventListener("click", () => { $("hint").hidden = false; $("hintBtn").hidden = true; });
+</script>
+</body>
+</html>

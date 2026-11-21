@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 3 Practice: Statistics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --ink:#1f1b0f; --muted:#5a5547; --band:#ffd84d; --bandInk:#1f1b0f;
+  --card:#fffbea; --line:#e6dfc4;
+  --opt:#ffffff; --optLine:#cfc6a3; --optHover:#fff3c4; --letter:#2f6fdb; --letterInk:#ffffff;
+  --good:#1d7a3e; --goodSoft:#e3f4e8; --bad:#b3261e; --badSoft:#fde7e5;
+  --focus:#1f55b8;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+    --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+    --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+    --focus:#9dbdff; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+  --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+  --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+  --focus:#9dbdff; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Lexend','Segoe UI',Arial,sans-serif;font-size:18px;line-height:1.5}
+header{background:var(--band);color:var(--bandInk);padding:20px 20px 18px}
+.wrap{max-width:760px;margin:0 auto}
+.back{display:inline-block;margin-bottom:10px;color:var(--bandInk);font-size:16px;font-weight:500;text-decoration:none}
+.back:hover{text-decoration:underline}
+.backBtn{display:inline-block;margin:20px 0 0 12px;color:var(--ink);font-size:18px;font-weight:500}
+.nameError{margin:8px 0 0;color:var(--bad);font-weight:500}
+header h1{margin:0;font-size:clamp(24px,5vw,34px);font-weight:700;letter-spacing:-0.3px;line-height:1.2}
+.sub{margin:4px 0 0;font-size:16px;font-weight:500}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-weight:500;font-size:16px}
+.bar{height:12px;background:rgba(31,27,15,.18);border-radius:999px;overflow:hidden;margin-top:8px}
+.bar span{display:block;height:100%;width:0;background:var(--bandInk);border-radius:999px;transition:width .3s ease}
+main{padding:24px 20px 48px}
+[hidden]{display:none!important}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:28px 24px}
+.ask{margin:0;color:var(--muted);font-weight:500;font-size:16px}
+.question{margin:8px 0 0;font-size:clamp(22px,4.6vw,28px);font-weight:700;line-height:1.3}
+.hintBtn{margin-top:16px;background:none;border:2px solid var(--optLine);color:var(--ink);font:inherit;font-size:16px;font-weight:500;border-radius:999px;padding:8px 16px;min-height:44px;cursor:pointer}
+.hint{margin:12px 0 0;font-size:17px;color:var(--muted)}
+.options{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.choice{display:flex;align-items:center;gap:14px;width:100%;min-height:60px;padding:12px 16px;text-align:left;background:var(--opt);color:var(--ink);border:2px solid var(--optLine);border-radius:16px;font:inherit;font-size:19px;font-weight:500;cursor:pointer}
+.choice:hover:not(:disabled){background:var(--optHover)}
+.choice .letter{flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--letter);color:var(--letterInk);font-weight:700;font-size:17px}
+.choice:disabled{cursor:default;opacity:.5}
+.choice.right{opacity:1;border:3px solid var(--good);background:var(--goodSoft)}
+.choice.right .letter{background:var(--good);color:var(--bg)}
+.choice.wrong{opacity:1;border:3px solid var(--bad);background:var(--badSoft)}
+.choice.wrong .letter{background:var(--bad);color:var(--bg)}
+.feedback{margin-top:18px;border-radius:16px;padding:16px 20px;font-size:18px}
+.feedback:empty{display:none}
+.feedback.good{background:var(--goodSoft);border:2px solid var(--good)}
+.feedback.bad{background:var(--badSoft);border:2px solid var(--bad)}
+.feedback b{display:block;font-size:20px;margin-bottom:4px}
+.primary{display:inline-block;margin-top:20px;background:var(--ink);color:var(--bg);border:none;border-radius:16px;font:inherit;font-size:20px;font-weight:700;padding:14px 28px;min-height:56px;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+.intro p{margin:0 0 12px}
+label{display:block;font-weight:500;margin:16px 0 6px}
+input[type=text]{width:100%;max-width:360px;font:inherit;padding:10px 14px;border:2px solid var(--optLine);border-radius:12px;background:var(--opt);color:var(--ink);min-height:48px}
+.who{margin:0;font-size:18px;font-weight:500}
+.score{font-size:clamp(48px,12vw,80px);font-weight:700;line-height:1;margin:8px 0}
+.missed{list-style:none;padding:0;margin:16px 0 0}
+.missed li{border-top:2px solid var(--line);padding:12px 0}
+.missed li span{display:block;font-size:16px;color:var(--muted)}
+@media (max-width:520px){.panel{padding:22px 18px}.choice{font-size:18px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.home{float:right}
+
+.pick{border:2px solid var(--line);border-radius:16px;padding:12px 16px 14px;margin:8px 0 0;background:var(--opt)}
+.pick legend{font-weight:700;padding:0 6px}
+.pickBtns{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 8px}
+.pickBtns button{background:none;border:2px solid var(--optLine);color:var(--ink);font:inherit;font-size:15px;font-weight:500;border-radius:999px;padding:6px 14px;min-height:40px;cursor:pointer}
+.pick label{display:flex;align-items:center;gap:12px;margin:0;padding:8px 4px;font-weight:500;font-size:17px;cursor:pointer;border-top:1px solid var(--line)}
+.pick label:first-of-type{border-top:none}
+.pick input[type=checkbox]{width:24px;height:24px;flex:none;accent-color:var(--letter)}
+.pick small{margin-left:auto;color:var(--muted);font-size:14px;white-space:nowrap}
+.pickCount{margin:10px 0 0;font-weight:500}
+.optional{font-weight:400;color:var(--muted)}
+.ghost{display:inline-block;margin:20px 0 0 12px;background:none;border:2px solid var(--optLine);color:var(--ink);border-radius:16px;font:inherit;font-size:18px;font-weight:500;padding:12px 20px;min-height:52px;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="ch03.html">← Chapter 3</a>
+    <a class="back home" href="../index.html">🏠 Home</a>
+    <h1 id="title"></h1>
+    <p class="sub" id="subtitle"></p>
+    <div class="meta" id="meta" hidden>
+      <span id="count"></span>
+      <span id="tally"></span>
+    </div>
+    <div class="bar" id="barWrap" hidden><span id="bar"></span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro" id="startScreen">
+    <div class="panel">
+      <p id="introText"></p>
+      <p>Pick the sections you want to practise, then press <strong>Start</strong>. If you’re stuck on a question, press <strong>Show a hint</strong>.</p>
+      <fieldset class="pick">
+        <legend>Choose sections</legend>
+        <div class="pickBtns"><button type="button" id="allBtn">Select all</button><button type="button" id="noneBtn">Clear all</button></div>
+        <div id="sectionList"></div>
+      </fieldset>
+      <p class="pickCount" id="pickCount" aria-live="polite"></p>
+      <p class="nameError" id="pickError" role="alert" hidden>Tick at least one section to start.</p>
+      <label for="nameInput">Your name <span class="optional">(optional)</span></label>
+      <input type="text" id="nameInput" autocomplete="off">
+      <br>
+      <button class="primary" id="startBtn">Start</button>
+    </div>
+  </section>
+
+  <section id="quizScreen" hidden>
+    <div class="panel">
+      <p class="ask" id="topic"></p>
+      <p class="question" id="question"></p>
+      <button class="hintBtn" id="hintBtn">Show a hint</button>
+      <p class="hint" id="hint" hidden></p>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <button class="primary" id="nextBtn" hidden>Next question</button>
+    </div>
+  </section>
+
+  <section id="endScreen" hidden>
+    <div class="panel">
+      <p class="who" id="who"></p>
+      <p class="ask">Your score</p>
+      <p class="score" id="finalScore"></p>
+      <p id="finalMsg"></p>
+      <div id="missedWrap">
+        <p><strong>Have another look at these:</strong></p>
+        <ul class="missed" id="missedList"></ul>
+      </div>
+      <button class="primary" id="againBtn">Try again</button>
+      <button class="ghost" id="changeBtn">Change sections</button>
+      <a class="backBtn" href="ch03.html">Back to Chapter 3</a>
+    </div>
+  </section>
+</main>
+
+<script>
+const QUIZ = {
+ "title": "Chapter 3 Practice: Statistics",
+ "subtitle": "Active Maths 2 (Higher Level, 3rd edition), Chapter 3",
+ "intro": "18 questions based on the exercises in Chapter 3, across 7 sections. Do them all, or pick the sections you’re working on.",
+ "questions": [
+  {
+   "topic": "3.1 Collecting Data",
+   "q": "Aoife asks her classmates for their favourite subject. What type of data is this?",
+   "options": [
+    "Categorical",
+    "Numerical",
+    "Continuous",
+    "Discrete"
+   ],
+   "answer": 0,
+   "hint": "Is the answer a number or a word?",
+   "why": "Subjects are words (categories), not numbers, so the data is categorical."
+  },
+  {
+   "topic": "3.1 Collecting Data",
+   "q": "Aoife says Maths is the most popular subject in the school, using only her class’s results. What is the problem?",
+   "options": [
+    "Her class may not be representative of the whole school",
+    "Her class is too big",
+    "She should have used a pie chart",
+    "Categorical data can’t have a mode"
+   ],
+   "answer": 0,
+   "hint": "Does one class speak for every year group?",
+   "why": "A sample must be representative of the population. One class may not reflect the whole school."
+  },
+  {
+   "topic": "3.2 Displaying Categorical Data",
+   "q": "Jessica slept 9 hours out of 24. What angle does sleeping get in a pie chart?",
+   "options": [
+    "135°",
+    "90°",
+    "37.5°",
+    "216°"
+   ],
+   "answer": 0,
+   "hint": "Angle = fraction of the total × 360°.",
+   "why": "9/24 × 360° = 135°."
+  },
+  {
+   "topic": "3.2 Displaying Categorical Data",
+   "q": "In a pie chart, 90° represents 150 students. How many students does 36° represent?",
+   "options": [
+    "60",
+    "40",
+    "15",
+    "375"
+   ],
+   "answer": 0,
+   "hint": "Find how many students 1° represents first.",
+   "why": "150 ÷ 90 = 5/3 students per degree, so 36° × 5/3 = 60 students."
+  },
+  {
+   "topic": "3.2 Displaying Categorical Data",
+   "q": "Which is an advantage of a line plot over a pie chart?",
+   "options": [
+    "You can read the actual frequencies",
+    "It shows fractions of the whole",
+    "It works better for many categories",
+    "It doesn’t need a scale"
+   ],
+   "answer": 0,
+   "hint": "On a line plot, each X stands for one item.",
+   "why": "A line plot shows the exact count for each category. A pie chart shows proportions."
+  },
+  {
+   "topic": "3.3 Displaying Numerical Data",
+   "q": "Complaints rose from 4 in May to 9 in June. What is the percentage increase?",
+   "options": [
+    "125%",
+    "5%",
+    "225%",
+    "55.6%"
+   ],
+   "answer": 0,
+   "hint": "% increase = increase ÷ original × 100.",
+   "why": "(9 − 4)/4 × 100 = 125%. Divide by the original value, 4, not the new one."
+  },
+  {
+   "topic": "3.3 Displaying Numerical Data",
+   "q": "In a stem-and-leaf plot with key 2 | 0 = 20 messages, what does 3 | 7 mean?",
+   "options": [
+    "37 messages",
+    "3.7 messages",
+    "10 messages",
+    "307 messages"
+   ],
+   "answer": 0,
+   "hint": "The stem is the tens and the leaf is the units.",
+   "why": "Stem 3 and leaf 7 give 37."
+  },
+  {
+   "topic": "3.3 Displaying Numerical Data",
+   "q": "Which type of graph is best for showing changes over time, such as monthly complaints?",
+   "options": [
+    "Trend graph",
+    "Pie chart",
+    "Stem-and-leaf plot",
+    "Histogram"
+   ],
+   "answer": 0,
+   "hint": "Time goes along the x-axis.",
+   "why": "Trend graphs (line graphs over time) show how data changes over time."
+  },
+  {
+   "topic": "3.4 Measures of Centre and Variability",
+   "q": "Find the mean of {3, 5, 7, 9}.",
+   "options": [
+    "6",
+    "5",
+    "7",
+    "24"
+   ],
+   "answer": 0,
+   "hint": "Add them up and divide by how many there are.",
+   "why": "24 ÷ 4 = 6."
+  },
+  {
+   "topic": "3.4 Measures of Centre and Variability",
+   "q": "Set A = {8, 8, 9, 11, 14} and set B = {1, 3, 8, 17, 21}. Both have a mean of 10. Which is more spread out?",
+   "options": [
+    "B, its range is 20",
+    "A, its range is 6",
+    "They are the same",
+    "A, it has a mode"
+   ],
+   "answer": 0,
+   "hint": "Range = maximum − minimum.",
+   "why": "Range of A = 14 − 8 = 6, range of B = 21 − 1 = 20. B is more spread out."
+  },
+  {
+   "topic": "3.4 Measures of Centre and Variability",
+   "q": "24 classmates are surveyed. The 12th and 13th values are 24 and 27. What is the median?",
+   "options": [
+    "25.5",
+    "24",
+    "27",
+    "12.5"
+   ],
+   "answer": 0,
+   "hint": "With an even number of values, the median is the mean of the middle two.",
+   "why": "(24 + 27)/2 = 25.5."
+  },
+  {
+   "topic": "3.5 Grouped Frequency Distributions",
+   "q": "What is the mid-interval value of the class 90–120?",
+   "options": [
+    "105",
+    "90",
+    "120",
+    "30"
+   ],
+   "answer": 0,
+   "hint": "Add the two ends and divide by 2.",
+   "why": "(90 + 120)/2 = 105."
+  },
+  {
+   "topic": "3.5 Grouped Frequency Distributions",
+   "q": "There are 25 pieces of data. Which value is the median?",
+   "options": [
+    "The 13th",
+    "The 12th",
+    "The 12.5th",
+    "The 25th"
+   ],
+   "answer": 0,
+   "hint": "Half of 25 is 12.5, so the median has 12 values on each side.",
+   "why": "The 13th value is the middle one, with 12 below it and 12 above it."
+  },
+  {
+   "topic": "3.5 Grouped Frequency Distributions",
+   "q": "Why is a histogram used for times spent on homework, instead of a bar chart?",
+   "options": [
+    "The data is continuous measurements",
+    "The data is categorical",
+    "There are fewer than five groups",
+    "Histograms are easier to draw"
+   ],
+   "answer": 0,
+   "hint": "Is time counted or measured?",
+   "why": "Histograms are for grouped data that has been measured, like time or height. There are no gaps between the bars."
+  },
+  {
+   "topic": "3.6 Deciding Which Average to Use",
+   "q": "Which average is best for categorical data, such as eye colour?",
+   "options": [
+    "Mode",
+    "Mean",
+    "Median",
+    "Range"
+   ],
+   "answer": 0,
+   "hint": "You can’t add up eye colours.",
+   "why": "The mode is the only average that works with categorical data."
+  },
+  {
+   "topic": "3.6 Deciding Which Average to Use",
+   "q": "Most workers earn €30,000 to €40,000, but a few earn over €600,000. Which average is most typical?",
+   "options": [
+    "Median",
+    "Mean",
+    "Range",
+    "Mode of the top earners"
+   ],
+   "answer": 0,
+   "hint": "Which average is affected by outliers?",
+   "why": "The mean is pulled up by the few large wages. The median isn’t affected by outliers."
+  },
+  {
+   "topic": "3.7 Misuses of Statistics",
+   "q": "‘Four out of five owners said their cats preferred KAT food.’ Why might this be misleading?",
+   "options": [
+    "The sample may have been very small",
+    "Cats can’t answer surveys",
+    "Four out of five is 75%",
+    "It uses a fraction"
+   ],
+   "answer": 0,
+   "hint": "How many owners were asked?",
+   "why": "If only 10 owners were asked, the result can’t be taken as true of all cat owners."
+  },
+  {
+   "topic": "3.7 Misuses of Statistics",
+   "q": "A bar chart’s vertical axis starts at 65 instead of 0. Why is this misleading?",
+   "options": [
+    "It makes small differences look huge",
+    "It makes the bars too short",
+    "It hides the team names",
+    "It changes the totals"
+   ],
+   "answer": 0,
+   "hint": "Compare the bar heights with the actual values.",
+   "why": "Starting above 0 exaggerates the differences between the bars."
+  }
+ ]
+};
+
+const $ = id => document.getElementById(id);
+const LETTERS = ["A","B","C","D","E","F"];
+let round = [], i = 0, score = 0, missed = [], answered = false;
+
+function shuffle(arr){
+  for(let k = arr.length - 1; k > 0; k--){
+    const j = Math.floor(Math.random() * (k + 1));
+    [arr[k], arr[j]] = [arr[j], arr[k]];
+  }
+  return arr;
+}
+function show(id){
+  ["startScreen","quizScreen","endScreen"].forEach(s => $(s).hidden = (s !== id));
+  const inQuiz = id === "quizScreen";
+  $("meta").hidden = !inQuiz;
+  $("barWrap").hidden = !inQuiz;
+}
+function prepare(q){
+  const opts = q.options.map((text, idx) => ({text, correct: idx === q.answer}));
+  return Object.assign({}, q, {opts: q.keepOrder ? opts : shuffle(opts)});
+}
+function start(){
+  round = shuffle(pool()).map(prepare);
+  i = 0; score = 0; missed = [];
+  show("quizScreen");
+  render();
+}
+function render(){
+  answered = false;
+  const q = round[i];
+  $("topic").textContent = q.topic || "Question";
+  $("question").textContent = q.q;
+  $("count").textContent = "Question " + (i + 1) + " of " + round.length;
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = (i / round.length * 100) + "%";
+  $("hint").textContent = q.hint || "";
+  $("hint").hidden = true;
+  $("hintBtn").hidden = !q.hint;
+  const fb = $("feedback"); fb.className = "feedback"; fb.textContent = "";
+  $("nextBtn").hidden = true;
+  const box = $("options"); box.textContent = "";
+  q.opts.forEach((o, idx) => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    const l = document.createElement("span"); l.className = "letter"; l.textContent = LETTERS[idx];
+    const t = document.createElement("span"); t.textContent = o.text;
+    b.appendChild(l); b.appendChild(t);
+    b.addEventListener("click", () => choose(idx));
+    box.appendChild(b);
+  });
+  window.scrollTo({top:0});
+}
+function choose(idx){
+  if(answered) return;
+  answered = true;
+  const q = round[i];
+  const buttons = Array.from($("options").children);
+  const correct = q.opts[idx].correct;
+  const rightText = q.opts.find(o => o.correct).text;
+  buttons.forEach((b, k) => {
+    b.disabled = true;
+    if(q.opts[k].correct) b.classList.add("right");
+    else if(k === idx) b.classList.add("wrong");
+  });
+  const fb = $("feedback");
+  const head = document.createElement("b");
+  const body = document.createElement("span");
+  if(correct){ score++; fb.className = "feedback good"; head.textContent = "Correct!"; }
+  else { missed.push({q: q.q, a: rightText, why: q.why}); fb.className = "feedback bad"; head.textContent = "Not quite. The answer is: " + rightText; }
+  body.textContent = q.why || "";
+  fb.appendChild(head); fb.appendChild(body);
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = ((i + 1) / round.length * 100) + "%";
+  $("hintBtn").hidden = true;
+  const next = $("nextBtn");
+  next.textContent = (i === round.length - 1) ? "See my score" : "Next question";
+  next.hidden = false;
+  next.focus();
+}
+function finish(){
+  show("endScreen");
+  const name = $("nameInput").value.trim();
+  const d = new Date();
+  const day = d.toLocaleDateString("en-IE", {day:"numeric", month:"long", year:"numeric"});
+  const secs = chosen();
+  $("who").textContent = (name ? name + " · " : "") + day + " · " + (secs.length === SECTIONS.length ? "All sections" : secs.join(", "));
+  $("finalScore").textContent = score + " / " + round.length;
+  const pct = score / round.length;
+  $("finalMsg").textContent =
+    pct === 1 ? "Perfect score. Take a bow." :
+    pct >= 0.75 ? "Great work. You know this well." :
+    pct >= 0.5 ? "Good effort. Check the ones below, then try again." :
+    "Keep going. Read over the pages again, then try again.";
+  const list = $("missedList"); list.textContent = "";
+  missed.forEach(m => {
+    const li = document.createElement("li");
+    const s = document.createElement("strong"); s.textContent = m.q;
+    const a = document.createElement("span"); a.textContent = "Answer: " + m.a + (m.why ? ". " + m.why : "");
+    li.appendChild(s); li.appendChild(a); list.appendChild(li);
+  });
+  $("missedWrap").hidden = missed.length === 0;
+  $("againBtn").focus();
+}
+
+$("title").textContent = QUIZ.title;
+document.title = QUIZ.title;
+$("subtitle").textContent = QUIZ.subtitle || "";
+$("subtitle").hidden = !QUIZ.subtitle;
+$("introText").textContent = QUIZ.intro;
+const SECTIONS = [];
+QUIZ.questions.forEach(q => { if(!SECTIONS.includes(q.topic)) SECTIONS.push(q.topic); });
+const list = $("sectionList");
+SECTIONS.forEach((s, k) => {
+  const lab = document.createElement("label");
+  const box = document.createElement("input");
+  box.type = "checkbox"; box.checked = true; box.value = s; box.id = "sec" + k;
+  box.addEventListener("change", updateCount);
+  const txt = document.createElement("span"); txt.textContent = s;
+  const n = QUIZ.questions.filter(q => q.topic === s).length;
+  const sm = document.createElement("small"); sm.textContent = n + (n === 1 ? " question" : " questions");
+  lab.appendChild(box); lab.appendChild(txt); lab.appendChild(sm);
+  list.appendChild(lab);
+});
+function chosen(){ return Array.from(list.querySelectorAll("input:checked")).map(b => b.value); }
+function pool(){ const c = chosen(); return QUIZ.questions.filter(q => c.includes(q.topic)); }
+function updateCount(){
+  const n = pool().length;
+  $("pickCount").textContent = n ? n + " questions selected" : "No sections selected";
+  if(n) $("pickError").hidden = true;
+}
+$("allBtn").addEventListener("click", () => { list.querySelectorAll("input").forEach(b => b.checked = true); updateCount(); });
+$("noneBtn").addEventListener("click", () => { list.querySelectorAll("input").forEach(b => b.checked = false); updateCount(); });
+updateCount();
+function tryStart(){
+  if(!pool().length){ $("pickError").hidden = false; return; }
+  start();
+}
+$("startBtn").addEventListener("click", tryStart);
+$("nameInput").addEventListener("keydown", e => { if(e.key === "Enter") tryStart(); });
+$("againBtn").addEventListener("click", start);
+$("changeBtn").addEventListener("click", () => { show("startScreen"); window.scrollTo({top:0}); });
+$("nextBtn").addEventListener("click", () => { i++; if(i < round.length) render(); else finish(); });
+$("hintBtn").addEventListener("click", () => { $("hint").hidden = false; $("hintBtn").hidden = true; });
+</script>
+</body>
+</html>
