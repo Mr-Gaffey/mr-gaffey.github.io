@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ch 5 Key Words: Algebra II</title>
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f5f0;--ink:#1d2731;--muted:#5d6872;--card:#fff;--line:#e4dfd4;--hero:#1d2731;--y2:#14866d;--y3:#2f5fd0;--y5:#d9661f;--y6:#7a3fd1}
+@media (prefers-color-scheme:dark){:root{--bg:#13171c;--ink:#eef1f4;--muted:#a3adb7;--card:#1d232a;--line:#2d353e;--hero:#0b0e11}}
+*{box-sizing:border-box}
+body{margin:0;font-family:Lexend,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+.top{background:var(--accent,var(--hero));color:#fff;padding:36px 0 32px}
+.top h1{margin:0;font-size:clamp(1.9rem,6vw,2.6rem);font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.top p{margin:8px 0 0;opacity:.88}
+.back{display:inline-block;margin-bottom:16px;color:#fff;text-decoration:none;font-weight:500;opacity:.9}
+.back:hover{opacity:1;text-decoration:underline}
+main{padding-top:12px;padding-bottom:56px}
+h2{font-size:1.15rem;font-weight:700;margin:32px 0 12px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.res{display:flex;flex-direction:column;gap:4px;padding:18px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:14px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+a.res:hover,a.res:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.res small{color:var(--accent);font-weight:700;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase}
+.res strong{font-size:1.1rem}
+.res span{color:var(--muted);font-size:.9rem}
+.res.soon{border-top-style:dashed;opacity:.75}
+.res.soon em{font-style:normal;font-size:.75rem;font-weight:700;color:var(--muted);margin-top:4px}
+.prep{display:flex;align-items:center;gap:16px;padding:20px;background:var(--accent);color:#fff;border-radius:16px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.prep:hover,.prep:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.prep b{font-size:1.25rem;display:block}.prep span{opacity:.9;font-size:.95rem}.prep i{margin-left:auto;font-style:normal;font-size:1.5rem}
+.video{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;margin-bottom:6px}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 32px}
+
+.lead{margin:20px 0 4px;color:var(--muted)}
+.quizbtn{display:flex;align-items:center;gap:16px;margin:16px 0 8px;padding:18px 20px;background:var(--accent);color:#fff;border-radius:16px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.quizbtn:hover,.quizbtn:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.quizbtn b{font-size:1.15rem;display:block}.quizbtn span{opacity:.9;font-size:.92rem}.quizbtn i{margin-left:auto;font-style:normal;font-size:1.5rem}
+.terms{display:grid;gap:12px;margin-top:20px}
+.term{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:14px;padding:16px 18px}
+.term h3{margin:0 0 6px;font-size:1.15rem}
+.term p{margin:0}
+.ex{margin-top:10px;padding:10px 14px;background:var(--bg);border-radius:10px;font-size:.95rem}
+.ex small{display:block;color:var(--accent);font-weight:700;font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;font-size:.9em;line-height:1.15;margin:0 2px}
+.fr>span:first-child{border-bottom:1.5px solid currentColor;padding:0 3px}
+.fr>span:last-child{padding:0 3px}
+</style>
+</head>
+<body style="--accent:var(--y6)">
+<header class="top">
+  <div class="wrap">
+    <a class="back" href="ch05.html">← Chapter 5</a>
+    <h1>Chapter 5 Key Words</h1>
+    <p>Algebra II · Active Maths 3</p>
+  </div>
+</header>
+<main class="wrap">
+  <p class="lead">9 key words from this chapter, each with what it means and an example. Read them, then try the quiz.</p>
+  <a class="quizbtn" href="ch05-quiz.html"><div><b>Take the terms quiz</b><span>13 questions with hints. Screenshot your score when you finish.</span></div><i aria-hidden="true">→</i></a>
+  <div class="terms">
+    <article class="term"><h3>Solve</h3><p>Find the value (or values) of the unknown that make an equation or inequality true.</p><div class="ex"><small>Example</small>Solve 2x + 1 = 9<br>2x = 8, so x = 4</div></article>
+    <article class="term"><h3>Equation</h3><p>A statement that two expressions are equal. It always has an equals sign.</p><div class="ex"><small>Example</small>3x − 4 = 11</div></article>
+    <article class="term"><h3>Linear</h3><p>The highest power of the variable is 1. A linear equation gives a straight-line graph.</p><div class="ex"><small>Example</small>2x + 5 = 13 and y = 3x − 1 are linear.</div></article>
+    <article class="term"><h3>Lowest common denominator (LCD)</h3><p>The smallest number that all the denominators (bottoms of the fractions) divide into. Multiplying by it clears the fractions.</p><div class="ex"><small>Example</small><span class="fr"><span>x</span><span>2</span></span> + <span class="fr"><span>x</span><span>3</span></span> = 5<br>LCD = 6, so 3x + 2x = 30, x = 6</div></article>
+    <article class="term"><h3>Inequality</h3><p>A statement that two amounts are not equal, using &lt;, &gt;, ≤ or ≥. The answer is a range of values. If you multiply or divide by a negative, flip the sign.</p><div class="ex"><small>Example</small>3x − 2 &gt; 7<br>3x &gt; 9, so x &gt; 3</div></article>
+    <article class="term"><h3>Simultaneous</h3><p>Simultaneous equations are two (or more) equations solved together. The answer works in all of them at the same time.</p><div class="ex"><small>Example</small>x + y = 10 and x − y = 4<br>Answer: x = 7, y = 3</div></article>
+    <article class="term"><h3>Quadratic</h3><p>The highest power of the variable is 2. A quadratic equation has the form ax² + bx + c = 0, where a ≠ 0.</p><div class="ex"><small>Example</small>x² − 5x + 6 = 0</div></article>
+    <article class="term"><h3>Quadratic formula</h3><p>A formula that solves any quadratic equation ax² + bx + c = 0:<br>x = (−b ± √(b² − 4ac)) ÷ 2a</p><div class="ex"><small>Example</small>x² + 4x + 1 = 0: a = 1, b = 4, c = 1<br>x = −2 ± √3, so x ≈ −0.27 or −3.73</div></article>
+    <article class="term"><h3>Roots</h3><p>The solutions of an equation. On a graph, the roots are where the curve crosses the x-axis.</p><div class="ex"><small>Example</small>x² − 5x + 6 = 0 has roots x = 2 and x = 3.</div></article>
+  </div>
+  <a class="quizbtn" href="ch05-quiz.html"><div><b>Take the terms quiz</b><span>13 questions with hints. Screenshot your score when you finish.</span></div><i aria-hidden="true">→</i></a>
+</main>
+<footer>Mr Gaffey's Maths</footer>
+</body>
+</html>
