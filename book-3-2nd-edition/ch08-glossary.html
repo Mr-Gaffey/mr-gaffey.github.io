@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ch 8 Key Words: Complex Numbers</title>
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f5f0;--ink:#1d2731;--muted:#5d6872;--card:#fff;--line:#e4dfd4;--hero:#1d2731;--y2:#14866d;--y3:#2f5fd0;--y5:#d9661f;--y6:#7a3fd1}
+@media (prefers-color-scheme:dark){:root{--bg:#13171c;--ink:#eef1f4;--muted:#a3adb7;--card:#1d232a;--line:#2d353e;--hero:#0b0e11}}
+*{box-sizing:border-box}
+body{margin:0;font-family:Lexend,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+.top{background:var(--accent,var(--hero));color:#fff;padding:36px 0 32px}
+.top h1{margin:0;font-size:clamp(1.9rem,6vw,2.6rem);font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.top p{margin:8px 0 0;opacity:.88}
+.back{display:inline-block;margin-bottom:16px;color:#fff;text-decoration:none;font-weight:500;opacity:.9}
+.back:hover{opacity:1;text-decoration:underline}
+main{padding-top:12px;padding-bottom:56px}
+h2{font-size:1.15rem;font-weight:700;margin:32px 0 12px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.res{display:flex;flex-direction:column;gap:4px;padding:18px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:14px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+a.res:hover,a.res:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.res small{color:var(--accent);font-weight:700;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase}
+.res strong{font-size:1.1rem}
+.res span{color:var(--muted);font-size:.9rem}
+.res.soon{border-top-style:dashed;opacity:.75}
+.res.soon em{font-style:normal;font-size:.75rem;font-weight:700;color:var(--muted);margin-top:4px}
+.prep{display:flex;align-items:center;gap:16px;padding:20px;background:var(--accent);color:#fff;border-radius:16px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.prep:hover,.prep:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.prep b{font-size:1.25rem;display:block}.prep span{opacity:.9;font-size:.95rem}.prep i{margin-left:auto;font-style:normal;font-size:1.5rem}
+.video{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;margin-bottom:6px}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 32px}
+
+.lead{margin:20px 0 4px;color:var(--muted)}
+.quizbtn{display:flex;align-items:center;gap:16px;margin:16px 0 8px;padding:18px 20px;background:var(--accent);color:#fff;border-radius:16px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.quizbtn:hover,.quizbtn:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.quizbtn b{font-size:1.15rem;display:block}.quizbtn span{opacity:.9;font-size:.92rem}.quizbtn i{margin-left:auto;font-style:normal;font-size:1.5rem}
+.terms{display:grid;gap:12px;margin-top:20px}
+.term{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:14px;padding:16px 18px}
+.term h3{margin:0 0 6px;font-size:1.15rem}
+.term p{margin:0}
+.ex{margin-top:10px;padding:10px 14px;background:var(--bg);border-radius:10px;font-size:.95rem}
+.ex small{display:block;color:var(--accent);font-weight:700;font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;font-size:.9em;line-height:1.15;margin:0 2px}
+.fr>span:first-child{border-bottom:1.5px solid currentColor;padding:0 3px}
+.fr>span:last-child{padding:0 3px}
+</style>
+</head>
+<body style="--accent:var(--y6)">
+<header class="top">
+  <div class="wrap">
+    <a class="back" href="ch08.html">← Chapter 8</a>
+    <h1>Chapter 8 Key Words</h1>
+    <p>Complex Numbers · Active Maths 3 (2nd edition)</p>
+  </div>
+</header>
+<main class="wrap">
+  <p class="lead">10 key words from this chapter, each with what it means and an example. Read them, then try the quiz.</p>
+  <a class="quizbtn" href="ch08-quiz.html"><div><b>Take the terms quiz</b><span>16 questions with hints. Screenshot your score when you finish.</span></div><i aria-hidden="true">→</i></a>
+  <div class="terms">
+    <article class="term"><h3>Complex number</h3><p>A number of the form a + bi, where a and b are real and i = √−1 (so i² = −1).</p><div class="ex"><small>Example</small>3 + 4i and −2 − i</div></article>
+    <article class="term"><h3>Imaginary number</h3><p>A number that is a multiple of i, where i = √−1. It has no real part.</p><div class="ex"><small>Example</small>3i and −5i are imaginary numbers. √−16 = 4i.</div></article>
+    <article class="term"><h3>Argand diagram</h3><p>A diagram for plotting complex numbers. Real part on the horizontal axis, imaginary part on the vertical axis.</p><div class="ex"><small>Example</small>2 + 3i is plotted at the point (2, 3).</div></article>
+    <article class="term"><h3>Real part</h3><p>The a in a + bi.</p><div class="ex"><small>Example</small>The real part of 3 − 5i is 3.</div></article>
+    <article class="term"><h3>Imaginary part</h3><p>The b in a + bi (the number in front of i, without the i).</p><div class="ex"><small>Example</small>The imaginary part of 3 − 5i is −5.</div></article>
+    <article class="term"><h3>Translation</h3><p>Adding a complex number moves (translates) a point on the Argand diagram: every point moves the same distance in the same direction.</p><div class="ex"><small>Example</small>Adding 2 + i to 1 + 3i moves it 2 right and 1 up, to 3 + 4i.</div></article>
+    <article class="term"><h3>Dilation</h3><p>Multiplying a complex number by a real number k stretches (k > 1) or shrinks (0 < k < 1) its distance from 0, in the same direction.</p><div class="ex"><small>Example</small>2(1 + 3i) = 2 + 6i is twice as far from 0.</div></article>
+    <article class="term"><h3>Modulus</h3><p>The distance from 0 to the complex number on an Argand diagram. |a + bi| = √(a² + b²)</p><div class="ex"><small>Example</small>|3 + 4i| = √(9 + 16) = 5</div></article>
+    <article class="term"><h3>Conjugate</h3><p>The same complex number with the sign of the imaginary part changed. The conjugate of a + bi is a − bi.</p><div class="ex"><small>Example</small>The conjugate of 2 + 7i is 2 − 7i.</div></article>
+    <article class="term"><h3>Rotation</h3><p>Multiplying a complex number by i rotates it 90° anticlockwise about 0 on the Argand diagram.</p><div class="ex"><small>Example</small>i(3 + 2i) = 3i + 2i² = −2 + 3i</div></article>
+  </div>
+  <a class="quizbtn" href="ch08-quiz.html"><div><b>Take the terms quiz</b><span>16 questions with hints. Screenshot your score when you finish.</span></div><i aria-hidden="true">→</i></a>
+</main>
+<footer>Mr Gaffey's Maths</footer>
+</body>
+</html>
