@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ch 12 Key Words: Probability</title>
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f5f0;--ink:#1d2731;--muted:#5d6872;--card:#fff;--line:#e4dfd4;--hero:#1d2731;--y2:#14866d;--y3:#2f5fd0;--y5:#d9661f;--y6:#7a3fd1}
+@media (prefers-color-scheme:dark){:root{--bg:#13171c;--ink:#eef1f4;--muted:#a3adb7;--card:#1d232a;--line:#2d353e;--hero:#0b0e11}}
+*{box-sizing:border-box}
+body{margin:0;font-family:Lexend,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+.top{background:var(--accent,var(--hero));color:#fff;padding:36px 0 32px}
+.top h1{margin:0;font-size:clamp(1.9rem,6vw,2.6rem);font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.top p{margin:8px 0 0;opacity:.88}
+.back{display:inline-block;margin-bottom:16px;color:#fff;text-decoration:none;font-weight:500;opacity:.9}
+.back:hover{opacity:1;text-decoration:underline}
+main{padding-top:12px;padding-bottom:56px}
+h2{font-size:1.15rem;font-weight:700;margin:32px 0 12px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.res{display:flex;flex-direction:column;gap:4px;padding:18px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:14px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+a.res:hover,a.res:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.res small{color:var(--accent);font-weight:700;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase}
+.res strong{font-size:1.1rem}
+.res span{color:var(--muted);font-size:.9rem}
+.res.soon{border-top-style:dashed;opacity:.75}
+.res.soon em{font-style:normal;font-size:.75rem;font-weight:700;color:var(--muted);margin-top:4px}
+.prep{display:flex;align-items:center;gap:16px;padding:20px;background:var(--accent);color:#fff;border-radius:16px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.prep:hover,.prep:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.prep b{font-size:1.25rem;display:block}.prep span{opacity:.9;font-size:.95rem}.prep i{margin-left:auto;font-style:normal;font-size:1.5rem}
+.video{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;margin-bottom:6px}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 32px}
+
+.lead{margin:20px 0 4px;color:var(--muted)}
+.quizbtn{display:flex;align-items:center;gap:16px;margin:16px 0 8px;padding:18px 20px;background:var(--accent);color:#fff;border-radius:16px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.quizbtn:hover,.quizbtn:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.quizbtn b{font-size:1.15rem;display:block}.quizbtn span{opacity:.9;font-size:.92rem}.quizbtn i{margin-left:auto;font-style:normal;font-size:1.5rem}
+.terms{display:grid;gap:12px;margin-top:20px}
+.term{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:14px;padding:16px 18px}
+.term h3{margin:0 0 6px;font-size:1.15rem}
+.term p{margin:0}
+.ex{margin-top:10px;padding:10px 14px;background:var(--bg);border-radius:10px;font-size:.95rem}
+.ex small{display:block;color:var(--accent);font-weight:700;font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;font-size:.9em;line-height:1.15;margin:0 2px}
+.fr>span:first-child{border-bottom:1.5px solid currentColor;padding:0 3px}
+.fr>span:last-child{padding:0 3px}
+</style>
+</head>
+<body style="--accent:var(--y6)">
+<header class="top">
+  <div class="wrap">
+    <a class="back" href="ch12.html">← Chapter 12</a>
+    <h1>Chapter 12 Key Words</h1>
+    <p>Probability · Active Maths 3 (2nd edition)</p>
+  </div>
+</header>
+<main class="wrap">
+  <p class="lead">19 key words from this chapter, each with what it means and an example. Read them, then try the quiz.</p>
+  <a class="quizbtn" href="ch12-quiz.html"><div><b>Take the terms quiz</b><span>17 questions with hints. Screenshot your score when you finish.</span></div><i aria-hidden="true">→</i></a>
+  <div class="terms">
+    <article class="term"><h3>Probability scale</h3><p>A number line from 0 (impossible) to 1 (certain).</p><div class="ex"><small>Example</small>0.5 is an even chance. 0.9 is very likely.</div></article>
+    <article class="term"><h3>Likelihood scale</h3><p>A line showing how likely something is, in words, from impossible to certain.</p><div class="ex"><small>Example</small>Impossible, unlikely, even chance, likely, certain</div></article>
+    <article class="term"><h3>Trial</h3><p>Doing an experiment once.</p><div class="ex"><small>Example</small>Rolling a die one time.</div></article>
+    <article class="term"><h3>Outcome</h3><p>One of the possible results of a trial.</p><div class="ex"><small>Example</small>Getting a 4 when you roll a die.</div></article>
+    <article class="term"><h3>Sample space</h3><p>The set (list) of all possible outcomes.</p><div class="ex"><small>Example</small>Rolling a die: {1, 2, 3, 4, 5, 6}</div></article>
+    <article class="term"><h3>Event</h3><p>One or more outcomes of an experiment.</p><div class="ex"><small>Example</small>Rolling an even number: {2, 4, 6}</div></article>
+    <article class="term"><h3>Relative frequency</h3><p>The number of times an event happened ÷ the number of trials.</p><div class="ex"><small>Example</small>18 heads in 50 tosses: 18 ÷ 50 = 0.36</div></article>
+    <article class="term"><h3>Expected frequency</h3><p>How many times you expect an event to happen.<br>Probability × number of trials</p><div class="ex"><small>Example</small>Roll a die 300 times: expect ⅙ × 300 = 50 sixes</div></article>
+    <article class="term"><h3>Fairness</h3><p>A coin, die or spinner is fair if every outcome is equally likely. A game is fair if, on average, nobody gains or loses: the expected value equals the cost to play.</p><div class="ex"><small>Example</small>A game costs €2 and the expected winnings are €2, so the game is fair.</div></article>
+    <article class="term"><h3>Equally likely</h3><p>Outcomes that all have the same probability.</p><div class="ex"><small>Example</small>Each face of a fair die is equally likely, with probability 1⁄6.</div></article>
+    <article class="term"><h3>Theoretical probability</h3><p>A probability worked out by reasoning, without doing the experiment.</p><div class="ex"><small>Example</small>P(king from a deck) = <span class="fr"><span>4</span><span>52</span></span> = <span class="fr"><span>1</span><span>13</span></span></div></article>
+    <article class="term"><h3>Set theory</h3><p>Using sets and Venn diagrams to show events. ∪ means OR, ∩ means AND.</p><div class="ex"><small>Example</small>P(A ∪ B) = P(A) + P(B) − P(A ∩ B)</div></article>
+    <article class="term"><h3>Mutually exclusive events</h3><p>Events that cannot happen at the same time. P(A or B) = P(A) + P(B)</p><div class="ex"><small>Example</small>Rolling a 2 and rolling a 5 on one roll.</div></article>
+    <article class="term"><h3>AND/OR events</h3><p>P(A or B) = P(A) + P(B) − P(A and B). Take away the overlap so it isn’t counted twice. For independent events, P(A and B) = P(A) × P(B).</p><div class="ex"><small>Example</small>One card: P(red or king) = 26⁄52 + 4⁄52 − 2⁄52 = 28⁄52 = 7⁄13</div></article>
+    <article class="term"><h3>Two-way table</h3><p>A grid that shows all the outcomes of two events together.</p><div class="ex"><small>Example</small>Two dice in a 6 × 6 grid give 36 outcomes.</div></article>
+    <article class="term"><h3>Tree diagram</h3><p>A diagram with branches showing the outcomes of one event followed by another.</p><div class="ex"><small>Example</small>A coin tossed twice has 4 branch endings.</div></article>
+    <article class="term"><h3>Independent events</h3><p>The result of one event does not affect the other. P(A and B) = P(A) × P(B)</p><div class="ex"><small>Example</small>Head on a coin and 6 on a die:<br>½ × <span class="fr"><span>1</span><span>6</span></span> = <span class="fr"><span>1</span><span>12</span></span></div></article>
+    <article class="term"><h3>Bernoulli trial</h3><p>A trial with only two outcomes, success or failure, where the chance of success is the same every time.</p><div class="ex"><small>Example</small>Rolling a die where success = 6, p = <span class="fr"><span>1</span><span>6</span></span>.<br>First 6 on the 3rd roll: <span class="fr"><span>5</span><span>6</span></span> × <span class="fr"><span>5</span><span>6</span></span> × <span class="fr"><span>1</span><span>6</span></span> = <span class="fr"><span>25</span><span>216</span></span></div></article>
+    <article class="term"><h3>Expected value</h3><p>The average result you'd expect in the long run. Multiply each value by its probability and add.</p><div class="ex"><small>Example</small>Win €10 with probability 0.2, else €0:<br>E = 10 × 0.2 = €2. If it costs €3 to play, it is not a fair game.</div></article>
+  </div>
+  <a class="quizbtn" href="ch12-quiz.html"><div><b>Take the terms quiz</b><span>17 questions with hints. Screenshot your score when you finish.</span></div><i aria-hidden="true">→</i></a>
+</main>
+<footer>Mr Gaffey's Maths</footer>
+</body>
+</html>
