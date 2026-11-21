@@ -1,0 +1,1013 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 5 Practice: Algebra II</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --ink:#1f1b0f; --muted:#5a5547; --band:#ffd84d; --bandInk:#1f1b0f;
+  --card:#fffbea; --line:#e6dfc4;
+  --opt:#ffffff; --optLine:#cfc6a3; --optHover:#fff3c4; --letter:#2f6fdb; --letterInk:#ffffff;
+  --good:#1d7a3e; --goodSoft:#e3f4e8; --bad:#b3261e; --badSoft:#fde7e5;
+  --focus:#1f55b8;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+    --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+    --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+    --focus:#9dbdff; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+  --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+  --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+  --focus:#9dbdff; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Lexend','Segoe UI',Arial,sans-serif;font-size:18px;line-height:1.5}
+header{background:var(--band);color:var(--bandInk);padding:20px 20px 18px}
+.wrap{max-width:760px;margin:0 auto}
+.back{display:inline-block;margin-bottom:10px;color:var(--bandInk);font-size:16px;font-weight:500;text-decoration:none}
+.back:hover{text-decoration:underline}
+.backBtn{display:inline-block;margin:20px 0 0 12px;color:var(--ink);font-size:18px;font-weight:500}
+.nameError{margin:8px 0 0;color:var(--bad);font-weight:500}
+header h1{margin:0;font-size:clamp(24px,5vw,34px);font-weight:700;letter-spacing:-0.3px;line-height:1.2}
+.sub{margin:4px 0 0;font-size:16px;font-weight:500}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-weight:500;font-size:16px}
+.bar{height:12px;background:rgba(31,27,15,.18);border-radius:999px;overflow:hidden;margin-top:8px}
+.bar span{display:block;height:100%;width:0;background:var(--bandInk);border-radius:999px;transition:width .3s ease}
+main{padding:24px 20px 48px}
+[hidden]{display:none!important}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:28px 24px}
+.ask{margin:0;color:var(--muted);font-weight:500;font-size:16px}
+.question{margin:8px 0 0;font-size:clamp(22px,4.6vw,28px);font-weight:700;line-height:1.3}
+.hintBtn{margin-top:16px;background:none;border:2px solid var(--optLine);color:var(--ink);font:inherit;font-size:16px;font-weight:500;border-radius:999px;padding:8px 16px;min-height:44px;cursor:pointer}
+.hint{margin:12px 0 0;font-size:17px;color:var(--muted)}
+.options{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.choice{display:flex;align-items:center;gap:14px;width:100%;min-height:60px;padding:12px 16px;text-align:left;background:var(--opt);color:var(--ink);border:2px solid var(--optLine);border-radius:16px;font:inherit;font-size:19px;font-weight:500;cursor:pointer}
+.choice:hover:not(:disabled){background:var(--optHover)}
+.choice .letter{flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--letter);color:var(--letterInk);font-weight:700;font-size:17px}
+.choice:disabled{cursor:default;opacity:.5}
+.choice.right{opacity:1;border:3px solid var(--good);background:var(--goodSoft)}
+.choice.right .letter{background:var(--good);color:var(--bg)}
+.choice.wrong{opacity:1;border:3px solid var(--bad);background:var(--badSoft)}
+.choice.wrong .letter{background:var(--bad);color:var(--bg)}
+.feedback{margin-top:18px;border-radius:16px;padding:16px 20px;font-size:18px}
+.feedback:empty{display:none}
+.feedback.good{background:var(--goodSoft);border:2px solid var(--good)}
+.feedback.bad{background:var(--badSoft);border:2px solid var(--bad)}
+.feedback b{display:block;font-size:20px;margin-bottom:4px}
+.primary{display:inline-block;margin-top:20px;background:var(--ink);color:var(--bg);border:none;border-radius:16px;font:inherit;font-size:20px;font-weight:700;padding:14px 28px;min-height:56px;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+.intro p{margin:0 0 12px}
+label{display:block;font-weight:500;margin:16px 0 6px}
+input[type=text]{width:100%;max-width:360px;font:inherit;padding:10px 14px;border:2px solid var(--optLine);border-radius:12px;background:var(--opt);color:var(--ink);min-height:48px}
+.who{margin:0;font-size:18px;font-weight:500}
+.score{font-size:clamp(48px,12vw,80px);font-weight:700;line-height:1;margin:8px 0}
+.missed{list-style:none;padding:0;margin:16px 0 0}
+.missed li{border-top:2px solid var(--line);padding:12px 0}
+.missed li span{display:block;font-size:16px;color:var(--muted)}
+@media (max-width:520px){.panel{padding:22px 18px}.choice{font-size:18px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.pick{border:2px solid var(--line);border-radius:16px;padding:12px 16px 14px;margin:8px 0 0;background:var(--opt)}
+.pick legend{font-weight:700;padding:0 6px}
+.pickBtns{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 8px}
+.pickBtns button{background:none;border:2px solid var(--optLine);color:var(--ink);font:inherit;font-size:15px;font-weight:500;border-radius:999px;padding:6px 14px;min-height:40px;cursor:pointer}
+.pick label{display:flex;align-items:center;gap:12px;margin:0;padding:8px 4px;font-weight:500;font-size:17px;cursor:pointer;border-top:1px solid var(--line)}
+.pick label:first-of-type{border-top:none}
+.pick input[type=checkbox]{width:24px;height:24px;flex:none;accent-color:var(--letter)}
+.pick small{margin-left:auto;color:var(--muted);font-size:14px;white-space:nowrap}
+.pickCount{margin:10px 0 0;font-weight:500}
+.optional{font-weight:400;color:var(--muted)}
+.ghost{display:inline-block;margin:20px 0 0 12px;background:none;border:2px solid var(--optLine);color:var(--ink);border-radius:16px;font:inherit;font-size:18px;font-weight:500;padding:12px 20px;min-height:52px;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="ch05.html">← Chapter 5</a>
+    <h1 id="title"></h1>
+    <p class="sub" id="subtitle"></p>
+    <div class="meta" id="meta" hidden>
+      <span id="count"></span>
+      <span id="tally"></span>
+    </div>
+    <div class="bar" id="barWrap" hidden><span id="bar"></span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro" id="startScreen">
+    <div class="panel">
+      <p id="introText"></p>
+      <p>Pick the sections you want to practise, then press <strong>Start</strong>. If you’re stuck on a question, press <strong>Show a hint</strong>.</p>
+      <fieldset class="pick">
+        <legend>Choose sections</legend>
+        <div class="pickBtns"><button type="button" id="allBtn">Select all</button><button type="button" id="noneBtn">Clear all</button></div>
+        <div id="sectionList"></div>
+      </fieldset>
+      <p class="pickCount" id="pickCount" aria-live="polite"></p>
+      <p class="nameError" id="pickError" role="alert" hidden>Tick at least one section to start.</p>
+      <label for="nameInput">Your name <span class="optional">(optional)</span></label>
+      <input type="text" id="nameInput" autocomplete="off">
+      <br>
+      <button class="primary" id="startBtn">Start</button>
+    </div>
+  </section>
+
+  <section id="quizScreen" hidden>
+    <div class="panel">
+      <p class="ask" id="topic"></p>
+      <p class="question" id="question"></p>
+      <button class="hintBtn" id="hintBtn">Show a hint</button>
+      <p class="hint" id="hint" hidden></p>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <button class="primary" id="nextBtn" hidden>Next question</button>
+    </div>
+  </section>
+
+  <section id="endScreen" hidden>
+    <div class="panel">
+      <p class="who" id="who"></p>
+      <p class="ask">Your score</p>
+      <p class="score" id="finalScore"></p>
+      <p id="finalMsg"></p>
+      <div id="missedWrap">
+        <p><strong>Have another look at these:</strong></p>
+        <ul class="missed" id="missedList"></ul>
+      </div>
+      <button class="primary" id="againBtn">Try again</button>
+      <button class="ghost" id="changeBtn">Change sections</button>
+      <a class="backBtn" href="ch05.html">Back to Chapter 5</a>
+    </div>
+  </section>
+</main>
+
+<script>
+const QUIZ = {
+ "title": "Chapter 5 Practice: Algebra II",
+ "subtitle": "Active Maths 3, Chapter 5, pages 76 to 103",
+ "intro": "54 questions based on the exercises in Chapter 5, across 12 sections. Do them all, or pick the sections you’re working on.",
+ "questions": [
+  {
+   "topic": "5.1 Solving Linear Equations",
+   "q": "Solve 3x + 7 = 34.",
+   "options": [
+    "x = 9",
+    "x = 27",
+    "x = 41/3",
+    "x = 7"
+   ],
+   "answer": 0,
+   "hint": "Subtract 7 from both sides first.",
+   "why": "3x = 27, so x = 9."
+  },
+  {
+   "topic": "5.1 Solving Linear Equations",
+   "q": "Solve 4x + 3 = 2x + 11.",
+   "options": [
+    "x = 4",
+    "x = 7",
+    "x = 2",
+    "x = 8"
+   ],
+   "answer": 0,
+   "hint": "Get the x terms on one side and the numbers on the other.",
+   "why": "4x − 2x = 11 − 3, so 2x = 8 and x = 4."
+  },
+  {
+   "topic": "5.1 Solving Linear Equations",
+   "q": "Solve 2(x − 1) = 4x.",
+   "options": [
+    "x = −1",
+    "x = 1",
+    "x = −2",
+    "x = −1/3"
+   ],
+   "answer": 0,
+   "hint": "Multiply out the bracket first.",
+   "why": "2x − 2 = 4x, so −2 = 2x and x = −1."
+  },
+  {
+   "topic": "5.1 Solving Linear Equations",
+   "q": "Solve 3(x − 6) + 15 = 4(x − 1) + 4.",
+   "options": [
+    "x = −3",
+    "x = 3",
+    "x = 5",
+    "x = −1"
+   ],
+   "answer": 0,
+   "hint": "Simplify each side fully before moving terms across.",
+   "why": "3x − 18 + 15 = 4x − 4 + 4 gives 3x − 3 = 4x, so x = −3."
+  },
+  {
+   "topic": "5.2 Problems Involving Linear Equations",
+   "q": "Ben is x years old. Amy is 2 years older than Ben. Carl is 5 years younger than Amy. Their ages add to 113. How old is Ben?",
+   "options": [
+    "38",
+    "40",
+    "35",
+    "37"
+   ],
+   "answer": 0,
+   "hint": "Carl’s age is (x + 2) − 5. Add all three ages and set the total equal to 113.",
+   "why": "x + (x + 2) + (x − 3) = 113, so 3x − 1 = 113 and x = 38. Amy is 40 and Carl is 35."
+  },
+  {
+   "topic": "5.2 Problems Involving Linear Equations",
+   "q": "A number is doubled and then 17 is added. The result is 35. What is the number?",
+   "options": [
+    "9",
+    "26",
+    "18",
+    "8.5"
+   ],
+   "answer": 0,
+   "hint": "Write it as an equation: 2x + 17 = 35.",
+   "why": "2x = 35 − 17 = 18, so x = 9."
+  },
+  {
+   "topic": "5.2 Problems Involving Linear Equations",
+   "q": "A cinema has 100 seats. Luxury seats cost €10 and standard seats cost €5. When full, the takings are €650. How many seats are luxury?",
+   "options": [
+    "30",
+    "70",
+    "65",
+    "35"
+   ],
+   "answer": 0,
+   "hint": "Let x be the number of standard seats. Then there are (100 − x) luxury seats.",
+   "why": "5x + 10(100 − x) = 650 gives 1,000 − 5x = 650, so x = 70 standard seats and 30 luxury seats."
+  },
+  {
+   "topic": "5.2 Problems Involving Linear Equations",
+   "q": "The angles of a triangle are 60°, 3x° and 5x°. Find x.",
+   "options": [
+    "15",
+    "22.5",
+    "30",
+    "20"
+   ],
+   "answer": 0,
+   "hint": "The angles in a triangle add to 180°.",
+   "why": "60 + 3x + 5x = 180, so 8x = 120 and x = 15."
+  },
+  {
+   "topic": "5.2 Problems Involving Linear Equations",
+   "q": "The sum of a natural number n and the next natural number is 83. What are the two numbers?",
+   "options": [
+    "41 and 42",
+    "42 and 43",
+    "40 and 41",
+    "83 and 84"
+   ],
+   "answer": 0,
+   "hint": "The next natural number is n + 1. So n + (n + 1) = 83.",
+   "why": "2n + 1 = 83, so n = 41. The numbers are 41 and 42."
+  },
+  {
+   "topic": "5.3 Linear Equations Involving Fractions",
+   "q": "Solve (x + 3)/5 = 1.",
+   "options": [
+    "x = 2",
+    "x = 8",
+    "x = −2",
+    "x = 1.6"
+   ],
+   "answer": 0,
+   "hint": "Multiply both sides by 5.",
+   "why": "x + 3 = 5, so x = 2."
+  },
+  {
+   "topic": "5.3 Linear Equations Involving Fractions",
+   "q": "Solve (x + 1)/3 = x/2.",
+   "options": [
+    "x = 2",
+    "x = 1",
+    "x = −2",
+    "x = 6"
+   ],
+   "answer": 0,
+   "hint": "Multiply both sides by the LCD, 6.",
+   "why": "2(x + 1) = 3x, so 2x + 2 = 3x and x = 2."
+  },
+  {
+   "topic": "5.3 Linear Equations Involving Fractions",
+   "q": "Solve x/6 − x/2 = 5.",
+   "options": [
+    "x = −15",
+    "x = 15",
+    "x = −7.5",
+    "x = 30"
+   ],
+   "answer": 0,
+   "hint": "Multiply every term, including the 5, by 6.",
+   "why": "x − 3x = 30, so −2x = 30 and x = −15."
+  },
+  {
+   "topic": "5.3 Linear Equations Involving Fractions",
+   "q": "Solve (8x − 3)/3 − (4x − 2)/5 = 5.",
+   "options": [
+    "x = 3",
+    "x = 2",
+    "x = 4",
+    "x = 24/7"
+   ],
+   "answer": 0,
+   "hint": "Multiply by 15. Be careful: −3(4x − 2) gives +6 at the end.",
+   "why": "5(8x − 3) − 3(4x − 2) = 75 gives 40x − 15 − 12x + 6 = 75, so 28x = 84 and x = 3."
+  },
+  {
+   "topic": "5.4 Linear Inequalities",
+   "q": "Write down the first three values of x > 2, x ∈ ℕ.",
+   "options": [
+    "3, 4, 5",
+    "2, 3, 4",
+    "1, 2, 3",
+    "0, 1, 2"
+   ],
+   "answer": 0,
+   "hint": "Is 2 itself included when the sign is >?",
+   "why": "> means strictly greater than, so 2 is not included. The first three natural numbers above 2 are 3, 4, 5."
+  },
+  {
+   "topic": "5.4 Linear Inequalities",
+   "q": "Which inequality describes ‘a real number whose value is at least 5’?",
+   "options": [
+    "x ≥ 5, x ∈ ℝ",
+    "x > 5, x ∈ ℝ",
+    "x ≤ 5, x ∈ ℝ",
+    "x < 5, x ∈ ℝ"
+   ],
+   "answer": 0,
+   "hint": "‘At least 5’ means 5 or more. Is 5 allowed?",
+   "why": "At least 5 includes 5 itself, so we use ≥."
+  },
+  {
+   "topic": "5.4 Linear Inequalities",
+   "q": "Solve 5 + 2(3 − x) < 13.",
+   "options": [
+    "x > −1",
+    "x < −1",
+    "x > 1",
+    "x < 1"
+   ],
+   "answer": 0,
+   "hint": "After simplifying you get −2x < 2. What happens when you divide by a negative?",
+   "why": "11 − 2x < 13, so −2x < 2. Dividing by −2 flips the sign: x > −1."
+  },
+  {
+   "topic": "5.4 Linear Inequalities",
+   "q": "Solve 2 − 4x ≤ 18.",
+   "options": [
+    "x ≥ −4",
+    "x ≤ −4",
+    "x ≥ 4",
+    "x ≤ 4"
+   ],
+   "answer": 0,
+   "hint": "−4x ≤ 16. Remember the rule for dividing by a negative number.",
+   "why": "−4x ≤ 16. Divide by −4 and reverse the sign: x ≥ −4."
+  },
+  {
+   "topic": "5.4 Linear Inequalities",
+   "q": "How is x > −1, x ∈ ℝ shown on a number line?",
+   "options": [
+    "An open circle at −1 with solid shading to the right",
+    "A filled circle at −1 with solid shading to the right",
+    "An open circle at −1 with shading to the left",
+    "Dots at 0, 1, 2 with an arrow"
+   ],
+   "answer": 0,
+   "hint": "Real numbers use continuous shading. Is −1 itself included?",
+   "why": "ℝ needs solid shading, and −1 is not included, so it gets an open circle. Dots are for ℕ and ℤ."
+  },
+  {
+   "topic": "5.4 Linear Inequalities",
+   "q": "Find the smallest value of x ∈ ℕ for which 2(x − 1) − 33 > 0.",
+   "options": [
+    "18",
+    "17",
+    "35",
+    "19"
+   ],
+   "answer": 0,
+   "hint": "Solve the inequality first, then pick the smallest natural number that works.",
+   "why": "2x − 2 − 33 > 0 gives 2x > 35, so x > 17.5. The smallest natural number is 18."
+  },
+  {
+   "topic": "5.5 Simultaneous Linear Equations",
+   "q": "Solve x + y = 7 and x − y = 1.",
+   "options": [
+    "x = 4, y = 3",
+    "x = 3, y = 4",
+    "x = 5, y = 2",
+    "x = 6, y = 1"
+   ],
+   "answer": 0,
+   "hint": "Add the two equations to get rid of y.",
+   "why": "2x = 8, so x = 4. Then 4 + y = 7 gives y = 3. Check: 4 − 3 = 1."
+  },
+  {
+   "topic": "5.5 Simultaneous Linear Equations",
+   "q": "Solve 2x + y = 9 and 3x + y = 11.",
+   "options": [
+    "x = 2, y = 5",
+    "x = 4, y = 1",
+    "x = 5, y = −1",
+    "x = 3, y = 3"
+   ],
+   "answer": 0,
+   "hint": "Subtract the first equation from the second.",
+   "why": "x = 2. Then 2(2) + y = 9 gives y = 5. Check: 3(2) + 5 = 11."
+  },
+  {
+   "topic": "5.5 Simultaneous Linear Equations",
+   "q": "A pen and a pencil cost €1. Four pens and two pencils cost €3.40. Find the price of each.",
+   "options": [
+    "Pen 70c, pencil 30c",
+    "Pen 30c, pencil 70c",
+    "Pen 85c, pencil 15c",
+    "Pen 60c, pencil 40c"
+   ],
+   "answer": 0,
+   "hint": "x + y = 1 and 4x + 2y = 3.40. Multiply the first equation by 2.",
+   "why": "2x + 2y = 2. Subtracting from 4x + 2y = 3.40 gives 2x = 1.40, so x = 0.70 and y = 0.30."
+  },
+  {
+   "topic": "5.5 Simultaneous Linear Equations",
+   "q": "The sum of two numbers is 25. Twice the first number plus the second number is 35. Find the numbers.",
+   "options": [
+    "First 10, second 15",
+    "First 15, second 10",
+    "First 5, second 20",
+    "First 12, second 13"
+   ],
+   "answer": 0,
+   "hint": "x + y = 25 and 2x + y = 35. Subtract.",
+   "why": "x = 10, so y = 15. Check: 2(10) + 15 = 35."
+  },
+  {
+   "topic": "5.5 Simultaneous Linear Equations",
+   "q": "A shop sold 50 sofas. Leather sofas sold for €1,000 and fabric ones for €750. Takings were €42,500. How many leather sofas were sold?",
+   "options": [
+    "20",
+    "30",
+    "25",
+    "40"
+   ],
+   "answer": 0,
+   "hint": "x + y = 50 and 1,000x + 750y = 42,500.",
+   "why": "Multiply the first by 750: 750x + 750y = 37,500. Subtract: 250x = 5,000, so x = 20 leather and 30 fabric."
+  },
+  {
+   "topic": "5.6 Solving Quadratic Equations",
+   "q": "Solve x² + 7x + 12 = 0.",
+   "options": [
+    "x = −3 or x = −4",
+    "x = 3 or x = 4",
+    "x = −2 or x = −6",
+    "x = −12 or x = −1"
+   ],
+   "answer": 0,
+   "hint": "Factorise first, then let each factor equal 0.",
+   "why": "(x + 3)(x + 4) = 0, so x = −3 or x = −4."
+  },
+  {
+   "topic": "5.6 Solving Quadratic Equations",
+   "q": "Solve x² − 5x = 0.",
+   "options": [
+    "x = 0 or x = 5",
+    "x = 5 only",
+    "x = 0 or x = −5",
+    "x = ±√5"
+   ],
+   "answer": 0,
+   "hint": "Take out x as a common factor. Don’t divide both sides by x, or you lose an answer.",
+   "why": "x(x − 5) = 0, so x = 0 or x = 5."
+  },
+  {
+   "topic": "5.6 Solving Quadratic Equations",
+   "q": "Solve x² − 81 = 0.",
+   "options": [
+    "x = ±9",
+    "x = 9 only",
+    "x = 0 or x = 81",
+    "x = ±40.5"
+   ],
+   "answer": 0,
+   "hint": "Difference of two squares, or rearrange to x² = 81.",
+   "why": "(x − 9)(x + 9) = 0, so x = 9 or x = −9."
+  },
+  {
+   "topic": "5.6 Solving Quadratic Equations",
+   "q": "Solve n² − 6n − 16 = 0.",
+   "options": [
+    "n = 8 or n = −2",
+    "n = −8 or n = 2",
+    "n = 4 or n = −4",
+    "n = 16 or n = −1"
+   ],
+   "answer": 0,
+   "hint": "Two numbers that multiply to −16 and add to −6.",
+   "why": "(n − 8)(n + 2) = 0, so n = 8 or n = −2."
+  },
+  {
+   "topic": "5.6 Solving Quadratic Equations",
+   "q": "To use the quadratic formula on x² − 5x − 14 = 0, what are a, b and c?",
+   "options": [
+    "a = 1, b = −5, c = −14",
+    "a = 1, b = 5, c = 14",
+    "a = 0, b = −5, c = −14",
+    "a = −5, b = −14, c = 1"
+   ],
+   "answer": 0,
+   "hint": "a is the number in front of x², b is in front of x, c is the constant. Keep the signs.",
+   "why": "a = 1 (coefficient of x²), b = −5 (coefficient of x), c = −14 (the constant)."
+  },
+  {
+   "topic": "5.7 Solving Quadratic Equations II",
+   "q": "Solve 3x² + 5x − 12 = 0.",
+   "options": [
+    "x = 4/3 or x = −3",
+    "x = −4/3 or x = 3",
+    "x = 4 or x = −3",
+    "x = 3/4 or x = −3"
+   ],
+   "answer": 0,
+   "hint": "Guide number: 3 × −12 = −36. Which factors of −36 add to 5?",
+   "why": "(3x − 4)(x + 3) = 0, so 3x = 4 giving x = 4/3, or x = −3."
+  },
+  {
+   "topic": "5.7 Solving Quadratic Equations II",
+   "q": "Solve 4p² − 25 = 0.",
+   "options": [
+    "p = ±5/2",
+    "p = ±25/4",
+    "p = ±5/4",
+    "p = 5/2 only"
+   ],
+   "answer": 0,
+   "hint": "4p² = 25, so p² = 25/4. Don’t forget the negative root.",
+   "why": "(2p − 5)(2p + 5) = 0, so p = 5/2 or p = −5/2."
+  },
+  {
+   "topic": "5.7 Solving Quadratic Equations II",
+   "q": "Solve 2x² + 5x + 3 = 0.",
+   "options": [
+    "x = −1 or x = −3/2",
+    "x = 1 or x = 3/2",
+    "x = −1 or x = −3",
+    "x = −2 or x = −3/2"
+   ],
+   "answer": 0,
+   "hint": "Factorise into (2x + ?)(x + ?).",
+   "why": "(2x + 3)(x + 1) = 0, so x = −3/2 or x = −1."
+  },
+  {
+   "topic": "5.7 Solving Quadratic Equations II",
+   "q": "Solve 13x + 30 = 3x².",
+   "options": [
+    "x = 6 or x = −5/3",
+    "x = −6 or x = 5/3",
+    "x = 6 or x = 5/3",
+    "x = 10 or x = −1"
+   ],
+   "answer": 0,
+   "hint": "First rearrange so everything is on one side: 3x² − 13x − 30 = 0.",
+   "why": "(3x + 5)(x − 6) = 0, so x = 6 or x = −5/3."
+  },
+  {
+   "topic": "5.8 Problems Using Quadratic Equations",
+   "q": "The width of an office is 4 m less than its length. The area is 221 m². Find its dimensions.",
+   "options": [
+    "17 m by 13 m",
+    "21 m by 17 m",
+    "13 m by 9 m",
+    "15 m by 11 m"
+   ],
+   "answer": 0,
+   "hint": "x(x − 4) = 221. Rearrange to x² − 4x − 221 = 0 and solve.",
+   "why": "(x − 17)(x + 13) = 0. Reject x = −13 as a length can’t be negative, so the office is 17 m by 13 m."
+  },
+  {
+   "topic": "5.8 Problems Using Quadratic Equations",
+   "q": "In the office question, why do we reject x = −13?",
+   "options": [
+    "A length can’t be negative",
+    "It doesn’t check in the equation",
+    "The formula only gives one answer",
+    "−13 is not a whole number"
+   ],
+   "answer": 0,
+   "hint": "Think about what x stands for in the question.",
+   "why": "x is a length in metres, and lengths are never negative. In context questions we may need to reject a solution."
+  },
+  {
+   "topic": "5.8 Problems Using Quadratic Equations",
+   "q": "A rectangle’s length is 5 m more than its width. Its area is 234 m². Find its width.",
+   "options": [
+    "13 m",
+    "18 m",
+    "9 m",
+    "12 m"
+   ],
+   "answer": 0,
+   "hint": "x(x + 5) = 234 gives x² + 5x − 234 = 0.",
+   "why": "(x + 18)(x − 13) = 0, so x = 13 (reject −18). The width is 13 m and the length is 18 m."
+  },
+  {
+   "topic": "5.8 Problems Using Quadratic Equations",
+   "q": "A number is squared and added to three times the number, giving 18. Find all possible values.",
+   "options": [
+    "3 or −6",
+    "−3 or 6",
+    "3 only",
+    "2 or −9"
+   ],
+   "answer": 0,
+   "hint": "x² + 3x = 18. Get 0 on one side first.",
+   "why": "x² + 3x − 18 = 0 gives (x + 6)(x − 3) = 0, so x = 3 or x = −6. Both work here."
+  },
+  {
+   "topic": "5.9 Non-Factorisable Quadratic Equations",
+   "q": "Using the quadratic formula on 8x² − x − 15 = 0 gives…",
+   "options": [
+    "x = (1 ± √481)/16",
+    "x = (−1 ± √481)/16",
+    "x = (1 ± √481)/8",
+    "x = (1 ± √−479)/16"
+   ],
+   "answer": 0,
+   "hint": "a = 8, b = −1, c = −15. What is −b? What is b² − 4ac?",
+   "why": "−b = 1, b² − 4ac = 1 − 4(8)(−15) = 1 + 480 = 481 and 2a = 16."
+  },
+  {
+   "topic": "5.9 Non-Factorisable Quadratic Equations",
+   "q": "Write √56 in simplest surd form.",
+   "options": [
+    "2√14",
+    "4√14",
+    "7√8",
+    "14√2"
+   ],
+   "answer": 0,
+   "hint": "Find the largest perfect square that divides into 56.",
+   "why": "56 = 4 × 14, so √56 = √4 × √14 = 2√14."
+  },
+  {
+   "topic": "5.9 Non-Factorisable Quadratic Equations",
+   "q": "Solve x² + 6x + 4 = 0, giving your answer in surd form.",
+   "options": [
+    "x = −3 ± √5",
+    "x = 3 ± √5",
+    "x = −6 ± √20",
+    "x = −3 ± √20"
+   ],
+   "answer": 0,
+   "hint": "b² − 4ac = 36 − 16 = 20. Then simplify √20 and divide by 2.",
+   "why": "x = (−6 ± √20)/2 = (−6 ± 2√5)/2 = −3 ± √5."
+  },
+  {
+   "topic": "5.9 Non-Factorisable Quadratic Equations",
+   "q": "Solve x² + 4x + 2 = 0, correct to one decimal place.",
+   "options": [
+    "x = −0.6 or x = −3.4",
+    "x = 0.6 or x = 3.4",
+    "x = −0.5 or x = −3.5",
+    "x = −1.2 or x = −6.8"
+   ],
+   "answer": 0,
+   "hint": "x = (−4 ± √8)/2. Use your calculator for each sign separately.",
+   "why": "(−4 + √8)/2 ≈ −0.59 and (−4 − √8)/2 ≈ −3.41, so −0.6 or −3.4. −1.2 and −6.8 come from forgetting to divide by 2."
+  },
+  {
+   "topic": "5.10 Quadratic Equations Involving Fractions",
+   "q": "What is the LCD of 1/(y + 1) + 2/(2y − 1) = 1?",
+   "options": [
+    "(y + 1)(2y − 1)",
+    "(y + 1) + (2y − 1)",
+    "2y − 1",
+    "3y"
+   ],
+   "answer": 0,
+   "hint": "The denominators share no common factors, so multiply them.",
+   "why": "The LCD of y + 1, 2y − 1 and 1 is (y + 1)(2y − 1)."
+  },
+  {
+   "topic": "5.10 Quadratic Equations Involving Fractions",
+   "q": "Solve x + 1/x = 2, x ≠ 0.",
+   "options": [
+    "x = 1",
+    "x = −1",
+    "x = ±1",
+    "x = 2"
+   ],
+   "answer": 0,
+   "hint": "Multiply every term by x.",
+   "why": "x² + 1 = 2x, so x² − 2x + 1 = 0 and (x − 1)² = 0. x = 1."
+  },
+  {
+   "topic": "5.10 Quadratic Equations Involving Fractions",
+   "q": "Solve 1/x + 9/(x + 8) = 1.",
+   "options": [
+    "x = 4 or x = −2",
+    "x = −4 or x = 2",
+    "x = 8 or x = −1",
+    "x = 2 or x = 4"
+   ],
+   "answer": 0,
+   "hint": "Multiply every term by x(x + 8). The 1 on the right gets multiplied too.",
+   "why": "(x + 8) + 9x = x(x + 8) gives x² − 2x − 8 = 0, so (x − 4)(x + 2) = 0."
+  },
+  {
+   "topic": "5.10 Quadratic Equations Involving Fractions",
+   "q": "Solve 3x − 5 + 2/x = 0.",
+   "options": [
+    "x = 1 or x = 2/3",
+    "x = −1 or x = −2/3",
+    "x = 1 or x = 3/2",
+    "x = 2 or x = 1/3"
+   ],
+   "answer": 0,
+   "hint": "Multiply every term by x to get a quadratic.",
+   "why": "3x² − 5x + 2 = 0 gives (3x − 2)(x − 1) = 0, so x = 2/3 or x = 1."
+  },
+  {
+   "topic": "5.11 Forming Quadratic Equations",
+   "q": "Form a quadratic equation with roots 3 and 7.",
+   "options": [
+    "x² − 10x + 21 = 0",
+    "x² + 10x + 21 = 0",
+    "x² − 10x − 21 = 0",
+    "x² − 4x + 21 = 0"
+   ],
+   "answer": 0,
+   "hint": "x = 3 gives the factor (x − 3). What factor does x = 7 give?",
+   "why": "(x − 3)(x − 7) = 0 expands to x² − 10x + 21 = 0."
+  },
+  {
+   "topic": "5.11 Forming Quadratic Equations",
+   "q": "Form a quadratic equation with roots −5 and 0.",
+   "options": [
+    "x² + 5x = 0",
+    "x² − 5x = 0",
+    "x² + 5 = 0",
+    "x² − 5 = 0"
+   ],
+   "answer": 0,
+   "hint": "x = 0 gives the factor x. x = −5 gives (x + 5).",
+   "why": "x(x + 5) = 0 gives x² + 5x = 0."
+  },
+  {
+   "topic": "5.11 Forming Quadratic Equations",
+   "q": "Form a quadratic equation with roots ±3.",
+   "options": [
+    "x² − 9 = 0",
+    "x² + 9 = 0",
+    "x² − 6x + 9 = 0",
+    "x² − 3 = 0"
+   ],
+   "answer": 0,
+   "hint": "The roots are 3 and −3.",
+   "why": "(x − 3)(x + 3) = 0 gives x² − 9 = 0."
+  },
+  {
+   "topic": "5.11 Forming Quadratic Equations",
+   "q": "x² + px + q = 0 has solutions x = 3 and x = −4. Find p and q.",
+   "options": [
+    "p = 1, q = −12",
+    "p = −1, q = −12",
+    "p = 1, q = 12",
+    "p = 7, q = −12"
+   ],
+   "answer": 0,
+   "hint": "Form the equation from the roots, then compare it with x² + px + q = 0.",
+   "why": "(x − 3)(x + 4) = x² + x − 12, so p = 1 and q = −12."
+  },
+  {
+   "topic": "5.12 Simultaneous: One Linear, One Non-Linear",
+   "q": "To solve x + 4y = 17 and x² + y² = 34, what is the best first step?",
+   "options": [
+    "Write x = 17 − 4y from the linear equation",
+    "Take the square root of x² + y² = 34",
+    "Square both sides of x + 4y = 17",
+    "Add the two equations together"
+   ],
+   "answer": 0,
+   "hint": "Always start with the linear equation.",
+   "why": "Make one letter the subject of the linear equation, then substitute it into the non-linear one."
+  },
+  {
+   "topic": "5.12 Simultaneous: One Linear, One Non-Linear",
+   "q": "Solve x = 5 − y and x² + y² = 17.",
+   "options": [
+    "(1, 4) and (4, 1)",
+    "(−1, −4) and (−4, −1)",
+    "(1, 4) only",
+    "(2, 3) and (3, 2)"
+   ],
+   "answer": 0,
+   "hint": "Substitute (5 − y) for x and expand (5 − y)².",
+   "why": "(5 − y)² + y² = 17 gives 2y² − 10y + 8 = 0, so y² − 5y + 4 = 0 and y = 1 or 4. Then x = 4 or 1."
+  },
+  {
+   "topic": "5.12 Simultaneous: One Linear, One Non-Linear",
+   "q": "Solve a + b = 7 and ab = 12.",
+   "options": [
+    "(3, 4) and (4, 3)",
+    "(2, 5) and (5, 2)",
+    "(6, 1) and (1, 6)",
+    "(−3, −4) and (−4, −3)"
+   ],
+   "answer": 0,
+   "hint": "b = 7 − a. Substitute into ab = 12.",
+   "why": "a(7 − a) = 12 gives a² − 7a + 12 = 0, so a = 3 or 4. Then b = 4 or 3."
+  },
+  {
+   "topic": "5.12 Simultaneous: One Linear, One Non-Linear",
+   "q": "Solve 2a − b = 0 and a² − 2b² = −7.",
+   "options": [
+    "(1, 2) and (−1, −2)",
+    "(1, 2) only",
+    "(2, 1) and (−2, −1)",
+    "(1, −2) and (−1, 2)"
+   ],
+   "answer": 0,
+   "hint": "b = 2a. Then (2a)² = 4a², so 2b² = 8a².",
+   "why": "a² − 8a² = −7 gives a² = 1, so a = ±1. Then b = 2a gives (1, 2) and (−1, −2)."
+  },
+  {
+   "topic": "5.12 Simultaneous: One Linear, One Non-Linear",
+   "q": "Solve x = y and x² + y² = 2.",
+   "options": [
+    "(1, 1) and (−1, −1)",
+    "(1, 1) only",
+    "(1, −1) and (−1, 1)",
+    "(√2, √2) only"
+   ],
+   "answer": 0,
+   "hint": "Replace y with x in the second equation.",
+   "why": "2x² = 2, so x² = 1 and x = ±1. Since y = x, the answers are (1, 1) and (−1, −1)."
+  }
+ ]
+};
+
+const $ = id => document.getElementById(id);
+const LETTERS = ["A","B","C","D","E","F"];
+let round = [], i = 0, score = 0, missed = [], answered = false;
+
+function shuffle(arr){
+  for(let k = arr.length - 1; k > 0; k--){
+    const j = Math.floor(Math.random() * (k + 1));
+    [arr[k], arr[j]] = [arr[j], arr[k]];
+  }
+  return arr;
+}
+function show(id){
+  ["startScreen","quizScreen","endScreen"].forEach(s => $(s).hidden = (s !== id));
+  const inQuiz = id === "quizScreen";
+  $("meta").hidden = !inQuiz;
+  $("barWrap").hidden = !inQuiz;
+}
+function prepare(q){
+  const opts = q.options.map((text, idx) => ({text, correct: idx === q.answer}));
+  return Object.assign({}, q, {opts: q.keepOrder ? opts : shuffle(opts)});
+}
+function start(){
+  round = shuffle(pool()).map(prepare);
+  i = 0; score = 0; missed = [];
+  show("quizScreen");
+  render();
+}
+function render(){
+  answered = false;
+  const q = round[i];
+  $("topic").textContent = q.topic || "Question";
+  $("question").textContent = q.q;
+  $("count").textContent = "Question " + (i + 1) + " of " + round.length;
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = (i / round.length * 100) + "%";
+  $("hint").textContent = q.hint || "";
+  $("hint").hidden = true;
+  $("hintBtn").hidden = !q.hint;
+  const fb = $("feedback"); fb.className = "feedback"; fb.textContent = "";
+  $("nextBtn").hidden = true;
+  const box = $("options"); box.textContent = "";
+  q.opts.forEach((o, idx) => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    const l = document.createElement("span"); l.className = "letter"; l.textContent = LETTERS[idx];
+    const t = document.createElement("span"); t.textContent = o.text;
+    b.appendChild(l); b.appendChild(t);
+    b.addEventListener("click", () => choose(idx));
+    box.appendChild(b);
+  });
+  window.scrollTo({top:0});
+}
+function choose(idx){
+  if(answered) return;
+  answered = true;
+  const q = round[i];
+  const buttons = Array.from($("options").children);
+  const correct = q.opts[idx].correct;
+  const rightText = q.opts.find(o => o.correct).text;
+  buttons.forEach((b, k) => {
+    b.disabled = true;
+    if(q.opts[k].correct) b.classList.add("right");
+    else if(k === idx) b.classList.add("wrong");
+  });
+  const fb = $("feedback");
+  const head = document.createElement("b");
+  const body = document.createElement("span");
+  if(correct){ score++; fb.className = "feedback good"; head.textContent = "Correct!"; }
+  else { missed.push({q: q.q, a: rightText, why: q.why}); fb.className = "feedback bad"; head.textContent = "Not quite. The answer is: " + rightText; }
+  body.textContent = q.why || "";
+  fb.appendChild(head); fb.appendChild(body);
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = ((i + 1) / round.length * 100) + "%";
+  $("hintBtn").hidden = true;
+  const next = $("nextBtn");
+  next.textContent = (i === round.length - 1) ? "See my score" : "Next question";
+  next.hidden = false;
+  next.focus();
+}
+function finish(){
+  show("endScreen");
+  const name = $("nameInput").value.trim();
+  const d = new Date();
+  const day = d.toLocaleDateString("en-IE", {day:"numeric", month:"long", year:"numeric"});
+  const secs = chosen();
+  $("who").textContent = (name ? name + " · " : "") + day + " · " + (secs.length === SECTIONS.length ? "All sections" : secs.join(", "));
+  $("finalScore").textContent = score + " / " + round.length;
+  const pct = score / round.length;
+  $("finalMsg").textContent =
+    pct === 1 ? "Perfect score. Take a bow." :
+    pct >= 0.75 ? "Great work. You know this well." :
+    pct >= 0.5 ? "Good effort. Check the ones below, then try again." :
+    "Keep going. Read over the pages again, then try again.";
+  const list = $("missedList"); list.textContent = "";
+  missed.forEach(m => {
+    const li = document.createElement("li");
+    const s = document.createElement("strong"); s.textContent = m.q;
+    const a = document.createElement("span"); a.textContent = "Answer: " + m.a + (m.why ? ". " + m.why : "");
+    li.appendChild(s); li.appendChild(a); list.appendChild(li);
+  });
+  $("missedWrap").hidden = missed.length === 0;
+  $("againBtn").focus();
+}
+
+$("title").textContent = QUIZ.title;
+document.title = QUIZ.title;
+$("subtitle").textContent = QUIZ.subtitle || "";
+$("subtitle").hidden = !QUIZ.subtitle;
+$("introText").textContent = QUIZ.intro;
+const SECTIONS = [];
+QUIZ.questions.forEach(q => { if(!SECTIONS.includes(q.topic)) SECTIONS.push(q.topic); });
+const list = $("sectionList");
+SECTIONS.forEach((s, k) => {
+  const lab = document.createElement("label");
+  const box = document.createElement("input");
+  box.type = "checkbox"; box.checked = true; box.value = s; box.id = "sec" + k;
+  box.addEventListener("change", updateCount);
+  const txt = document.createElement("span"); txt.textContent = s;
+  const n = QUIZ.questions.filter(q => q.topic === s).length;
+  const sm = document.createElement("small"); sm.textContent = n + (n === 1 ? " question" : " questions");
+  lab.appendChild(box); lab.appendChild(txt); lab.appendChild(sm);
+  list.appendChild(lab);
+});
+function chosen(){ return Array.from(list.querySelectorAll("input:checked")).map(b => b.value); }
+function pool(){ const c = chosen(); return QUIZ.questions.filter(q => c.includes(q.topic)); }
+function updateCount(){
+  const n = pool().length;
+  $("pickCount").textContent = n ? n + " questions selected" : "No sections selected";
+  if(n) $("pickError").hidden = true;
+}
+$("allBtn").addEventListener("click", () => { list.querySelectorAll("input").forEach(b => b.checked = true); updateCount(); });
+$("noneBtn").addEventListener("click", () => { list.querySelectorAll("input").forEach(b => b.checked = false); updateCount(); });
+updateCount();
+function tryStart(){
+  if(!pool().length){ $("pickError").hidden = false; return; }
+  start();
+}
+$("startBtn").addEventListener("click", tryStart);
+$("nameInput").addEventListener("keydown", e => { if(e.key === "Enter") tryStart(); });
+$("againBtn").addEventListener("click", start);
+$("changeBtn").addEventListener("click", () => { show("startScreen"); window.scrollTo({top:0}); });
+$("nextBtn").addEventListener("click", () => { i++; if(i < round.length) render(); else finish(); });
+$("hintBtn").addEventListener("click", () => { $("hint").hidden = false; $("hintBtn").hidden = true; });
+</script>
+</body>
+</html>
