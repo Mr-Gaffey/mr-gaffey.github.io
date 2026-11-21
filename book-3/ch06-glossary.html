@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ch 6 Key Words: Linear and Quadratic Functions</title>
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f5f0;--ink:#1d2731;--muted:#5d6872;--card:#fff;--line:#e4dfd4;--hero:#1d2731;--y2:#14866d;--y3:#2f5fd0;--y5:#d9661f;--y6:#7a3fd1}
+@media (prefers-color-scheme:dark){:root{--bg:#13171c;--ink:#eef1f4;--muted:#a3adb7;--card:#1d232a;--line:#2d353e;--hero:#0b0e11}}
+*{box-sizing:border-box}
+body{margin:0;font-family:Lexend,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+.top{background:var(--accent,var(--hero));color:#fff;padding:36px 0 32px}
+.top h1{margin:0;font-size:clamp(1.9rem,6vw,2.6rem);font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.top p{margin:8px 0 0;opacity:.88}
+.back{display:inline-block;margin-bottom:16px;color:#fff;text-decoration:none;font-weight:500;opacity:.9}
+.back:hover{opacity:1;text-decoration:underline}
+main{padding-top:12px;padding-bottom:56px}
+h2{font-size:1.15rem;font-weight:700;margin:32px 0 12px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+.res{display:flex;flex-direction:column;gap:4px;padding:18px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:14px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+a.res:hover,a.res:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.1)}
+.res small{color:var(--accent);font-weight:700;font-size:.8rem;letter-spacing:.04em;text-transform:uppercase}
+.res strong{font-size:1.1rem}
+.res span{color:var(--muted);font-size:.9rem}
+.res.soon{border-top-style:dashed;opacity:.75}
+.res.soon em{font-style:normal;font-size:.75rem;font-weight:700;color:var(--muted);margin-top:4px}
+.prep{display:flex;align-items:center;gap:16px;padding:20px;background:var(--accent);color:#fff;border-radius:16px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.prep:hover,.prep:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.prep b{font-size:1.25rem;display:block}.prep span{opacity:.9;font-size:.95rem}.prep i{margin-left:auto;font-style:normal;font-size:1.5rem}
+.video{width:100%;aspect-ratio:16/9;border:0;border-radius:10px;margin-bottom:6px}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:0 16px 32px}
+
+.lead{margin:20px 0 4px;color:var(--muted)}
+.quizbtn{display:flex;align-items:center;gap:16px;margin:16px 0 8px;padding:18px 20px;background:var(--accent);color:#fff;border-radius:16px;text-decoration:none;transition:transform .15s,box-shadow .15s}
+.quizbtn:hover,.quizbtn:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.quizbtn b{font-size:1.15rem;display:block}.quizbtn span{opacity:.9;font-size:.92rem}.quizbtn i{margin-left:auto;font-style:normal;font-size:1.5rem}
+.terms{display:grid;gap:12px;margin-top:20px}
+.term{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:14px;padding:16px 18px}
+.term h3{margin:0 0 6px;font-size:1.15rem}
+.term p{margin:0}
+.ex{margin-top:10px;padding:10px 14px;background:var(--bg);border-radius:10px;font-size:.95rem}
+.ex small{display:block;color:var(--accent);font-weight:700;font-size:.75rem;letter-spacing:.05em;text-transform:uppercase;margin-bottom:2px}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;font-size:.9em;line-height:1.15;margin:0 2px}
+.fr>span:first-child{border-bottom:1.5px solid currentColor;padding:0 3px}
+.fr>span:last-child{padding:0 3px}
+</style>
+</head>
+<body style="--accent:var(--y6)">
+<header class="top">
+  <div class="wrap">
+    <a class="back" href="ch06.html">← Chapter 6</a>
+    <h1>Chapter 6 Key Words</h1>
+    <p>Linear and Quadratic Functions · Active Maths 3</p>
+  </div>
+</header>
+<main class="wrap">
+  <p class="lead">9 key words from this chapter, each with what it means and an example. Read them, then try the quiz.</p>
+  <a class="quizbtn" href="ch06-quiz.html"><div><b>Take the terms quiz</b><span>13 questions with hints. Screenshot your score when you finish.</span></div><i aria-hidden="true">→</i></a>
+  <div class="terms">
+    <article class="term"><h3>Function</h3><p>A rule that gives exactly one output for every input.</p><div class="ex"><small>Example</small>f(x) = 2x + 3<br>f(4) = 2(4) + 3 = 11</div></article>
+    <article class="term"><h3>Input</h3><p>The value you put into a function (usually x).</p><div class="ex"><small>Example</small>For f(x) = x², putting in 5 means the input is 5.</div></article>
+    <article class="term"><h3>Output</h3><p>The value the function gives back.</p><div class="ex"><small>Example</small>f(5) = 25, so the output is 25.</div></article>
+    <article class="term"><h3>Domain</h3><p>The set of all the inputs of a function.</p><div class="ex"><small>Example</small>If f(x) = 2x uses inputs {1, 2, 3}, the domain is {1, 2, 3}.</div></article>
+    <article class="term"><h3>Range</h3><p>The set of outputs the function actually produces. (Careful: in statistics, range means something different.)</p><div class="ex"><small>Example</small>f(x) = 2x with domain {1, 2, 3} gives range {2, 4, 6}.</div></article>
+    <article class="term"><h3>Codomain</h3><p>The set of all outputs that are allowed. The range is the part of the codomain that is actually used.</p><div class="ex"><small>Example</small>f: ℕ → ℕ, f(x) = 2x. Codomain = ℕ, but the range is only the even numbers.</div></article>
+    <article class="term"><h3>Composite function</h3><p>One function applied to the output of another. f(g(x)) means do g first, then f.</p><div class="ex"><small>Example</small>f(x) = x + 1, g(x) = 3x<br>f(g(x)) = 3x + 1, so f(g(2)) = 7</div></article>
+    <article class="term"><h3>Linear function</h3><p>A function of the form f(x) = ax + b. Its graph is a straight line.</p><div class="ex"><small>Example</small>f(x) = 2x − 1 has slope 2 and cuts the y-axis at −1.</div></article>
+    <article class="term"><h3>Quadratic function</h3><p>A function of the form f(x) = ax² + bx + c, where a ≠ 0. Its graph is a U-shape (a &gt; 0) or an upside-down U (a &lt; 0).</p><div class="ex"><small>Example</small>f(x) = x² − 4 is U-shaped and crosses the x-axis at −2 and 2.</div></article>
+  </div>
+  <a class="quizbtn" href="ch06-quiz.html"><div><b>Take the terms quiz</b><span>13 questions with hints. Screenshot your score when you finish.</span></div><i aria-hidden="true">→</i></a>
+</main>
+<footer>Mr Gaffey's Maths</footer>
+</body>
+</html>
