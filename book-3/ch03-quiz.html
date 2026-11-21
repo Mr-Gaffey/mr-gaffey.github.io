@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 3 Key Words: Algebra I</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --ink:#1f1b0f; --muted:#5a5547; --band:#ffd84d; --bandInk:#1f1b0f;
+  --card:#fffbea; --line:#e6dfc4;
+  --opt:#ffffff; --optLine:#cfc6a3; --optHover:#fff3c4; --letter:#2f6fdb; --letterInk:#ffffff;
+  --good:#1d7a3e; --goodSoft:#e3f4e8; --bad:#b3261e; --badSoft:#fde7e5;
+  --focus:#1f55b8;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+    --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+    --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+    --focus:#9dbdff; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+  --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+  --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+  --focus:#9dbdff; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Lexend','Segoe UI',Arial,sans-serif;font-size:18px;line-height:1.5}
+header{background:var(--band);color:var(--bandInk);padding:20px 20px 18px}
+.wrap{max-width:760px;margin:0 auto}
+.back{display:inline-block;margin-bottom:10px;color:var(--bandInk);font-size:16px;font-weight:500;text-decoration:none}
+.back:hover{text-decoration:underline}
+.backBtn{display:inline-block;margin:20px 0 0 12px;color:var(--ink);font-size:18px;font-weight:500}
+.nameError{margin:8px 0 0;color:var(--bad);font-weight:500}
+header h1{margin:0;font-size:clamp(24px,5vw,34px);font-weight:700;letter-spacing:-0.3px;line-height:1.2}
+.sub{margin:4px 0 0;font-size:16px;font-weight:500}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-weight:500;font-size:16px}
+.bar{height:12px;background:rgba(31,27,15,.18);border-radius:999px;overflow:hidden;margin-top:8px}
+.bar span{display:block;height:100%;width:0;background:var(--bandInk);border-radius:999px;transition:width .3s ease}
+main{padding:24px 20px 48px}
+[hidden]{display:none!important}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:28px 24px}
+.ask{margin:0;color:var(--muted);font-weight:500;font-size:16px}
+.question{margin:8px 0 0;font-size:clamp(22px,4.6vw,28px);font-weight:700;line-height:1.3}
+.hintBtn{margin-top:16px;background:none;border:2px solid var(--optLine);color:var(--ink);font:inherit;font-size:16px;font-weight:500;border-radius:999px;padding:8px 16px;min-height:44px;cursor:pointer}
+.hint{margin:12px 0 0;font-size:17px;color:var(--muted)}
+.options{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.choice{display:flex;align-items:center;gap:14px;width:100%;min-height:60px;padding:12px 16px;text-align:left;background:var(--opt);color:var(--ink);border:2px solid var(--optLine);border-radius:16px;font:inherit;font-size:19px;font-weight:500;cursor:pointer}
+.choice:hover:not(:disabled){background:var(--optHover)}
+.choice .letter{flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--letter);color:var(--letterInk);font-weight:700;font-size:17px}
+.choice:disabled{cursor:default;opacity:.5}
+.choice.right{opacity:1;border:3px solid var(--good);background:var(--goodSoft)}
+.choice.right .letter{background:var(--good);color:var(--bg)}
+.choice.wrong{opacity:1;border:3px solid var(--bad);background:var(--badSoft)}
+.choice.wrong .letter{background:var(--bad);color:var(--bg)}
+.feedback{margin-top:18px;border-radius:16px;padding:16px 20px;font-size:18px}
+.feedback:empty{display:none}
+.feedback.good{background:var(--goodSoft);border:2px solid var(--good)}
+.feedback.bad{background:var(--badSoft);border:2px solid var(--bad)}
+.feedback b{display:block;font-size:20px;margin-bottom:4px}
+.primary{display:inline-block;margin-top:20px;background:var(--ink);color:var(--bg);border:none;border-radius:16px;font:inherit;font-size:20px;font-weight:700;padding:14px 28px;min-height:56px;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+.intro p{margin:0 0 12px}
+label{display:block;font-weight:500;margin:16px 0 6px}
+input[type=text]{width:100%;max-width:360px;font:inherit;padding:10px 14px;border:2px solid var(--optLine);border-radius:12px;background:var(--opt);color:var(--ink);min-height:48px}
+.who{margin:0;font-size:18px;font-weight:500}
+.score{font-size:clamp(48px,12vw,80px);font-weight:700;line-height:1;margin:8px 0}
+.missed{list-style:none;padding:0;margin:16px 0 0}
+.missed li{border-top:2px solid var(--line);padding:12px 0}
+.missed li span{display:block;font-size:16px;color:var(--muted)}
+@media (max-width:520px){.panel{padding:22px 18px}.choice{font-size:18px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="ch03-glossary.html">← Chapter 3 key words</a>
+    <h1 id="title"></h1>
+    <p class="sub" id="subtitle"></p>
+    <div class="meta" id="meta" hidden>
+      <span id="count"></span>
+      <span id="tally"></span>
+    </div>
+    <div class="bar" id="barWrap" hidden><span id="bar"></span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro" id="startScreen">
+    <div class="panel">
+      <p id="introText"></p>
+      <p>Pick one answer for each question. If you’re stuck, press <strong>Show a hint</strong>.</p>
+      <label for="nameInput">Your name</label>
+      <input type="text" id="nameInput" autocomplete="off" required aria-describedby="nameError">
+      <p class="nameError" id="nameError" role="alert" hidden>Type your name to start the quiz.</p>
+      <br>
+      <button class="primary" id="startBtn">Start quiz</button>
+    </div>
+  </section>
+
+  <section id="quizScreen" hidden>
+    <div class="panel">
+      <p class="ask" id="topic"></p>
+      <p class="question" id="question"></p>
+      <button class="hintBtn" id="hintBtn">Show a hint</button>
+      <p class="hint" id="hint" hidden></p>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <button class="primary" id="nextBtn" hidden>Next question</button>
+    </div>
+  </section>
+
+  <section id="endScreen" hidden>
+    <div class="panel">
+      <p class="who" id="who"></p>
+      <p class="ask">Your score</p>
+      <p class="score" id="finalScore"></p>
+      <p id="finalMsg"></p>
+      <div id="missedWrap">
+        <p><strong>Have another look at these:</strong></p>
+        <ul class="missed" id="missedList"></ul>
+      </div>
+      <button class="primary" id="againBtn">Try again</button>
+      <a class="backBtn" href="ch03.html">Back to Chapter 3</a>
+    </div>
+  </section>
+</main>
+
+<script>
+const QUIZ = {
+ "title": "Chapter 3 Key Words: Algebra I",
+ "subtitle": "Active Maths 3, Chapter 3",
+ "intro": "13 questions on the key words from Algebra I.",
+ "questions": [
+  {
+   "topic": "Variable",
+   "q": "In the expression 5x + 2, what do we call x?",
+   "options": [
+    "A variable",
+    "A coefficient",
+    "A constant",
+    "An equation"
+   ],
+   "answer": 0,
+   "hint": "It’s a letter that stands for a number we don’t know yet.",
+   "why": "A variable is a letter that stands for a number that can change or that we don’t know yet."
+  },
+  {
+   "topic": "Coefficient",
+   "q": "What is the coefficient of y in 7y − 3?",
+   "options": [
+    "7",
+    "−3",
+    "y",
+    "1"
+   ],
+   "answer": 0,
+   "hint": "Which number is y being multiplied by?",
+   "why": "The coefficient is the number in front of the variable. 7y means 7 × y, so the coefficient is 7."
+  },
+  {
+   "topic": "Coefficient",
+   "q": "What is the coefficient of x in the term −x?",
+   "options": [
+    "−1",
+    "1",
+    "0",
+    "There isn’t one"
+   ],
+   "answer": 0,
+   "hint": "−x is the same as something × x. What is that something?",
+   "why": "−x means −1 × x, so the coefficient is −1. The 1 is just not written."
+  },
+  {
+   "topic": "Constant",
+   "q": "What is the constant in x² + 3x − 8?",
+   "options": [
+    "−8",
+    "8",
+    "3",
+    "1"
+   ],
+   "answer": 0,
+   "hint": "Look for the number with no letter beside it. Don’t forget its sign.",
+   "why": "A constant is a number on its own with no variable. Here it’s −8, and the minus sign belongs to it."
+  },
+  {
+   "topic": "Constant",
+   "q": "A taxi charges €3 plus €2 for every kilometre: 3 + 2k. Which part is the constant?",
+   "options": [
+    "3",
+    "2",
+    "k",
+    "2k"
+   ],
+   "answer": 0,
+   "hint": "Which amount stays the same no matter how far you go?",
+   "why": "The €3 is charged on every trip whatever the distance, so it’s the constant. The 2 is the coefficient of k."
+  },
+  {
+   "topic": "Term",
+   "q": "How many terms are in 4x² − 3x + 5?",
+   "options": [
+    "3",
+    "2",
+    "4",
+    "5"
+   ],
+   "answer": 0,
+   "hint": "Terms are separated by + and − signs.",
+   "why": "The terms are 4x², −3x and 5. Three terms."
+  },
+  {
+   "topic": "Term",
+   "q": "Which of these is a single term?",
+   "options": [
+    "7x²y",
+    "7x + y",
+    "x − 2",
+    "3 + y"
+   ],
+   "answer": 0,
+   "hint": "Is there a + or − sign splitting it up?",
+   "why": "7x²y is numbers and letters multiplied together, with no + or − between them, so it is one term."
+  },
+  {
+   "topic": "Algebraic expression",
+   "q": "Which of these is an algebraic expression?",
+   "options": [
+    "3a + 2b − 7",
+    "3a + 2 = 11",
+    "a = 4",
+    "3a + 2b = 7"
+   ],
+   "answer": 0,
+   "hint": "An expression never has one thing in it. What is it?",
+   "why": "An algebraic expression is numbers, letters and operations with no equals sign. The others are equations."
+  },
+  {
+   "topic": "Like terms",
+   "q": "Which pair are like terms?",
+   "options": [
+    "5x² and −2x²",
+    "3x and 3x²",
+    "4xy and 4x",
+    "7 and 7y"
+   ],
+   "answer": 0,
+   "hint": "Like terms need exactly the same letters raised to the same powers.",
+   "why": "5x² and −2x² both have x². The numbers in front don’t have to match."
+  },
+  {
+   "topic": "Like terms",
+   "q": "Simplify 3x + 4x − 2.",
+   "options": [
+    "7x − 2",
+    "5x",
+    "7x² − 2",
+    "12x − 2"
+   ],
+   "answer": 0,
+   "hint": "Only add the terms that have the same letter.",
+   "why": "3x and 4x are like terms, so they add to 7x. The −2 has no x, so it stays on its own."
+  },
+  {
+   "topic": "Factorising",
+   "q": "What does factorising mean?",
+   "options": [
+    "Writing an expression as factors multiplied together",
+    "Multiplying out the brackets",
+    "Finding the value of x",
+    "Adding the like terms"
+   ],
+   "answer": 0,
+   "hint": "It’s the opposite of expanding brackets.",
+   "why": "Factorising writes an expression as a product of factors, like 6x + 9 = 3(2x + 3). Expanding goes the other way."
+  },
+  {
+   "topic": "Factorising",
+   "q": "Factorise 6x + 9.",
+   "options": [
+    "3(2x + 3)",
+    "3(2x + 9)",
+    "6(x + 3)",
+    "9(6x + 1)"
+   ],
+   "answer": 0,
+   "hint": "What is the biggest number that divides into both 6 and 9?",
+   "why": "3 goes into both, so 6x + 9 = 3(2x + 3). Check by expanding: 3 × 2x = 6x and 3 × 3 = 9."
+  },
+  {
+   "topic": "Factorising",
+   "q": "Factorise x² + 5x + 6.",
+   "options": [
+    "(x + 2)(x + 3)",
+    "(x + 1)(x + 6)",
+    "(x + 5)(x + 1)",
+    "(x − 2)(x − 3)"
+   ],
+   "answer": 0,
+   "hint": "Find two numbers that multiply to 6 and add to 5.",
+   "why": "2 × 3 = 6 and 2 + 3 = 5, so x² + 5x + 6 = (x + 2)(x + 3). (x + 1)(x + 6) gives 7x, not 5x."
+  }
+ ]
+};
+
+const $ = id => document.getElementById(id);
+const LETTERS = ["A","B","C","D","E","F"];
+let round = [], i = 0, score = 0, missed = [], answered = false;
+
+function shuffle(arr){
+  for(let k = arr.length - 1; k > 0; k--){
+    const j = Math.floor(Math.random() * (k + 1));
+    [arr[k], arr[j]] = [arr[j], arr[k]];
+  }
+  return arr;
+}
+function show(id){
+  ["startScreen","quizScreen","endScreen"].forEach(s => $(s).hidden = (s !== id));
+  const inQuiz = id === "quizScreen";
+  $("meta").hidden = !inQuiz;
+  $("barWrap").hidden = !inQuiz;
+}
+function prepare(q){
+  const opts = q.options.map((text, idx) => ({text, correct: idx === q.answer}));
+  return Object.assign({}, q, {opts: q.keepOrder ? opts : shuffle(opts)});
+}
+function start(){
+  round = (QUIZ.shuffleQuestions === false ? QUIZ.questions.slice() : shuffle(QUIZ.questions.slice())).map(prepare);
+  i = 0; score = 0; missed = [];
+  show("quizScreen");
+  render();
+}
+function render(){
+  answered = false;
+  const q = round[i];
+  $("topic").textContent = q.topic || "Question";
+  $("question").textContent = q.q;
+  $("count").textContent = "Question " + (i + 1) + " of " + round.length;
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = (i / round.length * 100) + "%";
+  $("hint").textContent = q.hint || "";
+  $("hint").hidden = true;
+  $("hintBtn").hidden = !q.hint;
+  const fb = $("feedback"); fb.className = "feedback"; fb.textContent = "";
+  $("nextBtn").hidden = true;
+  const box = $("options"); box.textContent = "";
+  q.opts.forEach((o, idx) => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    const l = document.createElement("span"); l.className = "letter"; l.textContent = LETTERS[idx];
+    const t = document.createElement("span"); t.textContent = o.text;
+    b.appendChild(l); b.appendChild(t);
+    b.addEventListener("click", () => choose(idx));
+    box.appendChild(b);
+  });
+  window.scrollTo({top:0});
+}
+function choose(idx){
+  if(answered) return;
+  answered = true;
+  const q = round[i];
+  const buttons = Array.from($("options").children);
+  const correct = q.opts[idx].correct;
+  const rightText = q.opts.find(o => o.correct).text;
+  buttons.forEach((b, k) => {
+    b.disabled = true;
+    if(q.opts[k].correct) b.classList.add("right");
+    else if(k === idx) b.classList.add("wrong");
+  });
+  const fb = $("feedback");
+  const head = document.createElement("b");
+  const body = document.createElement("span");
+  if(correct){ score++; fb.className = "feedback good"; head.textContent = "Correct!"; }
+  else { missed.push({q: q.q, a: rightText, why: q.why}); fb.className = "feedback bad"; head.textContent = "Not quite. The answer is: " + rightText; }
+  body.textContent = q.why || "";
+  fb.appendChild(head); fb.appendChild(body);
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = ((i + 1) / round.length * 100) + "%";
+  $("hintBtn").hidden = true;
+  const next = $("nextBtn");
+  next.textContent = (i === round.length - 1) ? "See my score" : "Next question";
+  next.hidden = false;
+  next.focus();
+}
+function finish(){
+  show("endScreen");
+  const name = $("nameInput").value.trim();
+  const d = new Date();
+  $("who").textContent = name + " · " + d.toLocaleDateString("en-IE", {day:"numeric", month:"long", year:"numeric"});
+  $("finalScore").textContent = score + " / " + round.length;
+  const pct = score / round.length;
+  $("finalMsg").textContent =
+    pct === 1 ? "Perfect score. Take a bow." :
+    pct >= 0.75 ? "Great work. You know this well." :
+    pct >= 0.5 ? "Good effort. Check the ones below, then try again." :
+    "Keep going. Read over the pages again, then try again.";
+  const list = $("missedList"); list.textContent = "";
+  missed.forEach(m => {
+    const li = document.createElement("li");
+    const s = document.createElement("strong"); s.textContent = m.q;
+    const a = document.createElement("span"); a.textContent = "Answer: " + m.a + (m.why ? ". " + m.why : "");
+    li.appendChild(s); li.appendChild(a); list.appendChild(li);
+  });
+  $("missedWrap").hidden = missed.length === 0;
+  $("againBtn").focus();
+}
+
+$("title").textContent = QUIZ.title;
+document.title = QUIZ.title;
+$("subtitle").textContent = QUIZ.subtitle || "";
+$("subtitle").hidden = !QUIZ.subtitle;
+$("introText").textContent = QUIZ.intro || ("There are " + QUIZ.questions.length + " questions in this quiz.");
+function tryStart(){
+  const name = $("nameInput").value.trim();
+  if(!name){ $("nameError").hidden = false; $("nameInput").focus(); return; }
+  $("nameError").hidden = true;
+  start();
+}
+$("startBtn").addEventListener("click", tryStart);
+$("nameInput").addEventListener("keydown", e => { if(e.key === "Enter") tryStart(); });
+$("nameInput").addEventListener("input", () => { if($("nameInput").value.trim()) $("nameError").hidden = true; });
+$("againBtn").addEventListener("click", start);
+$("nextBtn").addEventListener("click", () => { i++; if(i < round.length) render(); else finish(); });
+$("hintBtn").addEventListener("click", () => { $("hint").hidden = false; $("hintBtn").hidden = true; });
+</script>
+</body>
+</html>
