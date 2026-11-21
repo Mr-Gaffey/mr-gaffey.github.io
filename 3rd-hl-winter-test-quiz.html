@@ -101,8 +101,8 @@ input[type=text]{width:100%;max-width:360px;font:inherit;padding:10px 14px;borde
     <div class="panel">
       <p id="introText"></p>
       <p>Pick one answer for each question. If you’re stuck, press <strong>Show a hint</strong>.</p>
-      <label for="nameInput">Your name</label>
-      <input type="text" id="nameInput" autocomplete="off" required aria-describedby="nameError">
+      <label for="nameInput">Your name <span style="font-weight:400;opacity:.7">(optional)</span></label>
+      <input type="text" id="nameInput" autocomplete="off">
       <p class="nameError" id="nameError" role="alert" hidden>Type your name to start the quiz.</p>
       <br>
       <button class="primary" id="startBtn">Start quiz</button>
@@ -489,7 +489,7 @@ function finish(){
   show("endScreen");
   const name = $("nameInput").value.trim();
   const d = new Date();
-  $("who").textContent = name + " · " + d.toLocaleDateString("en-IE", {day:"numeric", month:"long", year:"numeric"});
+  $("who").textContent = (name ? name + " · " : "") + d.toLocaleDateString("en-IE", {day:"numeric", month:"long", year:"numeric"});
   $("finalScore").textContent = score + " / " + round.length;
   const pct = score / round.length;
   $("finalMsg").textContent =
@@ -515,7 +515,7 @@ $("subtitle").hidden = !QUIZ.subtitle;
 $("introText").textContent = QUIZ.intro || ("There are " + QUIZ.questions.length + " questions in this quiz.");
 function tryStart(){
   const name = $("nameInput").value.trim();
-  if(!name){ $("nameError").hidden = false; $("nameInput").focus(); return; }
+  
   $("nameError").hidden = true;
   start();
 }
