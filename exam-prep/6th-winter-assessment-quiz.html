@@ -1,0 +1,924 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>6th Year Winter Assessment Revision</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --ink:#1f1b0f; --muted:#5a5547; --band:#ffd84d; --bandInk:#1f1b0f;
+  --card:#fffbea; --line:#e6dfc4;
+  --opt:#ffffff; --optLine:#cfc6a3; --optHover:#fff3c4; --letter:#2f6fdb; --letterInk:#ffffff;
+  --good:#1d7a3e; --goodSoft:#e3f4e8; --bad:#b3261e; --badSoft:#fde7e5;
+  --focus:#1f55b8;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+    --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+    --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+    --focus:#9dbdff; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+  --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+  --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+  --focus:#9dbdff; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Lexend','Segoe UI',Arial,sans-serif;font-size:18px;line-height:1.5}
+header{background:var(--band);color:var(--bandInk);padding:20px 20px 18px}
+.wrap{max-width:760px;margin:0 auto}
+.back{display:inline-block;margin-bottom:10px;color:var(--bandInk);font-size:16px;font-weight:500;text-decoration:none}
+.back:hover{text-decoration:underline}
+.backBtn{display:inline-block;margin:20px 0 0 12px;color:var(--ink);font-size:18px;font-weight:500}
+.nameError{margin:8px 0 0;color:var(--bad);font-weight:500}
+header h1{margin:0;font-size:clamp(24px,5vw,34px);font-weight:700;letter-spacing:-0.3px;line-height:1.2}
+.sub{margin:4px 0 0;font-size:16px;font-weight:500}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-weight:500;font-size:16px}
+.bar{height:12px;background:rgba(31,27,15,.18);border-radius:999px;overflow:hidden;margin-top:8px}
+.bar span{display:block;height:100%;width:0;background:var(--bandInk);border-radius:999px;transition:width .3s ease}
+main{padding:24px 20px 48px}
+[hidden]{display:none!important}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:28px 24px}
+.ask{margin:0;color:var(--muted);font-weight:500;font-size:16px}
+.question{margin:8px 0 0;font-size:clamp(22px,4.6vw,28px);font-weight:700;line-height:1.3}
+.hintBtn{margin-top:16px;background:none;border:2px solid var(--optLine);color:var(--ink);font:inherit;font-size:16px;font-weight:500;border-radius:999px;padding:8px 16px;min-height:44px;cursor:pointer}
+.hint{margin:12px 0 0;font-size:17px;color:var(--muted)}
+.options{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.choice{display:flex;align-items:center;gap:14px;width:100%;min-height:60px;padding:12px 16px;text-align:left;background:var(--opt);color:var(--ink);border:2px solid var(--optLine);border-radius:16px;font:inherit;font-size:19px;font-weight:500;cursor:pointer}
+.choice:hover:not(:disabled){background:var(--optHover)}
+.choice .letter{flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--letter);color:var(--letterInk);font-weight:700;font-size:17px}
+.choice:disabled{cursor:default;opacity:.5}
+.choice.right{opacity:1;border:3px solid var(--good);background:var(--goodSoft)}
+.choice.right .letter{background:var(--good);color:var(--bg)}
+.choice.wrong{opacity:1;border:3px solid var(--bad);background:var(--badSoft)}
+.choice.wrong .letter{background:var(--bad);color:var(--bg)}
+.feedback{margin-top:18px;border-radius:16px;padding:16px 20px;font-size:18px}
+.feedback:empty{display:none}
+.feedback.good{background:var(--goodSoft);border:2px solid var(--good)}
+.feedback.bad{background:var(--badSoft);border:2px solid var(--bad)}
+.feedback b{display:block;font-size:20px;margin-bottom:4px}
+.primary{display:inline-block;margin-top:20px;background:var(--ink);color:var(--bg);border:none;border-radius:16px;font:inherit;font-size:20px;font-weight:700;padding:14px 28px;min-height:56px;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+.intro p{margin:0 0 12px}
+label{display:block;font-weight:500;margin:16px 0 6px}
+input[type=text]{width:100%;max-width:360px;font:inherit;padding:10px 14px;border:2px solid var(--optLine);border-radius:12px;background:var(--opt);color:var(--ink);min-height:48px}
+.who{margin:0;font-size:18px;font-weight:500}
+.score{font-size:clamp(48px,12vw,80px);font-weight:700;line-height:1;margin:8px 0}
+.missed{list-style:none;padding:0;margin:16px 0 0}
+.missed li{border-top:2px solid var(--line);padding:12px 0}
+.missed li span{display:block;font-size:16px;color:var(--muted)}
+@media (max-width:520px){.panel{padding:22px 18px}.choice{font-size:18px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.home{float:right}
+
+.pick{border:2px solid var(--line);border-radius:16px;padding:12px 16px 14px;margin:8px 0 0;background:var(--opt)}
+.pick legend{font-weight:700;padding:0 6px}
+.pickBtns{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 8px}
+.pickBtns button{background:none;border:2px solid var(--optLine);color:var(--ink);font:inherit;font-size:15px;font-weight:500;border-radius:999px;padding:6px 14px;min-height:40px;cursor:pointer}
+.pick label{display:flex;align-items:center;gap:12px;margin:0;padding:8px 4px;font-weight:500;font-size:17px;cursor:pointer;border-top:1px solid var(--line)}
+.pick label:first-of-type{border-top:none}
+.pick input[type=checkbox]{width:24px;height:24px;flex:none;accent-color:var(--letter)}
+.pick small{margin-left:auto;color:var(--muted);font-size:14px;white-space:nowrap}
+.pickCount{margin:10px 0 0;font-weight:500}
+.optional{font-weight:400;color:var(--muted)}
+.ghost{display:inline-block;margin:20px 0 0 12px;background:none;border:2px solid var(--optLine);color:var(--ink);border-radius:16px;font:inherit;font-size:18px;font-weight:500;padding:12px 20px;min-height:52px;cursor:pointer}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="sixth-year.html">← 6th Year Exam Prep</a>
+    <a class="back home" href="../index.html">🏠 Home</a>
+    <h1 id="title"></h1>
+    <p class="sub" id="subtitle"></p>
+    <div class="meta" id="meta" hidden>
+      <span id="count"></span>
+      <span id="tally"></span>
+    </div>
+    <div class="bar" id="barWrap" hidden><span id="bar"></span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro" id="startScreen">
+    <div class="panel">
+      <p id="introText"></p>
+      <p>Pick the chapters you want to practise, then press <strong>Start</strong>. If you’re stuck on a question, press <strong>Show a hint</strong>.</p>
+      <fieldset class="pick">
+        <legend>Choose chapters</legend>
+        <div class="pickBtns"><button type="button" id="allBtn">Select all</button><button type="button" id="noneBtn">Clear all</button></div>
+        <div id="sectionList"></div>
+      </fieldset>
+      <p class="pickCount" id="pickCount" aria-live="polite"></p>
+      <p class="nameError" id="pickError" role="alert" hidden>Tick at least one chapter to start.</p>
+      <label for="nameInput">Your name <span class="optional">(optional)</span></label>
+      <input type="text" id="nameInput" autocomplete="off">
+      <br>
+      <button class="primary" id="startBtn">Start</button>
+    </div>
+  </section>
+
+  <section id="quizScreen" hidden>
+    <div class="panel">
+      <p class="ask" id="topic"></p>
+      <p class="question" id="question"></p>
+      <button class="hintBtn" id="hintBtn">Show a hint</button>
+      <p class="hint" id="hint" hidden></p>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <button class="primary" id="nextBtn" hidden>Next question</button>
+    </div>
+  </section>
+
+  <section id="endScreen" hidden>
+    <div class="panel">
+      <p class="who" id="who"></p>
+      <p class="ask">Your score</p>
+      <p class="score" id="finalScore"></p>
+      <p id="finalMsg"></p>
+      <div id="missedWrap">
+        <p><strong>Have another look at these:</strong></p>
+        <ul class="missed" id="missedList"></ul>
+      </div>
+      <button class="primary" id="againBtn">Try again</button>
+      <button class="ghost" id="changeBtn">Change chapters</button>
+      <a class="backBtn" href="sixth-year.html">Back to Exam Prep</a>
+    </div>
+  </section>
+</main>
+
+<script>
+const QUIZ = {
+ "title": "6th Year Winter Assessment Revision",
+ "subtitle": "Active Maths 3 (2nd edition), Chapters 8, 11, 12, 13 and 14.1",
+ "intro": "47 questions on complex numbers, counting, probability and statistics. Do them all, or pick the chapters you want to revise.",
+ "questions": [
+  {
+   "topic": "Chapter 8: Complex Numbers",
+   "q": "Simplify √−49.",
+   "options": [
+    "7i",
+    "−7",
+    "49i",
+    "−7i"
+   ],
+   "answer": 0,
+   "hint": "√−49 = √49 × √−1.",
+   "why": "√49 = 7 and √−1 = i, so √−49 = 7i."
+  },
+  {
+   "topic": "Chapter 8: Complex Numbers",
+   "q": "Which of these numbers lies on the imaginary axis of an Argand diagram?",
+   "options": [
+    "−2i",
+    "−4",
+    "2",
+    "i²"
+   ],
+   "answer": 0,
+   "hint": "A number on the imaginary axis has a real part of 0.",
+   "why": "−2i = 0 − 2i. The others are real: i² = −1."
+  },
+  {
+   "topic": "Chapter 8: Complex Numbers",
+   "q": "z₁ = 7 + 5i and z₂ = 2 + i. Find z₁ − z₂.",
+   "options": [
+    "5 + 4i",
+    "9 + 6i",
+    "5 + 6i",
+    "5 − 4i"
+   ],
+   "answer": 0,
+   "hint": "Subtract the real parts, then subtract the imaginary parts.",
+   "why": "(7 − 2) + (5 − 1)i = 5 + 4i."
+  },
+  {
+   "topic": "Chapter 8: Complex Numbers",
+   "q": "z = 2 + i. Find 3z.",
+   "options": [
+    "6 + 3i",
+    "6 + i",
+    "5 + 4i",
+    "6i"
+   ],
+   "answer": 0,
+   "hint": "Multiply both parts by 3.",
+   "why": "3(2 + i) = 6 + 3i. On the Argand diagram, this is a dilation (stretch) by a factor of 3."
+  },
+  {
+   "topic": "Chapter 8: Complex Numbers",
+   "q": "Find |12 + 16i|.",
+   "options": [
+    "20",
+    "28",
+    "400",
+    "4"
+   ],
+   "answer": 0,
+   "hint": "|a + bi| = √(a² + b²). Do not put the i in the square root.",
+   "why": "√(144 + 256) = √400 = 20."
+  },
+  {
+   "topic": "Chapter 8: Complex Numbers",
+   "q": "Find |2 + 2i| in simplest surd form.",
+   "options": [
+    "2√2",
+    "√8i",
+    "4",
+    "2"
+   ],
+   "answer": 0,
+   "hint": "√(4 + 4) = √8. Now simplify the surd.",
+   "why": "√8 = √4 × √2 = 2√2."
+  },
+  {
+   "topic": "Chapter 8: Complex Numbers",
+   "q": "If z = 4 + i, find iz.",
+   "options": [
+    "−1 + 4i",
+    "4i + 1",
+    "4 − i",
+    "−4 + i"
+   ],
+   "answer": 0,
+   "hint": "i × i = i² = −1.",
+   "why": "i(4 + i) = 4i + i² = 4i − 1 = −1 + 4i. Always write the answer as a + bi."
+  },
+  {
+   "topic": "Chapter 8: Complex Numbers",
+   "q": "Find (1 + 2i)(1 − 2i).",
+   "options": [
+    "5",
+    "−3",
+    "1 − 4i",
+    "−3 + 4i"
+   ],
+   "answer": 0,
+   "hint": "Multiply out the brackets and remember i² = −1.",
+   "why": "1 − 2i + 2i − 4i² = 1 − 4(−1) = 5. A number times its conjugate is always real."
+  },
+  {
+   "topic": "Chapter 8: Complex Numbers",
+   "q": "What is the conjugate of −2 + 3i?",
+   "options": [
+    "−2 − 3i",
+    "2 − 3i",
+    "2 + 3i",
+    "3 − 2i"
+   ],
+   "answer": 0,
+   "hint": "Change the sign of the imaginary part only.",
+   "why": "The conjugate of a + bi is a − bi, so −2 − 3i. It is a reflection in the real axis."
+  },
+  {
+   "topic": "Chapter 8: Complex Numbers",
+   "q": "To divide (3 + i) by (1 − i), what do you multiply the top and bottom by?",
+   "options": [
+    "1 + i",
+    "1 − i",
+    "3 − i",
+    "i"
+   ],
+   "answer": 0,
+   "hint": "You multiply by the conjugate of the bottom.",
+   "why": "Multiplying by 1 + i makes the bottom real: (1 − i)(1 + i) = 2."
+  },
+  {
+   "topic": "Chapter 8: Complex Numbers",
+   "q": "Find i⁴.",
+   "options": [
+    "1",
+    "−1",
+    "i",
+    "−i"
+   ],
+   "answer": 0,
+   "hint": "i² = −1, so i⁴ = (i²)².",
+   "why": "(−1)² = 1."
+  },
+  {
+   "topic": "Chapter 11: Counting and Permutations",
+   "q": "A die is rolled and a spinner numbered 1, 2, 3 is spun. How many outcomes are possible?",
+   "options": [
+    "18",
+    "9",
+    "6",
+    "3"
+   ],
+   "answer": 0,
+   "hint": "Use the Fundamental Principle of Counting: multiply.",
+   "why": "6 × 3 = 18."
+  },
+  {
+   "topic": "Chapter 11: Counting and Permutations",
+   "q": "A meal has 4 starters, 3 pizzas, 3 drinks and 2 desserts. How many different meals can be ordered?",
+   "options": [
+    "72",
+    "12",
+    "36",
+    "24"
+   ],
+   "answer": 0,
+   "hint": "Multiply the number of choices for each part.",
+   "why": "4 × 3 × 3 × 2 = 72."
+  },
+  {
+   "topic": "Chapter 11: Counting and Permutations",
+   "q": "Eight people are in a race. How many ways can gold, silver and bronze be awarded?",
+   "options": [
+    "336",
+    "24",
+    "512",
+    "56"
+   ],
+   "answer": 0,
+   "hint": "8 choices for gold, then 7 for silver, then 6 for bronze.",
+   "why": "8 × 7 × 6 = 336. This is ⁸P₃."
+  },
+  {
+   "topic": "Chapter 11: Counting and Permutations",
+   "q": "How many ways can the letters of IRELAND be arranged, taking them three at a time?",
+   "options": [
+    "210",
+    "343",
+    "35",
+    "5,040"
+   ],
+   "answer": 0,
+   "hint": "IRELAND has seven different letters. 7 × 6 × 5.",
+   "why": "⁷P₃ = 7 × 6 × 5 = 210."
+  },
+  {
+   "topic": "Chapter 11: Counting and Permutations",
+   "q": "What is 4!?",
+   "options": [
+    "24",
+    "16",
+    "10",
+    "4"
+   ],
+   "answer": 0,
+   "hint": "4! = 4 × 3 × 2 × 1.",
+   "why": "4 × 3 × 2 × 1 = 24."
+  },
+  {
+   "topic": "Chapter 11: Counting and Permutations",
+   "q": "Using the digits 1, 2, 4, 6, 7 and 8 once each, how many four-digit numbers can be made?",
+   "options": [
+    "360",
+    "1,296",
+    "24",
+    "720"
+   ],
+   "answer": 0,
+   "hint": "6 choices for the first digit, then 5, then 4, then 3.",
+   "why": "6 × 5 × 4 × 3 = 360."
+  },
+  {
+   "topic": "Chapter 11: Counting and Permutations",
+   "q": "Using the same digits (1, 2, 4, 6, 7, 8), how many of those four-digit numbers are even?",
+   "options": [
+    "240",
+    "120",
+    "180",
+    "360"
+   ],
+   "answer": 0,
+   "hint": "Fill the last digit first: how many even digits are there?",
+   "why": "4 choices for the last digit (2, 4, 6, 8), then 5 × 4 × 3 for the others: 5 × 4 × 3 × 4 = 240."
+  },
+  {
+   "topic": "Chapter 11: Counting and Permutations",
+   "q": "Five finalists are in a contest. How many ways can a winner and a runner-up be chosen?",
+   "options": [
+    "20",
+    "10",
+    "25",
+    "120"
+   ],
+   "answer": 0,
+   "hint": "Order matters: 5 choices for winner, then 4 for runner-up.",
+   "why": "5 × 4 = 20."
+  },
+  {
+   "topic": "Chapter 12: Probability",
+   "q": "A die is rolled 100 times and 1 shows 25 times. What is the relative frequency of rolling a 1?",
+   "options": [
+    "0.25",
+    "1/6",
+    "0.75",
+    "25"
+   ],
+   "answer": 0,
+   "hint": "Relative frequency = number of times it happened ÷ number of trials.",
+   "why": "25 ÷ 100 = 0.25."
+  },
+  {
+   "topic": "Chapter 12: Probability",
+   "q": "A fair die is rolled 900 times. How many times would you expect to roll a 1?",
+   "options": [
+    "150",
+    "90",
+    "300",
+    "180"
+   ],
+   "answer": 0,
+   "hint": "Expected frequency = number of trials × probability.",
+   "why": "900 × 1/6 = 150."
+  },
+  {
+   "topic": "Chapter 12: Probability",
+   "q": "A spinner with 5 equal sectors lands on 2 in 45 of 120 spins. Is it fair?",
+   "options": [
+    "No, 0.375 is far from 0.2",
+    "Yes, every number came up",
+    "Yes, 45 is less than half of 120",
+    "No, it should land on 2 exactly 24 times"
+   ],
+   "answer": 0,
+   "hint": "Compare the relative frequency with 1/5.",
+   "why": "45/120 = 0.375, but a fair spinner would give close to 1/5 = 0.2. After 120 spins that gap suggests it isn’t fair."
+  },
+  {
+   "topic": "Chapter 12: Probability",
+   "q": "In a class of 30, 7 study Art only, 5 study both Art and Biology, 8 study Biology only and 10 study neither. What is P(Art)?",
+   "options": [
+    "2/5",
+    "7/30",
+    "1/6",
+    "1/3"
+   ],
+   "answer": 0,
+   "hint": "Art includes Art only and both.",
+   "why": "(7 + 5)/30 = 12/30 = 2/5."
+  },
+  {
+   "topic": "Chapter 12: Probability",
+   "q": "Using the same class, what is P(Art or Biology)?",
+   "options": [
+    "2/3",
+    "1/3",
+    "1/6",
+    "5/6"
+   ],
+   "answer": 0,
+   "hint": "Count everyone inside either circle.",
+   "why": "(7 + 5 + 8)/30 = 20/30 = 2/3."
+  },
+  {
+   "topic": "Chapter 12: Probability",
+   "q": "P(soccer) = 0.25, P(Gaelic) = 0.4 and P(neither) = 0.45. What is P(both)?",
+   "options": [
+    "0.1",
+    "0.65",
+    "0.35",
+    "0.15"
+   ],
+   "answer": 0,
+   "hint": "All the probabilities in a Venn diagram must add to 1.",
+   "why": "0.25 + 0.4 + 0.45 = 1.1, which is 0.1 too much. That 0.1 was counted twice, so P(both) = 0.1."
+  },
+  {
+   "topic": "Chapter 12: Probability",
+   "q": "A fair die is rolled twice. What is the probability of a 1 both times?",
+   "options": [
+    "1/36",
+    "1/12",
+    "1/6",
+    "2/6"
+   ],
+   "answer": 0,
+   "hint": "AND means multiply for independent events.",
+   "why": "1/6 × 1/6 = 1/36."
+  },
+  {
+   "topic": "Chapter 12: Probability",
+   "q": "A bag has 6 blue and 9 yellow marbles. One is picked and replaced, then another. What is P(blue, then yellow)?",
+   "options": [
+    "0.24",
+    "0.48",
+    "0.16",
+    "0.36"
+   ],
+   "answer": 0,
+   "hint": "P(blue) = 6/15 = 0.4 and P(yellow) = 0.6. Multiply.",
+   "why": "0.4 × 0.6 = 0.24. In any order it would be 0.24 + 0.24 = 0.48."
+  },
+  {
+   "topic": "Chapter 12: Probability",
+   "q": "Which of these is a Bernoulli trial?",
+   "options": [
+    "Rolling a die and counting whether you get a 5",
+    "Asking people if they like, dislike or have no opinion of tea",
+    "Penalties where the chance of missing increases each kick",
+    "Recording the exact height of each student"
+   ],
+   "answer": 0,
+   "hint": "A Bernoulli trial has only two outcomes (success or failure) and the probability stays the same.",
+   "why": "Getting a 5 or not is success or failure, and the probability is 1/6 every time."
+  },
+  {
+   "topic": "Chapter 12: Probability",
+   "q": "P(red light) = 1/5. What is the probability the car first meets a red light at the second set of lights?",
+   "options": [
+    "4/25",
+    "1/25",
+    "1/5",
+    "2/5"
+   ],
+   "answer": 0,
+   "hint": "First light not red, then red.",
+   "why": "4/5 × 1/5 = 4/25."
+  },
+  {
+   "topic": "Chapter 12: Probability",
+   "q": "A fair die is rolled. What is the expected value of the roll?",
+   "options": [
+    "3.5",
+    "3",
+    "6",
+    "1/6"
+   ],
+   "answer": 0,
+   "hint": "Multiply each outcome by its probability, then add.",
+   "why": "(1 + 2 + 3 + 4 + 5 + 6)/6 = 21/6 = 3.5. An expected value doesn’t have to be an actual outcome."
+  },
+  {
+   "topic": "Chapter 12: Probability",
+   "q": "A game has an expected win of €4.40 but costs €5 to play. What should you advise?",
+   "options": [
+    "Don’t play: you lose 60c a game on average",
+    "Play: you win €4.40 a game",
+    "Play: it is a fair game",
+    "Don’t play: you lose €4.40 a game"
+   ],
+   "answer": 0,
+   "hint": "Subtract the cost from the expected winnings.",
+   "why": "€4.40 − €5 = −€0.60, so on average you lose 60 cent per game."
+  },
+  {
+   "topic": "Chapter 12: Probability",
+   "q": "What must the expected value of a game be for it to be fair?",
+   "options": [
+    "0",
+    "1",
+    "0.5",
+    "The cost to play"
+   ],
+   "answer": 0,
+   "hint": "In a fair game you neither win nor lose on average.",
+   "why": "A fair game has an expected value of zero after the cost is taken off."
+  },
+  {
+   "topic": "Chapter 13: Statistics I",
+   "q": "The number of aeroplanes flying out of Shannon each day is…",
+   "options": [
+    "Discrete numerical data",
+    "Continuous numerical data",
+    "Ordinal categorical data",
+    "Nominal categorical data"
+   ],
+   "answer": 0,
+   "hint": "Can there be 12.5 aeroplanes?",
+   "why": "It can only take whole-number values, so it is discrete numerical."
+  },
+  {
+   "topic": "Chapter 13: Statistics I",
+   "q": "The heights of basketball players are…",
+   "options": [
+    "Continuous numerical data",
+    "Discrete numerical data",
+    "Ordinal categorical data",
+    "Nominal categorical data"
+   ],
+   "answer": 0,
+   "hint": "Can a height be any value within a range?",
+   "why": "Heights are measured and can take any value in a range, so they are continuous."
+  },
+  {
+   "topic": "Chapter 13: Statistics I",
+   "q": "Exam grades such as H1, H2, H3 are…",
+   "options": [
+    "Ordinal categorical data",
+    "Nominal categorical data",
+    "Discrete numerical data",
+    "Continuous numerical data"
+   ],
+   "answer": 0,
+   "hint": "They are not numbers you calculate with, but can they be put in order?",
+   "why": "Categorical data that can be ordered is ordinal."
+  },
+  {
+   "topic": "Chapter 13: Statistics I",
+   "q": "Blood group is an example of…",
+   "options": [
+    "Nominal categorical data",
+    "Ordinal categorical data",
+    "Discrete numerical data",
+    "Continuous numerical data"
+   ],
+   "answer": 0,
+   "hint": "Can blood groups be put in a meaningful order?",
+   "why": "Blood groups have no natural order, so they are nominal."
+  },
+  {
+   "topic": "Chapter 13: Statistics I",
+   "q": "In a simple random sample of size n…",
+   "options": [
+    "Every possible sample of size n has an equal chance of being chosen",
+    "The first n people you meet are chosen",
+    "Only volunteers are chosen",
+    "The sample is the whole population"
+   ],
+   "answer": 0,
+   "hint": "Think about fairness: who has a chance of being picked?",
+   "why": "Every member, and every possible group of n, has the same chance of selection."
+  },
+  {
+   "topic": "Chapter 13: Statistics I",
+   "q": "In a stem-and-leaf diagram, the key says 1 | 4 = 14 years. What does 5 | 7 mean?",
+   "options": [
+    "57 years",
+    "5.7 years",
+    "12 years",
+    "507 years"
+   ],
+   "answer": 0,
+   "hint": "The stem is the tens digit and the leaf is the units digit.",
+   "why": "Stem 5 and leaf 7 give 57 years."
+  },
+  {
+   "topic": "Chapter 13: Statistics I",
+   "q": "A histogram tails off towards the higher numbers on the right. This distribution is…",
+   "options": [
+    "Positively skewed (skewed right)",
+    "Negatively skewed (skewed left)",
+    "Symmetric",
+    "Uniform"
+   ],
+   "answer": 0,
+   "hint": "The skew is named after the side the tail is on.",
+   "why": "A tail on the right means positively skewed, or skewed right."
+  },
+  {
+   "topic": "Chapter 13: Statistics I",
+   "q": "The correlation coefficient is r = −0.99. This shows…",
+   "options": [
+    "Strong negative correlation",
+    "Weak negative correlation",
+    "No correlation",
+    "Strong positive correlation"
+   ],
+   "answer": 0,
+   "hint": "Close to −1 or close to 0?",
+   "why": "r close to −1 is a strong negative correlation: as one variable increases, the other decreases."
+  },
+  {
+   "topic": "Chapter 13: Statistics I",
+   "q": "Calculator sales and computer sales both rose in 1980 to 1999. Why can’t we say calculators caused the computer sales?",
+   "options": [
+    "Correlation does not imply causality",
+    "The correlation is negative",
+    "There is no correlation at all",
+    "The sample is too big"
+   ],
+   "answer": 0,
+   "hint": "Could a third factor be behind both?",
+   "why": "A lurking variable (falling production costs) drove both. Correlation alone doesn’t prove one causes the other."
+  },
+  {
+   "topic": "Chapter 14: Mean, Mode and Median",
+   "q": "Find the mean of {3, 4, 8, 9, 9}.",
+   "options": [
+    "6.6",
+    "8",
+    "9",
+    "33"
+   ],
+   "answer": 0,
+   "hint": "Add them up and divide by how many there are.",
+   "why": "33 ÷ 5 = 6.6."
+  },
+  {
+   "topic": "Chapter 14: Mean, Mode and Median",
+   "q": "Find the median of {2, 1, 4, 3}.",
+   "options": [
+    "2.5",
+    "2",
+    "3",
+    "4"
+   ],
+   "answer": 0,
+   "hint": "Rank the data first. With an even number of values, take the mean of the middle two.",
+   "why": "{1, 2, 3, 4}: the middle two are 2 and 3, so the median is 2.5."
+  },
+  {
+   "topic": "Chapter 14: Mean, Mode and Median",
+   "q": "Find the mode of {6, 7, 7, 4, 5, 6, 7}.",
+   "options": [
+    "7",
+    "6",
+    "6.5",
+    "4"
+   ],
+   "answer": 0,
+   "hint": "The mode is the most common value.",
+   "why": "7 appears three times, more than any other value."
+  },
+  {
+   "topic": "Chapter 14: Mean, Mode and Median",
+   "q": "A golfer’s scores: 75 (×4), 76 (×3), 77 (×4), 78 (×7), 79 (×2). What is the modal score?",
+   "options": [
+    "78",
+    "77",
+    "79",
+    "7"
+   ],
+   "answer": 0,
+   "hint": "Which score has the highest frequency?",
+   "why": "78 has a frequency of 7. The mode is the score, not the frequency."
+  },
+  {
+   "topic": "Chapter 14: Mean, Mode and Median",
+   "q": "A group 60–70 is used in a grouped frequency table. What mid-interval value do you use for it?",
+   "options": [
+    "65",
+    "60",
+    "70",
+    "10"
+   ],
+   "answer": 0,
+   "hint": "Add the two ends and divide by 2.",
+   "why": "(60 + 70)/2 = 65."
+  },
+  {
+   "topic": "Chapter 14: Mean, Mode and Median",
+   "q": "Why can you not find the mean of grades like O1, O2, O3?",
+   "options": [
+    "The data is categorical, not numerical",
+    "There are too many grades",
+    "The mode is better",
+    "The grades are not in order"
+   ],
+   "answer": 0,
+   "hint": "Can you add grades together and divide?",
+   "why": "Grades are categorical data, so you can find the mode but not the mean."
+  }
+ ]
+};
+
+const $ = id => document.getElementById(id);
+const LETTERS = ["A","B","C","D","E","F"];
+let round = [], i = 0, score = 0, missed = [], answered = false;
+
+function shuffle(arr){
+  for(let k = arr.length - 1; k > 0; k--){
+    const j = Math.floor(Math.random() * (k + 1));
+    [arr[k], arr[j]] = [arr[j], arr[k]];
+  }
+  return arr;
+}
+function show(id){
+  ["startScreen","quizScreen","endScreen"].forEach(s => $(s).hidden = (s !== id));
+  const inQuiz = id === "quizScreen";
+  $("meta").hidden = !inQuiz;
+  $("barWrap").hidden = !inQuiz;
+}
+function prepare(q){
+  const opts = q.options.map((text, idx) => ({text, correct: idx === q.answer}));
+  return Object.assign({}, q, {opts: q.keepOrder ? opts : shuffle(opts)});
+}
+function start(){
+  round = shuffle(pool()).map(prepare);
+  i = 0; score = 0; missed = [];
+  show("quizScreen");
+  render();
+}
+function render(){
+  answered = false;
+  const q = round[i];
+  $("topic").textContent = q.topic || "Question";
+  $("question").textContent = q.q;
+  $("count").textContent = "Question " + (i + 1) + " of " + round.length;
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = (i / round.length * 100) + "%";
+  $("hint").textContent = q.hint || "";
+  $("hint").hidden = true;
+  $("hintBtn").hidden = !q.hint;
+  const fb = $("feedback"); fb.className = "feedback"; fb.textContent = "";
+  $("nextBtn").hidden = true;
+  const box = $("options"); box.textContent = "";
+  q.opts.forEach((o, idx) => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    const l = document.createElement("span"); l.className = "letter"; l.textContent = LETTERS[idx];
+    const t = document.createElement("span"); t.textContent = o.text;
+    b.appendChild(l); b.appendChild(t);
+    b.addEventListener("click", () => choose(idx));
+    box.appendChild(b);
+  });
+  window.scrollTo({top:0});
+}
+function choose(idx){
+  if(answered) return;
+  answered = true;
+  const q = round[i];
+  const buttons = Array.from($("options").children);
+  const correct = q.opts[idx].correct;
+  const rightText = q.opts.find(o => o.correct).text;
+  buttons.forEach((b, k) => {
+    b.disabled = true;
+    if(q.opts[k].correct) b.classList.add("right");
+    else if(k === idx) b.classList.add("wrong");
+  });
+  const fb = $("feedback");
+  const head = document.createElement("b");
+  const body = document.createElement("span");
+  if(correct){ score++; fb.className = "feedback good"; head.textContent = "Correct!"; }
+  else { missed.push({q: q.q, a: rightText, why: q.why}); fb.className = "feedback bad"; head.textContent = "Not quite. The answer is: " + rightText; }
+  body.textContent = q.why || "";
+  fb.appendChild(head); fb.appendChild(body);
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = ((i + 1) / round.length * 100) + "%";
+  $("hintBtn").hidden = true;
+  const next = $("nextBtn");
+  next.textContent = (i === round.length - 1) ? "See my score" : "Next question";
+  next.hidden = false;
+  next.focus();
+}
+function finish(){
+  show("endScreen");
+  const name = $("nameInput").value.trim();
+  const d = new Date();
+  const day = d.toLocaleDateString("en-IE", {day:"numeric", month:"long", year:"numeric"});
+  const secs = chosen();
+  $("who").textContent = (name ? name + " · " : "") + day + " · " + (secs.length === SECTIONS.length ? "All chapters" : secs.join(", "));
+  $("finalScore").textContent = score + " / " + round.length;
+  const pct = score / round.length;
+  $("finalMsg").textContent =
+    pct === 1 ? "Perfect score. Take a bow." :
+    pct >= 0.75 ? "Great work. You know this well." :
+    pct >= 0.5 ? "Good effort. Check the ones below, then try again." :
+    "Keep going. Read over the pages again, then try again.";
+  const list = $("missedList"); list.textContent = "";
+  missed.forEach(m => {
+    const li = document.createElement("li");
+    const s = document.createElement("strong"); s.textContent = m.q;
+    const a = document.createElement("span"); a.textContent = "Answer: " + m.a + (m.why ? ". " + m.why : "");
+    li.appendChild(s); li.appendChild(a); list.appendChild(li);
+  });
+  $("missedWrap").hidden = missed.length === 0;
+  $("againBtn").focus();
+}
+
+$("title").textContent = QUIZ.title;
+document.title = QUIZ.title;
+$("subtitle").textContent = QUIZ.subtitle || "";
+$("subtitle").hidden = !QUIZ.subtitle;
+$("introText").textContent = QUIZ.intro;
+const SECTIONS = [];
+QUIZ.questions.forEach(q => { if(!SECTIONS.includes(q.topic)) SECTIONS.push(q.topic); });
+const list = $("sectionList");
+SECTIONS.forEach((s, k) => {
+  const lab = document.createElement("label");
+  const box = document.createElement("input");
+  box.type = "checkbox"; box.checked = true; box.value = s; box.id = "sec" + k;
+  box.addEventListener("change", updateCount);
+  const txt = document.createElement("span"); txt.textContent = s;
+  const n = QUIZ.questions.filter(q => q.topic === s).length;
+  const sm = document.createElement("small"); sm.textContent = n + (n === 1 ? " question" : " questions");
+  lab.appendChild(box); lab.appendChild(txt); lab.appendChild(sm);
+  list.appendChild(lab);
+});
+function chosen(){ return Array.from(list.querySelectorAll("input:checked")).map(b => b.value); }
+function pool(){ const c = chosen(); return QUIZ.questions.filter(q => c.includes(q.topic)); }
+function updateCount(){
+  const n = pool().length;
+  $("pickCount").textContent = n ? n + " questions selected" : "No chapters selected";
+  if(n) $("pickError").hidden = true;
+}
+$("allBtn").addEventListener("click", () => { list.querySelectorAll("input").forEach(b => b.checked = true); updateCount(); });
+$("noneBtn").addEventListener("click", () => { list.querySelectorAll("input").forEach(b => b.checked = false); updateCount(); });
+updateCount();
+function tryStart(){
+  if(!pool().length){ $("pickError").hidden = false; return; }
+  start();
+}
+$("startBtn").addEventListener("click", tryStart);
+$("nameInput").addEventListener("keydown", e => { if(e.key === "Enter") tryStart(); });
+$("againBtn").addEventListener("click", start);
+$("changeBtn").addEventListener("click", () => { show("startScreen"); window.scrollTo({top:0}); });
+$("nextBtn").addEventListener("click", () => { i++; if(i < round.length) render(); else finish(); });
+$("hintBtn").addEventListener("click", () => { $("hint").hidden = false; $("hintBtn").hidden = true; });
+</script>
+</body>
+</html>
