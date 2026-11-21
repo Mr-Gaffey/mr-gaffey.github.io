@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 12 Key Words: Probability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --ink:#1f1b0f; --muted:#5a5547; --band:#ffd84d; --bandInk:#1f1b0f;
+  --card:#fffbea; --line:#e6dfc4;
+  --opt:#ffffff; --optLine:#cfc6a3; --optHover:#fff3c4; --letter:#2f6fdb; --letterInk:#ffffff;
+  --good:#1d7a3e; --goodSoft:#e3f4e8; --bad:#b3261e; --badSoft:#fde7e5;
+  --focus:#1f55b8;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+    --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+    --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+    --focus:#9dbdff; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+  --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+  --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+  --focus:#9dbdff; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Lexend','Segoe UI',Arial,sans-serif;font-size:18px;line-height:1.5}
+header{background:var(--band);color:var(--bandInk);padding:20px 20px 18px}
+.wrap{max-width:760px;margin:0 auto}
+.back{display:inline-block;margin-bottom:10px;color:var(--bandInk);font-size:16px;font-weight:500;text-decoration:none}
+.back:hover{text-decoration:underline}
+.backBtn{display:inline-block;margin:20px 0 0 12px;color:var(--ink);font-size:18px;font-weight:500}
+.nameError{margin:8px 0 0;color:var(--bad);font-weight:500}
+header h1{margin:0;font-size:clamp(24px,5vw,34px);font-weight:700;letter-spacing:-0.3px;line-height:1.2}
+.sub{margin:4px 0 0;font-size:16px;font-weight:500}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-weight:500;font-size:16px}
+.bar{height:12px;background:rgba(31,27,15,.18);border-radius:999px;overflow:hidden;margin-top:8px}
+.bar span{display:block;height:100%;width:0;background:var(--bandInk);border-radius:999px;transition:width .3s ease}
+main{padding:24px 20px 48px}
+[hidden]{display:none!important}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:28px 24px}
+.ask{margin:0;color:var(--muted);font-weight:500;font-size:16px}
+.question{margin:8px 0 0;font-size:clamp(22px,4.6vw,28px);font-weight:700;line-height:1.3}
+.hintBtn{margin-top:16px;background:none;border:2px solid var(--optLine);color:var(--ink);font:inherit;font-size:16px;font-weight:500;border-radius:999px;padding:8px 16px;min-height:44px;cursor:pointer}
+.hint{margin:12px 0 0;font-size:17px;color:var(--muted)}
+.options{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.choice{display:flex;align-items:center;gap:14px;width:100%;min-height:60px;padding:12px 16px;text-align:left;background:var(--opt);color:var(--ink);border:2px solid var(--optLine);border-radius:16px;font:inherit;font-size:19px;font-weight:500;cursor:pointer}
+.choice:hover:not(:disabled){background:var(--optHover)}
+.choice .letter{flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--letter);color:var(--letterInk);font-weight:700;font-size:17px}
+.choice:disabled{cursor:default;opacity:.5}
+.choice.right{opacity:1;border:3px solid var(--good);background:var(--goodSoft)}
+.choice.right .letter{background:var(--good);color:var(--bg)}
+.choice.wrong{opacity:1;border:3px solid var(--bad);background:var(--badSoft)}
+.choice.wrong .letter{background:var(--bad);color:var(--bg)}
+.feedback{margin-top:18px;border-radius:16px;padding:16px 20px;font-size:18px}
+.feedback:empty{display:none}
+.feedback.good{background:var(--goodSoft);border:2px solid var(--good)}
+.feedback.bad{background:var(--badSoft);border:2px solid var(--bad)}
+.feedback b{display:block;font-size:20px;margin-bottom:4px}
+.primary{display:inline-block;margin-top:20px;background:var(--ink);color:var(--bg);border:none;border-radius:16px;font:inherit;font-size:20px;font-weight:700;padding:14px 28px;min-height:56px;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+.intro p{margin:0 0 12px}
+label{display:block;font-weight:500;margin:16px 0 6px}
+input[type=text]{width:100%;max-width:360px;font:inherit;padding:10px 14px;border:2px solid var(--optLine);border-radius:12px;background:var(--opt);color:var(--ink);min-height:48px}
+.who{margin:0;font-size:18px;font-weight:500}
+.score{font-size:clamp(48px,12vw,80px);font-weight:700;line-height:1;margin:8px 0}
+.missed{list-style:none;padding:0;margin:16px 0 0}
+.missed li{border-top:2px solid var(--line);padding:12px 0}
+.missed li span{display:block;font-size:16px;color:var(--muted)}
+@media (max-width:520px){.panel{padding:22px 18px}.choice{font-size:18px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="ch12-glossary.html">← Chapter 12 key words</a>
+    <h1 id="title"></h1>
+    <p class="sub" id="subtitle"></p>
+    <div class="meta" id="meta" hidden>
+      <span id="count"></span>
+      <span id="tally"></span>
+    </div>
+    <div class="bar" id="barWrap" hidden><span id="bar"></span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro" id="startScreen">
+    <div class="panel">
+      <p id="introText"></p>
+      <p>Pick one answer for each question. If you’re stuck, press <strong>Show a hint</strong>.</p>
+      <label for="nameInput">Your name</label>
+      <input type="text" id="nameInput" autocomplete="off" required aria-describedby="nameError">
+      <p class="nameError" id="nameError" role="alert" hidden>Type your name to start the quiz.</p>
+      <br>
+      <button class="primary" id="startBtn">Start quiz</button>
+    </div>
+  </section>
+
+  <section id="quizScreen" hidden>
+    <div class="panel">
+      <p class="ask" id="topic"></p>
+      <p class="question" id="question"></p>
+      <button class="hintBtn" id="hintBtn">Show a hint</button>
+      <p class="hint" id="hint" hidden></p>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <button class="primary" id="nextBtn" hidden>Next question</button>
+    </div>
+  </section>
+
+  <section id="endScreen" hidden>
+    <div class="panel">
+      <p class="who" id="who"></p>
+      <p class="ask">Your score</p>
+      <p class="score" id="finalScore"></p>
+      <p id="finalMsg"></p>
+      <div id="missedWrap">
+        <p><strong>Have another look at these:</strong></p>
+        <ul class="missed" id="missedList"></ul>
+      </div>
+      <button class="primary" id="againBtn">Try again</button>
+      <a class="backBtn" href="ch12.html">Back to Chapter 12</a>
+    </div>
+  </section>
+</main>
+
+<script>
+const QUIZ = {
+ "title": "Chapter 12 Key Words: Probability",
+ "subtitle": "Active Maths 3 (2nd edition), Chapter 12",
+ "intro": "17 questions on the key words from Probability.",
+ "questions": [
+  {
+   "topic": "Event",
+   "q": "Rolling an even number on a die. Which set is this event?",
+   "options": [
+    "{2, 4, 6}",
+    "{1, 3, 5}",
+    "{6}",
+    "{1, 2, 3, 4, 5, 6}"
+   ],
+   "answer": 0,
+   "hint": "Which numbers on a die are even?",
+   "why": "The event ‘even number’ is the outcomes 2, 4 and 6."
+  },
+  {
+   "topic": "Probability scale",
+   "q": "On the probability scale, what does 0 mean?",
+   "options": [
+    "Impossible",
+    "Certain",
+    "Even chance",
+    "Likely"
+   ],
+   "answer": 0,
+   "hint": "The scale runs from 0 to 1.",
+   "why": "0 means it can’t happen. 1 means it’s certain."
+  },
+  {
+   "topic": "Probability",
+   "q": "What is the probability of rolling an even number on a die?",
+   "options": [
+    "½",
+    "1⁄3",
+    "1⁄6",
+    "2⁄3"
+   ],
+   "answer": 0,
+   "hint": "How many even numbers out of 6?",
+   "why": "3 even numbers out of 6 outcomes: 3⁄6 = ½."
+  },
+  {
+   "topic": "Fair",
+   "q": "A fair coin is tossed. What is P(head)?",
+   "options": [
+    "½",
+    "1",
+    "0",
+    "¼"
+   ],
+   "answer": 0,
+   "hint": "Fair means equally likely.",
+   "why": "Two equally likely outcomes, so P(head) = ½."
+  },
+  {
+   "topic": "Relative frequency",
+   "q": "A coin lands heads 18 times in 50 tosses. What is the relative frequency of heads?",
+   "options": [
+    "0.36",
+    "0.18",
+    "0.5",
+    "0.64"
+   ],
+   "answer": 0,
+   "hint": "Number of heads ÷ number of tosses.",
+   "why": "18 ÷ 50 = 0.36. 0.5 is the theoretical probability."
+  },
+  {
+   "topic": "Experimental probability",
+   "q": "Which of these is an experimental probability?",
+   "options": [
+    "A pin lands point up 32 times in 80 throws, so P ≈ 0.4",
+    "P(king) = 4⁄52 because there are 4 kings",
+    "P(head) = ½ because a coin has two sides",
+    "P(6) = 1⁄6 because a die has six faces"
+   ],
+   "answer": 0,
+   "hint": "Which one came from actually doing it?",
+   "why": "Experimental probability comes from doing trials. The others are worked out by reasoning."
+  },
+  {
+   "topic": "Theoretical probability",
+   "q": "What is the probability of picking a king from a deck of 52 cards?",
+   "options": [
+    "1⁄13",
+    "¼",
+    "1⁄52",
+    "4⁄13"
+   ],
+   "answer": 0,
+   "hint": "There are 4 kings.",
+   "why": "4⁄52 = 1⁄13."
+  },
+  {
+   "topic": "Expected frequency",
+   "q": "A die is rolled 300 times. How many sixes would you expect?",
+   "options": [
+    "50",
+    "6",
+    "60",
+    "30"
+   ],
+   "answer": 0,
+   "hint": "Probability × number of trials.",
+   "why": "1⁄6 × 300 = 50."
+  },
+  {
+   "topic": "Mutually exclusive",
+   "q": "One die is rolled. Which two events are mutually exclusive?",
+   "options": [
+    "Rolling a 2 and rolling a 5",
+    "Rolling an even number and rolling a 2",
+    "Rolling more than 3 and rolling an even number",
+    "Rolling a 1 and rolling an odd number"
+   ],
+   "answer": 0,
+   "hint": "Which pair can’t both happen on one roll?",
+   "why": "You can’t get a 2 and a 5 on the same roll. The other pairs can overlap."
+  },
+  {
+   "topic": "Independent events",
+   "q": "A coin is tossed and a die is rolled. What is P(head and a 6)?",
+   "options": [
+    "1⁄12",
+    "2⁄3",
+    "1⁄8",
+    "7⁄12"
+   ],
+   "answer": 0,
+   "hint": "Independent: multiply.",
+   "why": "½ × 1⁄6 = 1⁄12. Adding gives 2⁄3, which is wrong."
+  },
+  {
+   "topic": "Set theory",
+   "q": "In probability, what does A ∩ B mean?",
+   "options": [
+    "A and B both happen",
+    "A or B happens",
+    "A doesn’t happen",
+    "Neither happens"
+   ],
+   "answer": 0,
+   "hint": "∩ is the intersection, the overlap.",
+   "why": "∩ means AND: the overlap of A and B. ∪ means OR."
+  },
+  {
+   "topic": "Bernoulli trial",
+   "q": "What is a Bernoulli trial?",
+   "options": [
+    "A trial with two outcomes, success or failure, with the same chance each time",
+    "Any trial you repeat",
+    "A trial with three or more outcomes",
+    "A trial where the chance changes each time"
+   ],
+   "answer": 0,
+   "hint": "Think success or failure.",
+   "why": "A Bernoulli trial has exactly two outcomes and the probability of success stays the same."
+  },
+  {
+   "topic": "Expected value",
+   "q": "A game pays €10 with probability 0.2, otherwise nothing. What is the expected value?",
+   "options": [
+    "€2",
+    "€10",
+    "€8",
+    "€0.20"
+   ],
+   "answer": 0,
+   "hint": "Value × probability, then add.",
+   "why": "10 × 0.2 + 0 × 0.8 = €2. If it cost more than €2 to play, it wouldn’t be fair."
+  },
+  {
+   "topic": "Unbiased",
+   "q": "What does an unbiased die mean?",
+   "options": [
+    "Every number is equally likely",
+    "It is heavier on one side",
+    "It has no 6",
+    "It lands on 6 more often"
+   ],
+   "answer": 0,
+   "hint": "Unbiased means the same as fair.",
+   "why": "An unbiased die gives each number the same 1⁄6 chance."
+  },
+  {
+   "topic": "Likelihood scale",
+   "q": "Which list puts the likelihood scale in order?",
+   "options": [
+    "Impossible, unlikely, evens, likely, certain",
+    "Unlikely, impossible, evens, certain, likely",
+    "Certain, likely, impossible, evens, unlikely",
+    "Evens, likely, unlikely, impossible, certain"
+   ],
+   "answer": 0,
+   "hint": "Start at ‘can’t happen’.",
+   "why": "The likelihood scale runs from impossible to certain, with evens in the middle."
+  },
+  {
+   "topic": "AND/OR events",
+   "q": "One card is drawn from a deck. What is P(red or king)?",
+   "options": [
+    "7⁄13",
+    "15⁄26",
+    "1⁄26",
+    "8⁄13"
+   ],
+   "answer": 0,
+   "hint": "Add, then take away the overlap: the red kings.",
+   "why": "26⁄52 + 4⁄52 − 2⁄52 = 28⁄52 = 7⁄13. Forgetting to take away the 2 red kings gives 15⁄26."
+  },
+  {
+   "topic": "Fairness",
+   "q": "A game costs €2 to play and the expected winnings are €2. The game is…",
+   "options": [
+    "Fair",
+    "In the player’s favour",
+    "Against the player",
+    "Impossible to judge"
+   ],
+   "answer": 0,
+   "hint": "Compare the cost with the expected winnings.",
+   "why": "On average you win back exactly what you pay, so nobody gains: the game is fair."
+  }
+ ]
+};
+
+const $ = id => document.getElementById(id);
+const LETTERS = ["A","B","C","D","E","F"];
+let round = [], i = 0, score = 0, missed = [], answered = false;
+
+function shuffle(arr){
+  for(let k = arr.length - 1; k > 0; k--){
+    const j = Math.floor(Math.random() * (k + 1));
+    [arr[k], arr[j]] = [arr[j], arr[k]];
+  }
+  return arr;
+}
+function show(id){
+  ["startScreen","quizScreen","endScreen"].forEach(s => $(s).hidden = (s !== id));
+  const inQuiz = id === "quizScreen";
+  $("meta").hidden = !inQuiz;
+  $("barWrap").hidden = !inQuiz;
+}
+function prepare(q){
+  const opts = q.options.map((text, idx) => ({text, correct: idx === q.answer}));
+  return Object.assign({}, q, {opts: q.keepOrder ? opts : shuffle(opts)});
+}
+function start(){
+  round = (QUIZ.shuffleQuestions === false ? QUIZ.questions.slice() : shuffle(QUIZ.questions.slice())).map(prepare);
+  i = 0; score = 0; missed = [];
+  show("quizScreen");
+  render();
+}
+function render(){
+  answered = false;
+  const q = round[i];
+  $("topic").textContent = q.topic || "Question";
+  $("question").textContent = q.q;
+  $("count").textContent = "Question " + (i + 1) + " of " + round.length;
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = (i / round.length * 100) + "%";
+  $("hint").textContent = q.hint || "";
+  $("hint").hidden = true;
+  $("hintBtn").hidden = !q.hint;
+  const fb = $("feedback"); fb.className = "feedback"; fb.textContent = "";
+  $("nextBtn").hidden = true;
+  const box = $("options"); box.textContent = "";
+  q.opts.forEach((o, idx) => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    const l = document.createElement("span"); l.className = "letter"; l.textContent = LETTERS[idx];
+    const t = document.createElement("span"); t.textContent = o.text;
+    b.appendChild(l); b.appendChild(t);
+    b.addEventListener("click", () => choose(idx));
+    box.appendChild(b);
+  });
+  window.scrollTo({top:0});
+}
+function choose(idx){
+  if(answered) return;
+  answered = true;
+  const q = round[i];
+  const buttons = Array.from($("options").children);
+  const correct = q.opts[idx].correct;
+  const rightText = q.opts.find(o => o.correct).text;
+  buttons.forEach((b, k) => {
+    b.disabled = true;
+    if(q.opts[k].correct) b.classList.add("right");
+    else if(k === idx) b.classList.add("wrong");
+  });
+  const fb = $("feedback");
+  const head = document.createElement("b");
+  const body = document.createElement("span");
+  if(correct){ score++; fb.className = "feedback good"; head.textContent = "Correct!"; }
+  else { missed.push({q: q.q, a: rightText, why: q.why}); fb.className = "feedback bad"; head.textContent = "Not quite. The answer is: " + rightText; }
+  body.textContent = q.why || "";
+  fb.appendChild(head); fb.appendChild(body);
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = ((i + 1) / round.length * 100) + "%";
+  $("hintBtn").hidden = true;
+  const next = $("nextBtn");
+  next.textContent = (i === round.length - 1) ? "See my score" : "Next question";
+  next.hidden = false;
+  next.focus();
+}
+function finish(){
+  show("endScreen");
+  const name = $("nameInput").value.trim();
+  const d = new Date();
+  $("who").textContent = name + " · " + d.toLocaleDateString("en-IE", {day:"numeric", month:"long", year:"numeric"});
+  $("finalScore").textContent = score + " / " + round.length;
+  const pct = score / round.length;
+  $("finalMsg").textContent =
+    pct === 1 ? "Perfect score. Take a bow." :
+    pct >= 0.75 ? "Great work. You know this well." :
+    pct >= 0.5 ? "Good effort. Check the ones below, then try again." :
+    "Keep going. Read over the pages again, then try again.";
+  const list = $("missedList"); list.textContent = "";
+  missed.forEach(m => {
+    const li = document.createElement("li");
+    const s = document.createElement("strong"); s.textContent = m.q;
+    const a = document.createElement("span"); a.textContent = "Answer: " + m.a + (m.why ? ". " + m.why : "");
+    li.appendChild(s); li.appendChild(a); list.appendChild(li);
+  });
+  $("missedWrap").hidden = missed.length === 0;
+  $("againBtn").focus();
+}
+
+$("title").textContent = QUIZ.title;
+document.title = QUIZ.title;
+$("subtitle").textContent = QUIZ.subtitle || "";
+$("subtitle").hidden = !QUIZ.subtitle;
+$("introText").textContent = QUIZ.intro || ("There are " + QUIZ.questions.length + " questions in this quiz.");
+function tryStart(){
+  const name = $("nameInput").value.trim();
+  if(!name){ $("nameError").hidden = false; $("nameInput").focus(); return; }
+  $("nameError").hidden = true;
+  start();
+}
+$("startBtn").addEventListener("click", tryStart);
+$("nameInput").addEventListener("keydown", e => { if(e.key === "Enter") tryStart(); });
+$("nameInput").addEventListener("input", () => { if($("nameInput").value.trim()) $("nameError").hidden = true; });
+$("againBtn").addEventListener("click", start);
+$("nextBtn").addEventListener("click", () => { i++; if(i < round.length) render(); else finish(); });
+$("hintBtn").addEventListener("click", () => { $("hint").hidden = false; $("hintBtn").hidden = true; });
+</script>
+</body>
+</html>
