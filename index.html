@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f7f5f0;--ink:#1d2731;--muted:#5d6872;--card:#fff;--line:#e4dfd4;--hero:#1d2731;--y2:#14866d;--y3:#2f5fd0;--y5:#d9661f;--y6:#7a3fd1}
+:root{--bg:#f7f5f0;--ink:#1d2731;--muted:#5d6872;--card:#fff;--line:#e4dfd4;--hero:#1d2731;--y2:#117a63;--y3:#2f5fd0;--y5:#b9531a;--y6:#7a3fd1}
 @media (prefers-color-scheme:dark){:root{--bg:#13171c;--ink:#eef1f4;--muted:#a3adb7;--card:#1d232a;--line:#2d353e;--hero:#0b0e11}}
 *{box-sizing:border-box}
 body{margin:0;font-family:Lexend,system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased}
@@ -31,15 +31,28 @@ h2 .lvl{font-size:.85rem;font-weight:500;color:var(--muted)}
 .txt small{color:var(--muted);font-size:.9rem}
 .go{font-size:1.4rem;color:var(--c)}
 footer{text-align:center;color:var(--muted);font-size:.85rem;padding:8px 16px 32px}
+
+/* design v2 home */
+.top{position:relative;overflow:hidden;background-color:var(--hero);background-image:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);background-size:24px 24px;padding:64px 0 56px}
+.top::after{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221040%22 height=%22180%22 viewBox=%220 0 1040 180%22%3E%3Ctext x=%2240%22 y=%2250%22 font-size=%2234%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%CF%80%3C/text%3E%3Ctext x=%22150%22 y=%22120%22 font-size=%2226%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%E2%88%9Ax%3C/text%3E%3Ctext x=%22260%22 y=%2240%22 font-size=%2230%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3Ex%C2%B2%3C/text%3E%3Ctext x=%22330%22 y=%22150%22 font-size=%2240%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%E2%88%91%3C/text%3E%3Ctext x=%22430%22 y=%2270%22 font-size=%2228%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%C3%B7%3C/text%3E%3Ctext x=%22520%22 y=%22140%22 font-size=%2232%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%CE%B8%3C/text%3E%3Ctext x=%22600%22 y=%2245%22 font-size=%2236%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%E2%88%9E%3C/text%3E%3Ctext x=%22700%22 y=%22125%22 font-size=%2226%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%C2%BD%3C/text%3E%3Ctext x=%22780%22 y=%2260%22 font-size=%2230%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%E2%89%A0%3C/text%3E%3Ctext x=%22860%22 y=%22140%22 font-size=%2222%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3Ey=mx%2Bc%3C/text%3E%3Ctext x=%22930%22 y=%2255%22 font-size=%2230%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%25%3C/text%3E%3Ctext x=%22990%22 y=%22135%22 font-size=%2228%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%CE%94%3C/text%3E%3C/svg%3E") right center/auto 100% no-repeat;opacity:.18;pointer-events:none}
+.top .wrap{position:relative;z-index:1}
+.top h1{font-size:clamp(2.4rem,9vw,3.8rem)}
+.stripe{display:flex;height:8px}.stripe span{flex:1}
+h2::before{content:"";display:inline-block;width:6px;height:1.05em;border-radius:3px;background:var(--hero);margin-right:4px;align-self:center}
+@media (prefers-color-scheme:dark){h2::before{background:var(--muted)}}
+.year{background:color-mix(in srgb,var(--c) 7%,var(--card));border-left-width:8px}
+.top::after,header::after{-webkit-mask:linear-gradient(90deg,transparent 35%,#000 75%);mask:linear-gradient(90deg,transparent 35%,#000 75%)}
+@media (max-width:640px){.top::after,header::after{opacity:.07}}
 </style>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
     <h1>Mr Gaffey's Maths</h1>
-    <p>Pick your year to find quizzes, notes, revision checklists and videos.</p>
+    <p>Pick your year to find key words, practice quizzes and exam revision for every chapter you’re studying.</p>
   </div>
 </header>
+<div class="stripe" aria-hidden="true"><span style="background:var(--y2)"></span><span style="background:var(--y3)"></span><span style="background:var(--y5)"></span><span style="background:var(--y6)"></span></div>
 
 <main class="wrap">
   <h2>Junior Cycle <span class="lvl">Higher &amp; Ordinary Level</span></h2>

@@ -94,6 +94,15 @@ input[type=text]{width:100%;max-width:360px;font:inherit;padding:10px 14px;borde
 .fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .12em;line-height:1.15}
 .fr>span{display:block;padding:0 .15em}.fr>span:first-child{border-bottom:2px solid currentColor}
 sup{font-size:.68em;line-height:0}sup:has(.fr){vertical-align:.75em}sup .fr{vertical-align:middle;font-size:.95em}sup .fr>span:first-child{border-bottom-width:1.5px}
+
+/* design v2 quiz */
+header{position:relative;overflow:hidden;background-color:#7a3fd1;background-image:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);background-size:24px 24px;color:#fff}
+header::after{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221040%22 height=%22180%22 viewBox=%220 0 1040 180%22%3E%3Ctext x=%2240%22 y=%2250%22 font-size=%2234%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%CF%80%3C/text%3E%3Ctext x=%22150%22 y=%22120%22 font-size=%2226%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%E2%88%9Ax%3C/text%3E%3Ctext x=%22260%22 y=%2240%22 font-size=%2230%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3Ex%C2%B2%3C/text%3E%3Ctext x=%22330%22 y=%22150%22 font-size=%2240%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%E2%88%91%3C/text%3E%3Ctext x=%22430%22 y=%2270%22 font-size=%2228%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%C3%B7%3C/text%3E%3Ctext x=%22520%22 y=%22140%22 font-size=%2232%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%CE%B8%3C/text%3E%3Ctext x=%22600%22 y=%2245%22 font-size=%2236%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%E2%88%9E%3C/text%3E%3Ctext x=%22700%22 y=%22125%22 font-size=%2226%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%C2%BD%3C/text%3E%3Ctext x=%22780%22 y=%2260%22 font-size=%2230%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%E2%89%A0%3C/text%3E%3Ctext x=%22860%22 y=%22140%22 font-size=%2222%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3Ey=mx%2Bc%3C/text%3E%3Ctext x=%22930%22 y=%2255%22 font-size=%2230%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%25%3C/text%3E%3Ctext x=%22990%22 y=%22135%22 font-size=%2228%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%CE%94%3C/text%3E%3C/svg%3E") right center/auto 100% no-repeat;opacity:.14;pointer-events:none}
+header .wrap{position:relative;z-index:1}
+header .back{color:#fff}
+.bar{background:rgba(255,255,255,.3)}.bar span{background:#fff}
+.top::after,header::after{-webkit-mask:linear-gradient(90deg,transparent 35%,#000 75%);mask:linear-gradient(90deg,transparent 35%,#000 75%)}
+@media (max-width:640px){.top::after,header::after{opacity:.07}}
 </style>
 </head>
 <body>
