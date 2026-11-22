@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chapter 4 Practice: Indices and Surds</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --ink:#1f1b0f; --muted:#5a5547; --band:#ffd84d; --bandInk:#1f1b0f;
+  --card:#fffbea; --line:#e6dfc4;
+  --opt:#ffffff; --optLine:#cfc6a3; --optHover:#fff3c4; --letter:#2f6fdb; --letterInk:#ffffff;
+  --good:#1d7a3e; --goodSoft:#e3f4e8; --bad:#b3261e; --badSoft:#fde7e5;
+  --focus:#1f55b8;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+    --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+    --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+    --focus:#9dbdff; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16150f; --ink:#f3efe2; --muted:#c4bda6; --band:#e8c02f;
+  --card:#222017; --line:#3a3726; --opt:#2a2719; --optLine:#4a4630; --optHover:#36321f;
+  --letter:#5b8ff0; --good:#7fd89b; --goodSoft:#17331f; --bad:#ff9a90; --badSoft:#3d1a18;
+  --focus:#9dbdff; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Lexend','Segoe UI',Arial,sans-serif;font-size:18px;line-height:1.5}
+header{background:var(--band);color:var(--bandInk);padding:20px 20px 18px}
+.wrap{max-width:760px;margin:0 auto}
+.back{display:inline-block;margin-bottom:10px;color:var(--bandInk);font-size:16px;font-weight:500;text-decoration:none}
+.back:hover{text-decoration:underline}
+.backBtn{display:inline-block;margin:20px 0 0 12px;color:var(--ink);font-size:18px;font-weight:500}
+.nameError{margin:8px 0 0;color:var(--bad);font-weight:500}
+header h1{margin:0;font-size:clamp(24px,5vw,34px);font-weight:700;letter-spacing:-0.3px;line-height:1.2}
+.sub{margin:4px 0 0;font-size:16px;font-weight:500}
+.meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-weight:500;font-size:16px}
+.bar{height:12px;background:rgba(31,27,15,.18);border-radius:999px;overflow:hidden;margin-top:8px}
+.bar span{display:block;height:100%;width:0;background:var(--bandInk);border-radius:999px;transition:width .3s ease}
+main{padding:24px 20px 48px}
+[hidden]{display:none!important}
+.panel{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:28px 24px}
+.ask{margin:0;color:var(--muted);font-weight:500;font-size:16px}
+.question{margin:8px 0 0;font-size:clamp(22px,4.6vw,28px);font-weight:700;line-height:1.3}
+.hintBtn{margin-top:16px;background:none;border:2px solid var(--optLine);color:var(--ink);font:inherit;font-size:16px;font-weight:500;border-radius:999px;padding:8px 16px;min-height:44px;cursor:pointer}
+.hint{margin:12px 0 0;font-size:17px;color:var(--muted)}
+.options{display:flex;flex-direction:column;gap:12px;margin-top:22px}
+.choice{display:flex;align-items:center;gap:14px;width:100%;min-height:60px;padding:12px 16px;text-align:left;background:var(--opt);color:var(--ink);border:2px solid var(--optLine);border-radius:16px;font:inherit;font-size:19px;font-weight:500;cursor:pointer}
+.choice:hover:not(:disabled){background:var(--optHover)}
+.choice .letter{flex:none;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:50%;background:var(--letter);color:var(--letterInk);font-weight:700;font-size:17px}
+.choice:disabled{cursor:default;opacity:.5}
+.choice.right{opacity:1;border:3px solid var(--good);background:var(--goodSoft)}
+.choice.right .letter{background:var(--good);color:var(--bg)}
+.choice.wrong{opacity:1;border:3px solid var(--bad);background:var(--badSoft)}
+.choice.wrong .letter{background:var(--bad);color:var(--bg)}
+.feedback{margin-top:18px;border-radius:16px;padding:16px 20px;font-size:18px}
+.feedback:empty{display:none}
+.feedback.good{background:var(--goodSoft);border:2px solid var(--good)}
+.feedback.bad{background:var(--badSoft);border:2px solid var(--bad)}
+.feedback b{display:block;font-size:20px;margin-bottom:4px}
+.primary{display:inline-block;margin-top:20px;background:var(--ink);color:var(--bg);border:none;border-radius:16px;font:inherit;font-size:20px;font-weight:700;padding:14px 28px;min-height:56px;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:4px solid var(--focus);outline-offset:3px}
+.intro p{margin:0 0 12px}
+label{display:block;font-weight:500;margin:16px 0 6px}
+input[type=text]{width:100%;max-width:360px;font:inherit;padding:10px 14px;border:2px solid var(--optLine);border-radius:12px;background:var(--opt);color:var(--ink);min-height:48px}
+.who{margin:0;font-size:18px;font-weight:500}
+.score{font-size:clamp(48px,12vw,80px);font-weight:700;line-height:1;margin:8px 0}
+.missed{list-style:none;padding:0;margin:16px 0 0}
+.missed li{border-top:2px solid var(--line);padding:12px 0}
+.missed li span{display:block;font-size:16px;color:var(--muted)}
+@media (max-width:520px){.panel{padding:22px 18px}.choice{font-size:18px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+.pick{border:2px solid var(--line);border-radius:16px;padding:12px 16px 14px;margin:8px 0 0;background:var(--opt)}
+.pick legend{font-weight:700;padding:0 6px}
+.pickBtns{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 8px}
+.pickBtns button{background:none;border:2px solid var(--optLine);color:var(--ink);font:inherit;font-size:15px;font-weight:500;border-radius:999px;padding:6px 14px;min-height:40px;cursor:pointer}
+.pick label{display:flex;align-items:center;gap:12px;margin:0;padding:8px 4px;font-weight:500;font-size:17px;cursor:pointer;border-top:1px solid var(--line)}
+.pick label:first-of-type{border-top:none}
+.pick input[type=checkbox]{width:24px;height:24px;flex:none;accent-color:var(--letter)}
+.pick small{margin-left:auto;color:var(--muted);font-size:14px;white-space:nowrap}
+.pickCount{margin:10px 0 0;font-weight:500}
+.optional{font-weight:400;color:var(--muted)}
+.ghost{display:inline-block;margin:20px 0 0 12px;background:none;border:2px solid var(--optLine);color:var(--ink);border-radius:16px;font:inherit;font-size:18px;font-weight:500;padding:12px 20px;min-height:52px;cursor:pointer}
+.home{float:right}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .12em;line-height:1.15}
+.fr>span{display:block;padding:0 .15em}.fr>span:first-child{border-bottom:2px solid currentColor}
+sup{font-size:.68em;line-height:0}sup:has(.fr){vertical-align:.75em}sup .fr{vertical-align:middle;font-size:.95em}sup .fr>span:first-child{border-bottom-width:1.5px}
+
+/* design v2 quiz */
+header{position:relative;overflow:hidden;background-color:#b9531a;background-image:linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);background-size:24px 24px;color:#fff}
+header::after{content:"";position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%221040%22 height=%22180%22 viewBox=%220 0 1040 180%22%3E%3Ctext x=%2240%22 y=%2250%22 font-size=%2234%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%CF%80%3C/text%3E%3Ctext x=%22150%22 y=%22120%22 font-size=%2226%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%E2%88%9Ax%3C/text%3E%3Ctext x=%22260%22 y=%2240%22 font-size=%2230%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3Ex%C2%B2%3C/text%3E%3Ctext x=%22330%22 y=%22150%22 font-size=%2240%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%E2%88%91%3C/text%3E%3Ctext x=%22430%22 y=%2270%22 font-size=%2228%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%C3%B7%3C/text%3E%3Ctext x=%22520%22 y=%22140%22 font-size=%2232%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%CE%B8%3C/text%3E%3Ctext x=%22600%22 y=%2245%22 font-size=%2236%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%E2%88%9E%3C/text%3E%3Ctext x=%22700%22 y=%22125%22 font-size=%2226%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%C2%BD%3C/text%3E%3Ctext x=%22780%22 y=%2260%22 font-size=%2230%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%E2%89%A0%3C/text%3E%3Ctext x=%22860%22 y=%22140%22 font-size=%2222%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3Ey=mx%2Bc%3C/text%3E%3Ctext x=%22930%22 y=%2255%22 font-size=%2230%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%25%3C/text%3E%3Ctext x=%22990%22 y=%22135%22 font-size=%2228%22 font-family=%22Arial,sans-serif%22 font-weight=%22700%22 fill=%22white%22%3E%CE%94%3C/text%3E%3C/svg%3E") right center/auto 100% no-repeat;opacity:.14;pointer-events:none}
+header .wrap{position:relative;z-index:1}
+header .back{color:#fff}
+.bar{background:rgba(255,255,255,.3)}.bar span{background:#fff}
+.top::after,header::after{-webkit-mask:linear-gradient(90deg,transparent 35%,#000 75%);mask:linear-gradient(90deg,transparent 35%,#000 75%)}
+@media (max-width:640px){.top::after,header::after{opacity:.07}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="back" href="ch04.html">← Chapter 4</a>
+    <a class="back home" href="../index.html">🏠 Home</a>
+    <h1 id="title"></h1>
+    <p class="sub" id="subtitle"></p>
+    <div class="meta" id="meta" hidden>
+      <span id="count"></span>
+      <span id="tally"></span>
+    </div>
+    <div class="bar" id="barWrap" hidden><span id="bar"></span></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="intro" id="startScreen">
+    <div class="panel">
+      <p id="introText"></p>
+      <p>Pick the sections you want to practise, then press <strong>Start</strong>. If you’re stuck on a question, press <strong>Show a hint</strong>.</p>
+      <fieldset class="pick">
+        <legend>Choose sections</legend>
+        <div class="pickBtns"><button type="button" id="allBtn">Select all</button><button type="button" id="noneBtn">Clear all</button></div>
+        <div id="sectionList"></div>
+      </fieldset>
+      <p class="pickCount" id="pickCount" aria-live="polite"></p>
+      <p class="nameError" id="pickError" role="alert" hidden>Tick at least one section to start.</p>
+      <label for="nameInput">Your name <span class="optional">(optional)</span></label>
+      <input type="text" id="nameInput" autocomplete="off">
+      <br>
+      <button class="primary" id="startBtn">Start</button>
+    </div>
+  </section>
+
+  <section id="quizScreen" hidden>
+    <div class="panel">
+      <p class="ask" id="topic"></p>
+      <p class="question" id="question"></p>
+      <button class="hintBtn" id="hintBtn">Show a hint</button>
+      <p class="hint" id="hint" hidden></p>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback" aria-live="polite"></div>
+      <button class="primary" id="nextBtn" hidden>Next question</button>
+    </div>
+  </section>
+
+  <section id="endScreen" hidden>
+    <div class="panel">
+      <p class="who" id="who"></p>
+      <p class="ask">Your score</p>
+      <p class="score" id="finalScore"></p>
+      <p id="finalMsg"></p>
+      <div id="missedWrap">
+        <p><strong>Have another look at these:</strong></p>
+        <ul class="missed" id="missedList"></ul>
+      </div>
+      <button class="primary" id="againBtn">Try again</button>
+      <button class="ghost" id="changeBtn">Change sections</button>
+      <a class="backBtn" href="ch04.html">Back to Chapter 4</a>
+    </div>
+  </section>
+</main>
+
+<script>
+const QUIZ = {
+ "title": "Chapter 4 Practice: Indices and Surds",
+ "subtitle": "Active Maths 3, Chapter 4, pages 65 to 75",
+ "intro": "35 questions based on the exercises in Chapter 4, across 5 sections. Do them all, or pick the sections you’re working on.",
+ "questions": [
+  {
+   "topic": "4.1 Numbers in Index Form",
+   "q": "A number in index form is written aⁿ. What is a called?",
+   "options": [
+    "The base",
+    "The index",
+    "The power",
+    "The exponent"
+   ],
+   "answer": 0,
+   "hint": "It is the number being multiplied by itself.",
+   "why": "In aⁿ, a is the base and n is the index (also called the power or exponent)."
+  },
+  {
+   "topic": "4.1 Numbers in Index Form",
+   "q": "Write 2 × 2 × 2 × 2 × 2 × 2 in index form.",
+   "options": [
+    "2⁶",
+    "6²",
+    "2 × 6",
+    "12"
+   ],
+   "answer": 0,
+   "hint": "How many 2s are multiplied together?",
+   "why": "Six 2s multiplied together is 2⁶."
+  },
+  {
+   "topic": "4.2 Laws 1–4 of Indices",
+   "q": "Simplify 3⁴ × 3⁶, giving your answer in index form.",
+   "options": [
+    "3¹⁰",
+    "3²⁴",
+    "9¹⁰",
+    "3²"
+   ],
+   "answer": 0,
+   "hint": "Law 1: when you multiply, do you add or multiply the indices?",
+   "why": "a^p × a^q = a^(p + q), so 3⁴ × 3⁶ = 3¹⁰."
+  },
+  {
+   "topic": "4.2 Laws 1–4 of Indices",
+   "q": "Simplify 5⁸ ÷ 5³, giving your answer in index form.",
+   "options": [
+    "5⁵",
+    "5¹¹",
+    "1⁵",
+    "5^(8/3)"
+   ],
+   "answer": 0,
+   "hint": "Law 2: dividing means subtract the indices.",
+   "why": "5⁸ ÷ 5³ = 5^(8 − 3) = 5⁵."
+  },
+  {
+   "topic": "4.2 Laws 1–4 of Indices",
+   "q": "Simplify (2²)⁵, giving your answer in index form.",
+   "options": [
+    "2¹⁰",
+    "2⁷",
+    "4⁵",
+    "2²⁵"
+   ],
+   "answer": 0,
+   "hint": "Law 3: a power of a power. Multiply or add the indices?",
+   "why": "(a^p)^q = a^(pq), so (2²)⁵ = 2¹⁰."
+  },
+  {
+   "topic": "4.2 Laws 1–4 of Indices",
+   "q": "What is 7⁰?",
+   "options": [
+    "1",
+    "0",
+    "7",
+    "70"
+   ],
+   "answer": 0,
+   "hint": "Law 4: any non-zero number to the power of zero.",
+   "why": "a⁰ = 1 for any a ≠ 0, so 7⁰ = 1."
+  },
+  {
+   "topic": "4.2 Laws 1–4 of Indices",
+   "q": "Evaluate (−2)⁴.",
+   "options": [
+    "16",
+    "−16",
+    "−8",
+    "8"
+   ],
+   "answer": 0,
+   "hint": "A negative number to an even power is…?",
+   "why": "(−2)(−2)(−2)(−2) = 16. An even power of a negative gives a positive answer."
+  },
+  {
+   "topic": "4.2 Laws 1–4 of Indices",
+   "q": "Evaluate (−3)³.",
+   "options": [
+    "−27",
+    "27",
+    "−9",
+    "9"
+   ],
+   "answer": 0,
+   "hint": "A negative number to an odd power is…?",
+   "why": "(−3)(−3)(−3) = −27. An odd power of a negative number gives a negative answer."
+  },
+  {
+   "topic": "4.2 Laws 1–4 of Indices",
+   "q": "What is the difference between (−7)² and −7²?",
+   "options": [
+    "(−7)² = 49 but −7² = −49",
+    "They are both 49",
+    "They are both −49",
+    "(−7)² = −49 but −7² = 49"
+   ],
+   "answer": 0,
+   "hint": "In −7², only the 7 is squared.",
+   "why": "(−7)² = (−7)(−7) = 49, while −7² = −(7)(7) = −49. That’s why brackets matter."
+  },
+  {
+   "topic": "4.2 Laws 1–4 of Indices",
+   "q": "Simplify (3⁴)⁵ ÷ 3⁶, giving your answer in index form.",
+   "options": [
+    "3¹⁴",
+    "3³",
+    "3²⁶",
+    "3⁹"
+   ],
+   "answer": 0,
+   "hint": "Law 3 first (multiply the indices), then Law 2.",
+   "why": "(3⁴)⁵ = 3²⁰, then 3²⁰ ÷ 3⁶ = 3¹⁴."
+  },
+  {
+   "topic": "4.3 Laws 5–9 of Indices",
+   "q": "Write 5⁻³ without using indices.",
+   "options": [
+    "1/125",
+    "−125",
+    "−15",
+    "1/15"
+   ],
+   "answer": 0,
+   "hint": "Law 7: a negative index means ‘1 over’.",
+   "why": "5⁻³ = 1/5³ = 1/125. A negative index never makes the answer negative."
+  },
+  {
+   "topic": "4.3 Laws 5–9 of Indices",
+   "q": "Evaluate 25^(1/2).",
+   "options": [
+    "5",
+    "12.5",
+    "625",
+    "1/25"
+   ],
+   "answer": 0,
+   "hint": "Law 5: a power of 1/2 means the square root.",
+   "why": "25^(1/2) = √25 = 5."
+  },
+  {
+   "topic": "4.3 Laws 5–9 of Indices",
+   "q": "Evaluate ∛1,000.",
+   "options": [
+    "10",
+    "100",
+    "333.3",
+    "30"
+   ],
+   "answer": 0,
+   "hint": "Which number times itself three times gives 1,000?",
+   "why": "10 × 10 × 10 = 1,000, so ∛1,000 = 1,000^(1/3) = 10."
+  },
+  {
+   "topic": "4.3 Laws 5–9 of Indices",
+   "q": "Write 4^(3/2) without using indices.",
+   "options": [
+    "8",
+    "6",
+    "64",
+    "2"
+   ],
+   "answer": 0,
+   "hint": "Law 6: the bottom of the fraction is the root, the top is the power. Do the root first.",
+   "why": "4^(3/2) = (√4)³ = 2³ = 8."
+  },
+  {
+   "topic": "4.3 Laws 5–9 of Indices",
+   "q": "Evaluate 32^(4/5).",
+   "options": [
+    "16",
+    "25.6",
+    "8",
+    "1,024"
+   ],
+   "answer": 0,
+   "hint": "Fifth root of 32 first, then raise to the power of 4.",
+   "why": "(⁵√32)⁴ = 2⁴ = 16."
+  },
+  {
+   "topic": "4.3 Laws 5–9 of Indices",
+   "q": "Evaluate 64^(−4/3).",
+   "options": [
+    "1/256",
+    "−256",
+    "1/16",
+    "−1/256"
+   ],
+   "answer": 0,
+   "hint": "Deal with the minus first (‘1 over’), then cube root, then power of 4.",
+   "why": "64^(−4/3) = 1/64^(4/3) = 1/(∛64)⁴ = 1/4⁴ = 1/256."
+  },
+  {
+   "topic": "4.3 Laws 5–9 of Indices",
+   "q": "Write √8 as a power of 2.",
+   "options": [
+    "2^(3/2)",
+    "2³",
+    "2^(1/2)",
+    "2⁴"
+   ],
+   "answer": 0,
+   "hint": "8 = 2³, and a square root means a power of 1/2.",
+   "why": "√8 = (2³)^(1/2) = 2^(3/2)."
+  },
+  {
+   "topic": "4.3 Laws 5–9 of Indices",
+   "q": "Given that (√8)⁶/8⁵ = 8ᵗ, find t.",
+   "options": [
+    "t = −2",
+    "t = 2",
+    "t = −4",
+    "t = 1"
+   ],
+   "answer": 0,
+   "hint": "(√8)⁶ = (8^(1/2))⁶ = 8³. Then use Law 2.",
+   "why": "8³ ÷ 8⁵ = 8^(3 − 5) = 8⁻², so t = −2."
+  },
+  {
+   "topic": "4.3 Laws 5–9 of Indices",
+   "q": "Evaluate (27/1,000)^(2/3).",
+   "options": [
+    "9/100",
+    "3/10",
+    "18/300",
+    "27/100"
+   ],
+   "answer": 0,
+   "hint": "Law 9: apply the power to the top and the bottom. Cube root first, then square.",
+   "why": "∛27 = 3 and ∛1,000 = 10, so (3/10)² = 9/100."
+  },
+  {
+   "topic": "4.3 Laws 5–9 of Indices",
+   "q": "Write 2^(−5) in the form 1/aⁿ.",
+   "options": [
+    "1/2⁵",
+    "−2⁵",
+    "1/2^(−5)",
+    "−1/2⁵"
+   ],
+   "answer": 0,
+   "hint": "Law 7: a^(−p) = 1/a^p.",
+   "why": "2^(−5) = 1/2⁵. A negative index means ‘one over’."
+  },
+  {
+   "topic": "4.4 Equations with x as an Index",
+   "q": "Solve 2ˣ = 16.",
+   "options": [
+    "x = 4",
+    "x = 8",
+    "x = 3",
+    "x = 14"
+   ],
+   "answer": 0,
+   "hint": "Write 16 as a power of 2.",
+   "why": "16 = 2⁴, so 2ˣ = 2⁴ and x = 4."
+  },
+  {
+   "topic": "4.4 Equations with x as an Index",
+   "q": "Solve 3^(x − 2) = 27.",
+   "options": [
+    "x = 5",
+    "x = 3",
+    "x = 1",
+    "x = 29"
+   ],
+   "answer": 0,
+   "hint": "Write 27 as a power of 3, then make the indices equal.",
+   "why": "27 = 3³, so x − 2 = 3 and x = 5."
+  },
+  {
+   "topic": "4.4 Equations with x as an Index",
+   "q": "Find x if 2ˣ = √32.",
+   "options": [
+    "x = 5/2",
+    "x = 5",
+    "x = 16",
+    "x = 1/5"
+   ],
+   "answer": 0,
+   "hint": "32 = 2⁵. Then √32 = (2⁵)^(1/2).",
+   "why": "√32 = 2^(5/2), so x = 5/2."
+  },
+  {
+   "topic": "4.4 Equations with x as an Index",
+   "q": "Solve 3^(5x − 2) = 27^(2x).",
+   "options": [
+    "x = −2",
+    "x = 2",
+    "x = 2/11",
+    "x = −2/11"
+   ],
+   "answer": 0,
+   "hint": "Write 27 as 3³, so 27^(2x) = 3^(6x). Then make the indices equal.",
+   "why": "5x − 2 = 6x, so −2 = x. Check: 3^(−12) = 27^(−4) = 3^(−12) ✓."
+  },
+  {
+   "topic": "4.4 Equations with x as an Index",
+   "q": "Solve 2^(9x − 1) = 8^(2x).",
+   "options": [
+    "x = 1/3",
+    "x = 3",
+    "x = 1/7",
+    "x = −1/3"
+   ],
+   "answer": 0,
+   "hint": "Write 8 as 2³ so both sides have base 2.",
+   "why": "8^(2x) = 2^(6x), so 9x − 1 = 6x, 3x = 1 and x = 1/3."
+  },
+  {
+   "topic": "4.4 Equations with x as an Index",
+   "q": "Solve 5^(x + 3) = 625.",
+   "options": [
+    "x = 1",
+    "x = 4",
+    "x = 7",
+    "x = 125"
+   ],
+   "answer": 0,
+   "hint": "Write 625 as a power of 5.",
+   "why": "625 = 5⁴, so x + 3 = 4 and x = 1."
+  },
+  {
+   "topic": "4.4 Equations with x as an Index",
+   "q": "Solve 3^(2x − 1) = 27.",
+   "options": [
+    "x = 2",
+    "x = 1",
+    "x = 14",
+    "x = 3/2"
+   ],
+   "answer": 0,
+   "hint": "27 = 3³. Then make the indices equal.",
+   "why": "2x − 1 = 3, so 2x = 4 and x = 2."
+  },
+  {
+   "topic": "4.5 Surds",
+   "q": "Simplify √32.",
+   "options": [
+    "4√2",
+    "2√8",
+    "16√2",
+    "8√2"
+   ],
+   "answer": 0,
+   "hint": "Find the largest square number that divides into 32.",
+   "why": "32 = 16 × 2, so √32 = √16 × √2 = 4√2."
+  },
+  {
+   "topic": "4.5 Surds",
+   "q": "Simplify √98/√2.",
+   "options": [
+    "7",
+    "49",
+    "7√2",
+    "√96"
+   ],
+   "answer": 0,
+   "hint": "Law 2 of surds: √a/√b = √(a/b).",
+   "why": "√(98/2) = √49 = 7."
+  },
+  {
+   "topic": "4.5 Surds",
+   "q": "Evaluate (√6)².",
+   "options": [
+    "6",
+    "36",
+    "√36",
+    "12"
+   ],
+   "answer": 0,
+   "hint": "√a × √a = a.",
+   "why": "(√6)² = √6 × √6 = 6."
+  },
+  {
+   "topic": "4.5 Surds",
+   "q": "Evaluate (3√2)².",
+   "options": [
+    "18",
+    "6",
+    "36",
+    "12"
+   ],
+   "answer": 0,
+   "hint": "(3√2)² = 3√2 × 3√2 = 3 × 3 × √2 × √2.",
+   "why": "9 × 2 = 18."
+  },
+  {
+   "topic": "4.5 Surds",
+   "q": "True or false: √3 + √5 = √8.",
+   "options": [
+    "False",
+    "True"
+   ],
+   "answer": 0,
+   "hint": "Try it on your calculator, or think: does √9 + √16 = √25?",
+   "why": "You can’t add surds by adding the numbers inside. √9 + √16 = 3 + 4 = 7, not √25 = 5."
+  },
+  {
+   "topic": "4.5 Surds",
+   "q": "Evaluate √12 × √3 without a calculator.",
+   "options": [
+    "6",
+    "√15",
+    "36",
+    "3√2"
+   ],
+   "answer": 0,
+   "hint": "Law 1 of surds: √a × √b = √ab.",
+   "why": "√12 × √3 = √36 = 6."
+  },
+  {
+   "topic": "4.5 Surds",
+   "q": "Simplify √50 + √8 + √32.",
+   "options": [
+    "11√2",
+    "√90",
+    "9√2",
+    "11√6"
+   ],
+   "answer": 0,
+   "hint": "Write each surd as a number times √2.",
+   "why": "5√2 + 2√2 + 4√2 = 11√2."
+  },
+  {
+   "topic": "4.5 Surds",
+   "q": "Simplify √45.",
+   "options": [
+    "3√5",
+    "5√3",
+    "9√5",
+    "√9 + √5"
+   ],
+   "answer": 0,
+   "hint": "Which square number divides into 45?",
+   "why": "45 = 9 × 5, so √45 = √9 × √5 = 3√5."
+  }
+ ]
+};
+
+function fmt(raw){
+  const S1="\u0001",S2="\u0002",S3="\u0003",P1="\u0004",P2="\u0005";
+  let s=String(raw).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  s=s.replace(/\bm\/s\b/g,"m∕s").replace(/AND\/OR/g,"AND∕OR");
+  const RUN=/[A-Za-z0-9√π.,²³⁴⁵⁶⁷⁸⁹⁰¹ˣᵗⁿ⁻∛]/;
+  const OPEN={"(":")","[":"]"}, CLOSE={")":"(","]":"["};
+  function fwdGroup(t,i){let d=0;for(let k=i;k<t.length;k++){if(OPEN[t[k]])d++;else if(CLOSE[t[k]]){d--;if(!d)return k;}}return -1;}
+  function backGroup(t,i){let d=0;for(let k=i;k>=0;k--){if(CLOSE[t[k]])d++;else if(OPEN[t[k]]){d--;if(!d)return k;}}return -1;}
+  // powers: ^(group) or ^token
+  let out="";
+  for(let i=0;i<s.length;i++){
+    if(s[i]==="^"){
+      if(s[i+1]==="("){const e=fwdGroup(s,i+1);if(e>0){out+=P1+s.slice(i+2,e)+P2;i=e;continue;}}
+      let j=i+1;while(j<s.length&&/[A-Za-z0-9−]/.test(s[j]))j++;
+      if(j>i+1){out+=P1+s.slice(i+1,j)+P2;i=j-1;continue;}
+    }
+    out+=s[i];
+  }
+  s=out;
+  function strip(t){if(OPEN[t[0]]&&fwdGroup(t,0)===t.length-1)return t.slice(1,-1);return t;}
+  // fractions
+  for(let guard=0;guard<50;guard++){
+    let idx=-1;
+    for(let i=0;i<s.length;i++){if(s[i]==="/"){idx=i;break;}}
+    if(idx<0)break;
+    // numerator
+    let a=idx-1;
+    while(a>=0&&/[²³⁴⁵⁶⁷⁸⁹⁰¹]/.test(s[a]))a--;
+    if(a>=0&&s[a]===P2){a=s.lastIndexOf(P1,a)-1;}
+    if(a>=0&&CLOSE[s[a]]){a=backGroup(s,a)-1;}
+    while(a>=0&&RUN.test(s[a]))a--;
+    a++;
+    // denominator
+    let b=idx+1;
+    if(s[b]==="√"&&OPEN[s[b+1]])b++;
+    if(OPEN[s[b]]){const e=fwdGroup(s,b);b=e>0?e+1:b;}
+    else{while(b<s.length&&RUN.test(s[b]))b++;while(b>idx+1&&/[.,]/.test(s[b-1]))b--;}
+    while(b<s.length&&/[²³⁴⁵⁶⁷⁸⁹⁰¹]/.test(s[b]))b++;
+    if(s[b]===P1){b=s.indexOf(P2,b)+1;}
+    const num=s.slice(a,idx),den=s.slice(idx+1,b);
+    if(!num||!den||a<0){s=s.slice(0,idx)+"∕"+s.slice(idx+1);continue;}
+    s=s.slice(0,a)+S1+strip(num)+S2+strip(den)+S3+s.slice(b);
+  }
+  return s.replace(/∕/g,"/").split(S1).join('<span class="fr"><span>').split(S2).join('</span><span>').split(S3).join('</span></span>')
+          .split(P1).join("<sup>").split(P2).join("</sup>");
+}
+const $ = id => document.getElementById(id);
+const LETTERS = ["A","B","C","D","E","F"];
+let round = [], i = 0, score = 0, missed = [], answered = false;
+
+function shuffle(arr){
+  for(let k = arr.length - 1; k > 0; k--){
+    const j = Math.floor(Math.random() * (k + 1));
+    [arr[k], arr[j]] = [arr[j], arr[k]];
+  }
+  return arr;
+}
+function show(id){
+  ["startScreen","quizScreen","endScreen"].forEach(s => $(s).hidden = (s !== id));
+  const inQuiz = id === "quizScreen";
+  $("meta").hidden = !inQuiz;
+  $("barWrap").hidden = !inQuiz;
+}
+function prepare(q){
+  const opts = q.options.map((text, idx) => ({text, correct: idx === q.answer}));
+  return Object.assign({}, q, {opts: q.keepOrder ? opts : shuffle(opts)});
+}
+function start(){
+  round = shuffle(pool()).map(prepare);
+  i = 0; score = 0; missed = [];
+  show("quizScreen");
+  render();
+}
+function render(){
+  answered = false;
+  const q = round[i];
+  $("topic").innerHTML = fmt(q.topic || "Question");
+  $("question").innerHTML = fmt(q.q);
+  $("count").textContent = "Question " + (i + 1) + " of " + round.length;
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = (i / round.length * 100) + "%";
+  $("hint").innerHTML = fmt(q.hint || "");
+  $("hint").hidden = true;
+  $("hintBtn").hidden = !q.hint;
+  const fb = $("feedback"); fb.className = "feedback"; fb.textContent = "";
+  $("nextBtn").hidden = true;
+  const box = $("options"); box.textContent = "";
+  q.opts.forEach((o, idx) => {
+    const b = document.createElement("button");
+    b.className = "choice";
+    const l = document.createElement("span"); l.className = "letter"; l.textContent = LETTERS[idx];
+    const t = document.createElement("span"); t.innerHTML = fmt(o.text);
+    b.appendChild(l); b.appendChild(t);
+    b.addEventListener("click", () => choose(idx));
+    box.appendChild(b);
+  });
+  window.scrollTo({top:0});
+}
+function choose(idx){
+  if(answered) return;
+  answered = true;
+  const q = round[i];
+  const buttons = Array.from($("options").children);
+  const correct = q.opts[idx].correct;
+  const rightText = q.opts.find(o => o.correct).text;
+  buttons.forEach((b, k) => {
+    b.disabled = true;
+    if(q.opts[k].correct) b.classList.add("right");
+    else if(k === idx) b.classList.add("wrong");
+  });
+  const fb = $("feedback");
+  const head = document.createElement("b");
+  const body = document.createElement("span");
+  if(correct){ score++; fb.className = "feedback good"; head.textContent = "Correct!"; }
+  else { missed.push({q: q.q, a: rightText, why: q.why}); fb.className = "feedback bad"; head.innerHTML = "Not quite. The answer is: " + fmt(rightText); }
+  body.innerHTML = fmt(q.why || "");
+  fb.appendChild(head); fb.appendChild(body);
+  $("tally").textContent = "Score: " + score;
+  $("bar").style.width = ((i + 1) / round.length * 100) + "%";
+  $("hintBtn").hidden = true;
+  const next = $("nextBtn");
+  next.textContent = (i === round.length - 1) ? "See my score" : "Next question";
+  next.hidden = false;
+  next.focus();
+}
+function finish(){
+  show("endScreen");
+  const name = $("nameInput").value.trim();
+  const d = new Date();
+  const day = d.toLocaleDateString("en-IE", {day:"numeric", month:"long", year:"numeric"});
+  const secs = chosen();
+  $("who").textContent = (name ? name + " · " : "") + day + " · " + (secs.length === SECTIONS.length ? "All sections" : secs.join(", "));
+  $("finalScore").textContent = score + " / " + round.length;
+  const pct = score / round.length;
+  $("finalMsg").textContent =
+    pct === 1 ? "Perfect score. Take a bow." :
+    pct >= 0.75 ? "Great work. You know this well." :
+    pct >= 0.5 ? "Good effort. Check the ones below, then try again." :
+    "Keep going. Read over the pages again, then try again.";
+  const list = $("missedList"); list.textContent = "";
+  missed.forEach(m => {
+    const li = document.createElement("li");
+    const s = document.createElement("strong"); s.innerHTML = fmt(m.q);
+    const a = document.createElement("span"); a.innerHTML = fmt("Answer: " + m.a + (m.why ? ". " + m.why : ""));
+    li.appendChild(s); li.appendChild(a); list.appendChild(li);
+  });
+  $("missedWrap").hidden = missed.length === 0;
+  $("againBtn").focus();
+}
+
+$("title").textContent = QUIZ.title;
+document.title = QUIZ.title;
+$("subtitle").textContent = QUIZ.subtitle || "";
+$("subtitle").hidden = !QUIZ.subtitle;
+$("introText").textContent = QUIZ.intro;
+const SECTIONS = [];
+QUIZ.questions.forEach(q => { if(!SECTIONS.includes(q.topic)) SECTIONS.push(q.topic); });
+const list = $("sectionList");
+SECTIONS.forEach((s, k) => {
+  const lab = document.createElement("label");
+  const box = document.createElement("input");
+  box.type = "checkbox"; box.checked = true; box.value = s; box.id = "sec" + k;
+  box.addEventListener("change", updateCount);
+  const txt = document.createElement("span"); txt.textContent = s;
+  const n = QUIZ.questions.filter(q => q.topic === s).length;
+  const sm = document.createElement("small"); sm.textContent = n + (n === 1 ? " question" : " questions");
+  lab.appendChild(box); lab.appendChild(txt); lab.appendChild(sm);
+  list.appendChild(lab);
+});
+function chosen(){ return Array.from(list.querySelectorAll("input:checked")).map(b => b.value); }
+function pool(){ const c = chosen(); return QUIZ.questions.filter(q => c.includes(q.topic)); }
+function updateCount(){
+  const n = pool().length;
+  $("pickCount").textContent = n ? n + " questions selected" : "No sections selected";
+  if(n) $("pickError").hidden = true;
+}
+$("allBtn").addEventListener("click", () => { list.querySelectorAll("input").forEach(b => b.checked = true); updateCount(); });
+$("noneBtn").addEventListener("click", () => { list.querySelectorAll("input").forEach(b => b.checked = false); updateCount(); });
+updateCount();
+function tryStart(){
+  if(!pool().length){ $("pickError").hidden = false; return; }
+  start();
+}
+$("startBtn").addEventListener("click", tryStart);
+$("nameInput").addEventListener("keydown", e => { if(e.key === "Enter") tryStart(); });
+$("againBtn").addEventListener("click", start);
+$("changeBtn").addEventListener("click", () => { show("startScreen"); window.scrollTo({top:0}); });
+$("nextBtn").addEventListener("click", () => { i++; if(i < round.length) render(); else finish(); });
+$("hintBtn").addEventListener("click", () => { $("hint").hidden = false; $("hintBtn").hidden = true; });
+</script>
+</body>
+</html>
